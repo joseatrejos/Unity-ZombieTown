@@ -7,7 +7,7 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - Empiezas solo y vas encontrando a los NPC.  
   - Es posible cambiar al líder del equipo (con la limitación de 1 segundo de retraso al sufrir un golpe).  
   - Habrán zombies que perseguirán al líder del equipo.  
-  - Si matan al líder de la equipo pierdes.  
+  - Si matan al líder del equipo pierdes.  
   - Rounds con cada vez más zombies y cuya velocidad va aumentando.  
   - Para ganar, es necesario recolectar todos los antídotos.  
 2. Recolectables:  
