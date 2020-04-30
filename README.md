@@ -36,4 +36,4 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - Orbes de colores para los buffs  
   - Entorno: Edificios, cajas, barriles, hidrante, barreras de cemento, botes de basura, carros (1 civil, 1 de policía)  
     
-El desarrollo de este videojuego se encuentra sujeto a cambios pertinentes al equipo de producción.
+*El desarrollo de este videojuego se encuentra sujeto a cambios pertinentes al equipo de producción.*
