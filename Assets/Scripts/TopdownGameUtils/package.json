@@ -1,0 +1,22 @@
+{
+  "name": "com.ulsa.platform2d-utils-package",
+  "version": "1.0.1",
+  "displayName": "2D Utils",
+  "description": "Esto es una paqueteria para juegos 2D (Sidescrollers & Top-down)",
+  "unity": "2019.3.10f",
+  "keywords": [
+    "platform2D",
+    "topdown",
+    "rpg",
+    "physics",
+    "memory",
+    "menu"
+  ],
+  "author": {
+    "name": "Alumnos de Ing. en Producción Multimedia de ULSA Noroeste Generación 2016-2021",
+    "email": "joseatrejos@hotmail.com",
+    "url": "http://ludensproductions.com/"
+  },
+  "license": "MIT",
+  "hideInEditor": false
+}
