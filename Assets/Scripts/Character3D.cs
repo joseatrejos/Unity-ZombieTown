@@ -3,39 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using Platform2DUtils.GameplaySystem;
 using Cinemachine;
+using System;
 
 public class Character3D : MonoBehaviour
 {
     protected Animator anim;
     protected Rigidbody rb;
-    [SerializeField]
-    protected float jumpForce = 7f;
+    [SerializeField] protected float jumpForce = 7f;
+    [SerializeField] protected float moveSpeed = 2f;
 
-    [SerializeField]
-    protected float moveSpeed = 2f;
+    //******* Raycast *******
+    [SerializeField] Color rayColor = Color.magenta;
+    [SerializeField, Range(0.1f, 5f)] float rayDistance = 5f;
+    [SerializeField] LayerMask groundLayer;
+    //*******
 
-    //Raycast ***********************
-    [SerializeField]
-    Color rayColor = Color.magenta;
-    [SerializeField, Range(0.1f, 5f)]
-    float rayDistance = 5f;
-    [SerializeField]
-    LayerMask groundLayer;
     //********Jump**********
-
-    [SerializeField]
-    protected bool jump = false;
+    [SerializeField] protected bool jump = false;
     protected bool invencible = false;
-
     protected float scale;
+    //*******
+
     //****** Follow
     protected bool moving;
 
-    [SerializeField]
-    Player leader;
+    [SerializeField] Player leader;
 
-    [SerializeField]
-    float minDistanceFollow;
+    [SerializeField] float minDistanceFollow;
     
     float dirX;
     float dirY;
@@ -44,10 +38,11 @@ public class Character3D : MonoBehaviour
 
     protected Collider collider;
 
-    [SerializeField]
-    protected bool isLeader;
-    [SerializeField]
-    protected bool isNpc;
+    [SerializeField] protected bool isLeader;
+    public bool IsLeader { get => isLeader; set => isLeader = value; }
+
+    [SerializeField] protected bool isNpc;
+    public bool IsNpc { get => isNpc; set => isNpc = value; }
     //********
 
     void Update()

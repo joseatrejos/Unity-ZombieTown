@@ -6,8 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField]
-    Player player;
+    [SerializeField] Player player;
 
     public Player Player { get => player; }
 
@@ -16,8 +15,7 @@ public class GameManager : MonoBehaviour
     bool isInChase = false;
     public bool IsInChase { get => isInChase; set => isInChase = value; }
 
-    [SerializeField]
-    SoundManager soundManager;
+    [SerializeField] SoundManager soundManager;
 
     AudioSource audioSource;
 

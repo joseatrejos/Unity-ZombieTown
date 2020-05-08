@@ -1,14 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-[Serializable]
 public class Player : Character3D
 {
-    [SerializeField] 
-    float moveSpeed = 0;
-
     Animator animator;
     public Animator Animator { get => animator; }
 
@@ -68,19 +63,6 @@ public class Player : Character3D
     public void WeaponVisibility(bool visibility)
     {
         weapon.SetActive(visibility);
-    }
-
-
-    public bool IsLeader
-    {
-        get => isLeader;
-        set => isLeader = value;
-    }
-
-    public bool IsNpc
-    {
-        get => isNpc;
-        set => isNpc = value;
     }
 
     void OnTriggerEnter(Collider other)
