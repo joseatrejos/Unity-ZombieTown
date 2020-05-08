@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.joseatrejos.2d-utils": "https://github.com/joseatrejos/platform2d-utils-package.git",
     "com.unity.cinemachine": "2.5.0",
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ide.rider": "1.1.4",
@@ -40,5 +41,11 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.joseatrejos.2d-utils": {
+      "revision": "HEAD",
+      "hash": "101af4ab4a3061b81cf54544caba739f5efa0453"
+    }
   }
 }

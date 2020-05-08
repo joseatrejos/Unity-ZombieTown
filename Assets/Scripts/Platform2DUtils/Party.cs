@@ -8,8 +8,7 @@ using Cinemachine;
 [Serializable]
 
 public class Party
-{
-    /*
+{ 
     [SerializeField]
     List<Player> currentParty;
     [SerializeField]
@@ -17,9 +16,12 @@ public class Party
 
     public Player[] Players { get => players; set => players = value; }
 
+        ///<summary>
+        /// fill the party with the players that are in the scene
+        ///</summary>
+
     public void InitParty()
     {
-        
         players = GameplaySystem.FindPlayer;
 
         for (int i = 0; i < Players.Length; i++)
@@ -48,6 +50,11 @@ public class Party
             currentParty[i].Target = currentParty[i - 1];
         }
     }
+    
+        ///<summary>
+        /// Change the leader of the party when you press a button that you assign in the input manager
+        ///</summary>
+
 
     public void SwapLeader()
     {
@@ -67,6 +74,9 @@ public class Party
         }
     }
 
+        ///<summary>
+        /// Allow the player that is leading the party to die and give control to the next one
+        ///</summary>
     public void KillLeader()
     {
         
@@ -86,5 +96,4 @@ public class Party
             currentParty.RemoveAt(0);
         }
     }
-    */
 }
