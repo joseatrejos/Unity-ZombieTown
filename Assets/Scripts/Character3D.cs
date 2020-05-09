@@ -51,6 +51,7 @@ public class Character3D : MonoBehaviour
 
     [SerializeField]
     protected float maxHealth;
+
     [SerializeField]
     protected float currentHealth;
     

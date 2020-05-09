@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Player player;
 
     public Player Player { get => player; }
+
+    int score = 0;
+    [SerializeField] Text txtScore;
 
     bool isInCombat = false;
     public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
@@ -96,7 +100,6 @@ public class GameManager : MonoBehaviour
                 Debug.Log("solo tienes un personaje en el grupo");
             }
         }
-       
         party.SwapLeader();
     }
 
@@ -105,7 +108,10 @@ public class GameManager : MonoBehaviour
         party.KillLeader();
     }
 
-  
-
+    public void AddPoints(int points)
+    {
+        this.score += points;
+        txtScore.text = $"Score: {score} pts";
+    }
 
 }

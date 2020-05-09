@@ -9,9 +9,12 @@ public class Player : Character3D
    // [SerializeField]
    // GameObject weapon;
 
+    protected bool invincible;
+
     void Start()
     {
-       // WeaponVisibility(false);
+        //WeaponVisibility(false);
+        currentHealth = maxHealth;
     }
 
     void Awake()
@@ -32,7 +35,7 @@ public class Player : Character3D
             }
 
             //animator
-            //Sprite renderer
+            
            
             //anim.SetBool("moving", moving);
                if(GameplaySystem.Axis3D != Vector3.zero)
@@ -46,12 +49,13 @@ public class Player : Character3D
              StartCoroutine(WaitForPassiveHeal());
             base.Move();
         }
-        //animator.SetFloat("move", Mathf.Abs(GameplaySystem.Axis3D.normalized.magnitude));
     }
+    
+    
 
     public void WeaponVisibility(bool visibility)
     {
-       // weapon.SetActive(visibility);
+        //weapon.SetActive(visibility);
     }
 
     void OnTriggerEnter(Collider other)
@@ -80,5 +84,45 @@ public class Player : Character3D
         {
             currentHealth += cure;
         }
+        if(other.tag == "Medkit")
+        {
+            MedkitUse medkitUse = other.GetComponent<MedkitUse>();
+            currentHealth += medkitUse.Use();
+            if(currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+            Debug.Log(currentHealth);
+            Destroy(other.gameObject);
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag == "Enemy" && this.tag == "Player")
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+            if(!invincible)
+            {               
+                currentHealth -= enemy.Damage;
+                if(currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
+                
+                // Aquí pon la animación de puntos de vida perdidos
+                Debug.Log("Te quedan " + currentHealth + " puntos de vida");
+
+                StartCoroutine(Damage(enemy));
+                invincible = true;
+            }            
+        }
+    }
+
+    IEnumerator Damage(Enemy enemy)
+    {   
+        yield return new WaitForSeconds(3.0f);
+        invincible = false;
     }
 }
