@@ -60,12 +60,14 @@ public class Player : Character3D
 
     void OnTriggerEnter(Collider other)
     {
-        /*if (other.CompareTag("Collectable"))
+        if (other.CompareTag("Collectable"))
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
+            
+            Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
-        }*/
+        }
         if(other.CompareTag("NPC"))
         {
              Player p = other.GetComponent<Player>();
@@ -73,16 +75,6 @@ public class Player : Character3D
             {
                 GameManager.instance.party.JoinParty(p);
             }
-        }
-    }
-
-    IEnumerator WaitForPassiveHeal()
-    {
-        yield return new WaitForSeconds(6.0f);
-
-        if(currentHealth < maxHealth)
-        {
-            currentHealth += cure;
         }
         if(other.tag == "Medkit")
         {
@@ -94,6 +86,16 @@ public class Player : Character3D
             }
             Debug.Log(currentHealth);
             Destroy(other.gameObject);
+        }
+    }
+
+    IEnumerator WaitForPassiveHeal()
+    {
+        yield return new WaitForSeconds(6.0f);
+
+        if(currentHealth < maxHealth)
+        {
+            currentHealth += cure;
         }
     }
 
