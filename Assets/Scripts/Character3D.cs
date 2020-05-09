@@ -43,6 +43,11 @@ public class Character3D : MonoBehaviour
 
     [SerializeField] protected bool isNpc;
     public bool IsNpc { get => isNpc; set => isNpc = value; }
+
+    [SerializeField] private bool hasParty;
+
+    
+    public bool HasParty { get => hasParty; set => hasParty = value; }
     //********
 
     void Update()
@@ -71,6 +76,9 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
+        if(hasParty)
+        {
+            
         if(transform.gameObject != null)
            moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
         if (moving)
@@ -91,6 +99,7 @@ public class Character3D : MonoBehaviour
 
         }
         
+        }
         
     }
 

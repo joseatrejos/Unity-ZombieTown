@@ -30,26 +30,22 @@ public class Party
             if (p.IsLeader)
             {
                 p.IsNpc = false;
-                if (currentParty.Count > 0)
-                {
-                    currentParty.Insert(0, p);
-                }
-                else
-                {
-                    currentParty.Add(p);
-                }
+                currentParty.Insert(0, p);
             }
             else
             {
                 p.IsNpc = true;
-                currentParty.Add(p);
             }
         }
-        for (int i = 1; i < currentParty.Count; i++)
-        {
-            currentParty[i].Target = currentParty[i - 1];
-        }
     }
+    public void JoinParty(Player p)
+    {
+        currentParty.Add(p);
+        currentParty[currentParty.Count-1].Target = currentParty[currentParty.Count-2];
+        p.HasParty = true;
+        Debug.Log(currentParty.Count);
+    }
+
     
         ///<summary>
         /// Change the leader of the party when you press a button that you assign in the input manager
@@ -63,6 +59,7 @@ public class Party
             Player currentLeader = currentParty[0];
             currentLeader.IsLeader = false;
             currentLeader.IsNpc = true;
+            currentLeader.HasParty = true;
             currentLeader.Target = currentParty[currentParty.Count - 1];
             currentParty.RemoveAt(0);
             currentLeader.gameObject.tag = "NPC";
@@ -71,6 +68,7 @@ public class Party
             currentParty[0].IsLeader = true;
             currentParty[0].IsNpc = false;
             currentParty[0].Target = null;
+            currentParty[0].HasParty = true;
         }
     }
 

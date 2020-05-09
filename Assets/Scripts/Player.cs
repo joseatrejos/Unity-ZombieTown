@@ -59,11 +59,20 @@ public class Player : Character3D
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Collectable"))
+        /*if (other.CompareTag("Collectable"))
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
             Destroy(other.gameObject);
+        }*/
+        if(other.CompareTag("NPC"))
+        {
+             Player p = other.GetComponent<Player>();
+            if(!p.HasParty)
+            {
+                GameManager.instance.party.JoinParty(p);
+                Debug.Log("hola");
+            }
         }
     }
     
