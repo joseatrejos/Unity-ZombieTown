@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour
     [SerializeField, Range(0f, 10f)]
     float minDistance = 5f;
 
+    [SerializeField]
+    int damage = 10;
+    public int Damage { get => damage; }
+
+
     NavMeshAgent navMeshAgent;
 
     void Start()
@@ -25,8 +30,6 @@ public class Enemy : MonoBehaviour
         if(AttackRange)
         {
             // In case you prefer the combat to begin as soon as the enemy starts following you
-            // BeginEnemyCombat();
-            // GameManager.instance.StartCombat();
 
             if(!GameManager.instance.IsInChase)
             {
@@ -77,12 +80,6 @@ public class Enemy : MonoBehaviour
     float distanceToPlayer
     {
         get => Vector3.Distance(this.transform.position, GameManager.instance.Player.transform.position);
-    }
-
-    public void BeginEnemyCombat()
-    {
-        //animator.SetLayerWeight(0, 0);
-        //animator.SetLayerWeight(1, 1);
     }
 
     public void EndEnemyCombat()

@@ -10,6 +10,8 @@ public class Player : Character3D
     [SerializeField]
     GameObject weapon;
 
+    protected bool invincible;
+
     void Start()
     {
         //WeaponVisibility(false);
@@ -85,5 +87,34 @@ public class Player : Character3D
             Debug.Log(currentHealth);
             Destroy(other.gameObject);
         }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag == "Enemy" && this.tag == "Player")
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+            if(!invincible)
+            {               
+                currentHealth -= enemy.Damage;
+                if(currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
+                
+                // Aquí pon la animación de puntos de vida perdidos
+                Debug.Log("Te quedan " + currentHealth + " puntos de vida");
+
+                StartCoroutine(Damage(enemy));
+                invincible = true;
+            }            
+        }
+    }
+
+    IEnumerator Damage(Enemy enemy)
+    {   
+        yield return new WaitForSeconds(3.0f);
+        invincible = false;
     }
 }
