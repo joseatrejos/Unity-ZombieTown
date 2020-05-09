@@ -43,12 +43,9 @@ public class Player : Character3D
         }
         else
         {
+             StartCoroutine(WaitForPassiveHeal());
             base.Move();
         }
-      
- 
-     
-
         //animator.SetFloat("move", Mathf.Abs(GameplaySystem.Axis3D.normalized.magnitude));
     }
 
@@ -71,9 +68,17 @@ public class Player : Character3D
             if(!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
-                Debug.Log("hola");
             }
         }
     }
-    
+
+    IEnumerator WaitForPassiveHeal()
+    {
+        yield return new WaitForSeconds(6.0f);
+
+        if(currentHealth < maxHealth)
+        {
+            currentHealth += cure;
+        }
+    }
 }

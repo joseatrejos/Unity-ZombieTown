@@ -14,11 +14,16 @@ public class Party
     [SerializeField]
     Player[] players;
 
-    public Player[] Players { get => players; set => players = value; }
+    [SerializeField]
+    bool canChange = true;
 
-        ///<summary>
-        /// fill the party with the players that are in the scene
-        ///</summary>
+    public Player[] Players { get => players; set => players = value; }
+    public bool CanChange { get => canChange; }
+    public List<Player> CurrentParty { get => currentParty; set => currentParty = value; }
+
+    ///<summary>
+    /// fill the party with the players that are in the scene
+    ///</summary>
 
     public void InitParty()
     {
@@ -43,10 +48,8 @@ public class Party
         currentParty.Add(p);
         currentParty[currentParty.Count-1].Target = currentParty[currentParty.Count-2];
         p.HasParty = true;
-        Debug.Log(currentParty.Count);
     }
 
-    
         ///<summary>
         /// Change the leader of the party when you press a button that you assign in the input manager
         ///</summary>
@@ -54,8 +57,11 @@ public class Party
 
     public void SwapLeader()
     {
-        if (Input.GetButtonDown("ChangeLeader") && currentParty.Count > 1)
+        if (Input.GetButtonDown("ChangeLeader") && currentParty.Count > 1 && canChange)
         {
+            
+            Debug.Log("no puedes cambiar de jugador por 6 segundos");
+
             Player currentLeader = currentParty[0];
             currentLeader.IsLeader = false;
             currentLeader.IsNpc = true;
@@ -69,6 +75,7 @@ public class Party
             currentParty[0].IsNpc = false;
             currentParty[0].Target = null;
             currentParty[0].HasParty = true;
+            canChange = false;
         }
     }
 
@@ -93,5 +100,14 @@ public class Party
         {
             currentParty.RemoveAt(0);
         }
+    }
+
+    public IEnumerator waitForChange()
+    {
+        
+        yield return new WaitForSeconds(6.0f);
+        canChange = true;
+        Debug.Log("puedes cambiar");
+
     }
 }

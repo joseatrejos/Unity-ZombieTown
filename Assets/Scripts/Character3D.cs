@@ -48,6 +48,14 @@ public class Character3D : MonoBehaviour
 
     
     public bool HasParty { get => hasParty; set => hasParty = value; }
+
+    [SerializeField]
+    protected float maxHealth;
+    [SerializeField]
+    protected float currentHealth;
+    
+    [SerializeField]
+    protected float cure;
     //********
 
     void Update()

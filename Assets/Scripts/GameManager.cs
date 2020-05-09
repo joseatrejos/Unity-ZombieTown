@@ -85,6 +85,18 @@ public class GameManager : MonoBehaviour
   
     void Update()
     {
+        if(Input.GetButtonDown("ChangeLeader"))
+        {
+            if(party.CurrentParty.Count > 1)
+            {
+                
+            StartCoroutine(party.waitForChange());
+            } else
+            {
+                Debug.Log("solo tienes un personaje en el grupo");
+            }
+        }
+       
         party.SwapLeader();
     }
 
@@ -93,6 +105,7 @@ public class GameManager : MonoBehaviour
         party.KillLeader();
     }
 
+  
 
 
 }
