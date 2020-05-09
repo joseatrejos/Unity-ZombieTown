@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     AudioSource audioSource;
 
+    [SerializeField]
+    public Party party; 
+
     void Awake()
     {
         if(!instance)
@@ -36,6 +39,7 @@ public class GameManager : MonoBehaviour
     {
         soundManager.AudioSource = GetComponent<AudioSource>();
         soundManager.PlayBGM();
+        party.InitParty();
     }
 
     public void StartCombat()
@@ -43,8 +47,8 @@ public class GameManager : MonoBehaviour
         soundManager.WeaponDrawn();
         StartCoroutine(DelayedCombatMusic());
         isInCombat = true;
-        player.Animator.SetLayerWeight(1, 1);
-        player.WeaponVisibility(true);
+       // player.Animator.SetLayerWeight(1, 1);
+       // player.WeaponVisibility(true);
         isInCombat = true;
     }
 
@@ -53,9 +57,9 @@ public class GameManager : MonoBehaviour
         if(isInCombat || isInChase)
             soundManager.PlayBGM();
         isInCombat = false;
-        player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
-        player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
-        player.WeaponVisibility(false);
+       // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
+        //player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
+       // player.WeaponVisibility(false);
         isInChase = false;
 
         /*
@@ -77,4 +81,31 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         soundManager.PlayCombatMusic();
     }
+
+  
+    void Update()
+    {
+        if(Input.GetButtonDown("ChangeLeader"))
+        {
+            if(party.CurrentParty.Count > 1)
+            {
+                
+            StartCoroutine(party.waitForChange());
+            } else
+            {
+                Debug.Log("solo tienes un personaje en el grupo");
+            }
+        }
+       
+        party.SwapLeader();
+    }
+
+     public void KillPlayer()
+    {
+        party.KillLeader();
+    }
+
+  
+
+
 }
