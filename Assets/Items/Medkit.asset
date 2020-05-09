@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Medkit
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  objectName: 
-  description: 
+  objectName: Medkit
+  description: Rellena 70 puntos de vida.
   healthPoints: 70
