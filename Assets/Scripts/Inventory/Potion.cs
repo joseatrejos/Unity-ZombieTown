@@ -19,6 +19,5 @@ public class Potion : Consumable
     {
         base.Drink();
         Debug.Log(RestoreHealth + " health points recovered");
-        Debug.Log(RestoreMana + " mana points recovered");
     }
 }

@@ -12,7 +12,8 @@ public class Player : Character3D
 
     void Start()
     {
-        WeaponVisibility(false);
+        //WeaponVisibility(false);
+        currentHealth = maxHealth;
     }
 
     void Awake()
@@ -34,7 +35,7 @@ public class Player : Character3D
             }
 
             //animator
-            //Sprite renderer
+            
            
             anim.SetBool("moving", moving);
 
@@ -52,7 +53,7 @@ public class Player : Character3D
             transform.rotation = Quaternion.LookRotation(Axis.normalized);
         }
 
-        animator.SetFloat("move", Mathf.Abs(Axis.normalized.magnitude));
+        //animator.SetFloat("move", Mathf.Abs(Axis.normalized.magnitude));
     }
 
     Vector3 Axis
@@ -62,7 +63,7 @@ public class Player : Character3D
 
     public void WeaponVisibility(bool visibility)
     {
-        weapon.SetActive(visibility);
+        //weapon.SetActive(visibility);
     }
 
     void OnTriggerEnter(Collider other)
@@ -73,6 +74,16 @@ public class Player : Character3D
             //GameManager.instance.AddPoints(collectable.Points);
             Destroy(other.gameObject);
         }
+        if(other.tag == "Medkit")
+        {
+            MedkitUse medkitUse = other.GetComponent<MedkitUse>();
+            currentHealth += medkitUse.Use();
+            if(currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+            Debug.Log(currentHealth);
+            Destroy(other.gameObject);
+        }
     }
-    
 }

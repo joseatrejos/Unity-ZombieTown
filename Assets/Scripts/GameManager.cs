@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     public Player Player { get => player; }
 
+    int score = 0;
+    [SerializeField] Text txtScore;
+
     bool isInCombat = false;
     public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
     bool isInChase = false;
@@ -18,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] SoundManager soundManager;
 
     AudioSource audioSource;
+
+    [SerializeField]
+    public Party party; 
 
     void Awake()
     {
@@ -36,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         soundManager.AudioSource = GetComponent<AudioSource>();
         soundManager.PlayBGM();
+        party.InitParty();
     }
 
     public void StartCombat()
@@ -43,8 +51,8 @@ public class GameManager : MonoBehaviour
         soundManager.WeaponDrawn();
         StartCoroutine(DelayedCombatMusic());
         isInCombat = true;
-        player.Animator.SetLayerWeight(1, 1);
-        player.WeaponVisibility(true);
+       // player.Animator.SetLayerWeight(1, 1);
+       // player.WeaponVisibility(true);
         isInCombat = true;
     }
 
@@ -53,9 +61,9 @@ public class GameManager : MonoBehaviour
         if(isInCombat || isInChase)
             soundManager.PlayBGM();
         isInCombat = false;
-        player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
-        player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
-        player.WeaponVisibility(false);
+       // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
+        //player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
+       // player.WeaponVisibility(false);
         isInChase = false;
 
         /*
@@ -77,4 +85,23 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         soundManager.PlayCombatMusic();
     }
+
+  
+    void Update()
+    {
+        party.SwapLeader();
+    }
+
+     public void KillPlayer()
+    {
+        party.KillLeader();
+    }
+
+    public void AddPoints(int points)
+    {
+        this.score += points;
+        txtScore.text = $"Score: {score} pts";
+    }
+
+
 }
