@@ -34,7 +34,7 @@ public class Character3D : MonoBehaviour
     float dirX;
     float dirY;
 
-    Vector2 npcDirection;
+    Vector3 npcDirection;
 
     protected Collider collider;
 
@@ -80,10 +80,10 @@ public class Character3D : MonoBehaviour
             npcDirection.Normalize();
             transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
 
-              if(GameplaySystem.Axis3D != Vector3.zero)
+              if(npcDirection != Vector3.zero)
               {
-                transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
-                }
+                transform.rotation = Quaternion.LookRotation(npcDirection);
+               }
 
             //aqui va el animator
             //anim.SetFloat("moveX", npcDirection.x);
