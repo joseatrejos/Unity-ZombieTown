@@ -3,6 +3,9 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   
 **Especificaciones del proyecto**  
 1. Gameplay  
+  -Equipo con 4 personajes
+  -Empiezas solo y vas encontrando a los NPC.
+  -Es posible cambiar al líder del equipo (con la limitación de 6 segundo de retraso)
   - Habrán zombies que perseguirán al líder del equipo.  
   - Si matan al líder del equipo pierdes.  
   - Rounds con cada vez más zombies y cuya velocidad va aumentando.  
