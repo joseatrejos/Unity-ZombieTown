@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    Animator animator;
+    //Animator animator;
 
     [SerializeField, Range(0.1f, 10f)]
     float moveSpeed = 3.5f;
@@ -15,12 +15,9 @@ public class Enemy : MonoBehaviour
 
     NavMeshAgent navMeshAgent;
 
-    [SerializeField]
-    GameObject weapon;
-
     void Start()
     {
-        WeaponVisibility(false);
+        // Spawn
     }
 
     void Update()
@@ -46,8 +43,7 @@ public class Enemy : MonoBehaviour
             if(GameManager.instance.IsInChase && distanceToPlayer <= minDistance && !GameManager.instance.IsInCombat)
             {
                 GameManager.instance.StartCombat();
-                animator.SetLayerWeight(1, 1);
-                WeaponVisibility(true);
+                //animator.SetLayerWeight(1, 1);
             }
             else if(OutOfAttackRange)
             {
@@ -59,12 +55,12 @@ public class Enemy : MonoBehaviour
 
     void LateUpdate()
     {
-        animator.SetBool("attack", AttackRange);
+        //animator.SetBool("attack", AttackRange);
     }
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -83,22 +79,15 @@ public class Enemy : MonoBehaviour
         get => Vector3.Distance(this.transform.position, GameManager.instance.Player.transform.position);
     }
 
-    public void WeaponVisibility(bool visibility)
-    {
-        weapon.SetActive(visibility);
-    }
-
     public void BeginEnemyCombat()
     {
-        animator.SetLayerWeight(0, 0);
-        animator.SetLayerWeight(1, 1);
-        WeaponVisibility(true);   
+        //animator.SetLayerWeight(0, 0);
+        //animator.SetLayerWeight(1, 1);
     }
 
     public void EndEnemyCombat()
     {
-        animator.SetLayerWeight(1, 0);
-        animator.SetLayerWeight(0, 1);
-        WeaponVisibility(false);   
+        //animator.SetLayerWeight(1, 0);
+        //animator.SetLayerWeight(0, 1);
     }
 }
