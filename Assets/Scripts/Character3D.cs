@@ -83,7 +83,7 @@ public class Character3D : MonoBehaviour
               if(npcDirection != Vector3.zero)
               {
                 transform.rotation = Quaternion.LookRotation(npcDirection);
-               }
+                }
 
             //aqui va el animator
             //anim.SetFloat("moveX", npcDirection.x);
