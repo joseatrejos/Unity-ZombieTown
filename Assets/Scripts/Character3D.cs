@@ -52,7 +52,7 @@ public class Character3D : MonoBehaviour
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
     }
@@ -72,14 +72,19 @@ public class Character3D : MonoBehaviour
     public virtual void Move()
     {
         if(transform.gameObject != null)
-            moving = Vector2.Distance(leader.transform.position, transform.position) > minDistanceFollow;
+           moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
         if (moving)
         {
             // Esto es para decirle a la animación hacia donde tiene que moverse
             npcDirection = leader.transform.position - transform.position;
             npcDirection.Normalize();
             transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
-            
+
+              if(GameplaySystem.Axis3D != Vector3.zero)
+              {
+                transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
+                }
+
             //aqui va el animator
             //anim.SetFloat("moveX", npcDirection.x);
             //anim.SetFloat("moveY", npcDirection.y);
