@@ -61,9 +61,9 @@ public class GameManager : MonoBehaviour
         if(isInCombat || isInChase)
             soundManager.PlayBGM();
         isInCombat = false;
-       // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
+        // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
         //player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
-       // player.WeaponVisibility(false);
+        // player.WeaponVisibility(false);
         isInChase = false;
 
         /*
@@ -85,11 +85,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         soundManager.PlayCombatMusic();
     }
-
   
     void Update()
     {
-        if(Input.GetButtonDown("ChangeLeader"))
+        /*if(Input.GetButtonDown("ChangeLeader"))
         {
             if(party.CurrentParty.Count > 1)
             {
@@ -100,7 +99,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("solo tienes un personaje en el grupo");
             }
         }
-        party.SwapLeader();
+        party.SwapLeader();*/
     }
 
      public void KillPlayer()
