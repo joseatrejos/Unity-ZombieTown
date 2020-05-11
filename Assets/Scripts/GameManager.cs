@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
   
     void Update()
     {
-        /*if(Input.GetButtonDown("ChangeLeader"))
+        if(Input.GetButtonDown("ChangeLeader"))
         {
             if(party.CurrentParty.Count > 1)
             {
@@ -98,8 +98,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("solo tienes un personaje en el grupo");
             }
+            party.SwapLeader();
         }
-        party.SwapLeader();*/
     }
 
      public void KillPlayer()
