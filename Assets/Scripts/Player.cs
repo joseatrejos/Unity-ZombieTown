@@ -6,6 +6,16 @@ using Platform2DUtils.GameplaySystem;
 public class Player : Character3D
 {
 
+    
+   [SerializeField]
+   Object bulletSrc;
+
+    [SerializeField]
+    List<GameObject> bullets;
+    [SerializeField]
+    float bulletsLimit = 5; 
+
+
    // [SerializeField]
    // GameObject weapon;
 
@@ -43,6 +53,11 @@ public class Player : Character3D
                   transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
                 }
 
+                  if(GameplaySystem.JumpBtn)
+                 {
+                    Shot();
+                 }
+
         }
         else
         {
@@ -58,13 +73,27 @@ public class Player : Character3D
         //weapon.SetActive(visibility);
     }
 
+     void Shot()
+    {
+        //Bullet bullet = bulletGameObject.GetComponent<Bullet>();
+        if(CanCreateBullets)
+        {
+            GameObject bulletGameObject = (GameObject) Instantiate(bulletSrc, transform.position, transform.rotation);
+            bullets.Add(bulletGameObject);
+        }
+    }
+
+    bool CanCreateBullets
+    {
+        get => bullets.Count < bulletsLimit; 
+    }    
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Collectable"))
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
-            
             Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
         }
@@ -126,5 +155,10 @@ public class Player : Character3D
     {   
         yield return new WaitForSeconds(3.0f);
         invincible = false;
+    }
+
+      public void RemoveBullet(GameObject bullet)
+    {
+        bullets.Remove(bullet);
     }
 }

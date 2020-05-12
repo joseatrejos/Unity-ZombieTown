@@ -264,6 +264,9 @@ MonoBehaviour:
   maxHealth: 250
   currentHealth: 50
   cure: 1
+  bulletSrc: {fileID: 0}
+  bullets: []
+  bulletsLimit: 5
 --- !u!54 &263371019
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -714,6 +717,9 @@ MonoBehaviour:
   maxHealth: 560
   currentHealth: 50
   cure: 4
+  bulletSrc: {fileID: 38286767563453619, guid: 0362afb026c9af54dae950f20804ea22, type: 3}
+  bullets: []
+  bulletsLimit: 5
 --- !u!54 &757881242
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1097,6 +1103,9 @@ MonoBehaviour:
   maxHealth: 300
   currentHealth: 20
   cure: 3
+  bulletSrc: {fileID: 0}
+  bullets: []
+  bulletsLimit: 5
 --- !u!54 &1211273695
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2063,6 +2072,9 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 10
   cure: 2
+  bulletSrc: {fileID: 0}
+  bullets: []
+  bulletsLimit: 5
 --- !u!54 &2093692608
 Rigidbody:
   m_ObjectHideFlags: 0
