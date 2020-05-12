@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     int score = 0;
     [SerializeField] Text txtScore;
 
+    
+    int kills = 0;
+
     bool isInCombat = false;
     public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
     bool isInChase = false;
@@ -106,6 +109,12 @@ public class GameManager : MonoBehaviour
     {
         this.score += points;
         txtScore.text = $"Score: {score} pts";
+    }
+
+    public void CountZombieKill(int kill)
+    {
+        kills += kill;
+        Debug.Log(kills);
     }
 
 }

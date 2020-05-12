@@ -64,7 +64,7 @@ public class Player : Character3D
 
     public void WeaponVisibility(bool visibility)
     {
-        // weapon.SetActive(visibility);
+        //weapon.SetActive(visibility);
     }
 
      void Shot()

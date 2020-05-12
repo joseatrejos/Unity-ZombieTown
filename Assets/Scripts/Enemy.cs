@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     int damage = 10;
     public int Damage { get => damage; }
+    int kill=1;
 
 
     NavMeshAgent navMeshAgent;
@@ -95,6 +96,10 @@ public class Enemy : MonoBehaviour
     {
         // Insert death animation
         Debug.Log("El enemigo esta muerto");
+
+        GameManager.instance.CountZombieKill(kill);
+
+        navMeshAgent.isStopped = true;
 
         Destroy(gameObject.GetComponent<Collider>());
 
