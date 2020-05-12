@@ -1,32 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Platform2DUtils.GameplaySystem;
 
 public class Player : Character3D
 {
-    Animator animator;
-    public Animator Animator { get => animator; }
 
-    [SerializeField]
-    GameObject weapon;
+   // [SerializeField]
+   // GameObject weapon;
+
+    protected bool invincible;
 
     void Start()
     {
-        WeaponVisibility(false);
+        //WeaponVisibility(false);
+        currentHealth = maxHealth;
     }
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        /*
         if (!isNpc)
         {
-            GameplaySystem.MovementTopdown(rb.transform, moveSpeed);
-            moving = GameplaySystem.AxisTopdown != Vector2.zero;
+            GameplaySystem.Movement3D(transform, moveSpeed);
+            moving = GameplaySystem.Axis3D != Vector3.zero;
 
             if (moving)
             {
@@ -34,35 +35,27 @@ public class Player : Character3D
             }
 
             //animator
-            //Sprite renderer
+            
            
-            anim.SetBool("moving", moving);
+            //anim.SetBool("moving", moving);
+               if(GameplaySystem.Axis3D != Vector3.zero)
+                {
+                  transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
+                }
 
         }
         else
         {
+             StartCoroutine(WaitForPassiveHeal());
             base.Move();
         }
-        */
-
-        transform.Translate(Axis.normalized.magnitude * Vector3.forward * moveSpeed * Time.deltaTime);
- 
-        if(Axis != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(Axis.normalized);
-        }
-
-        animator.SetFloat("move", Mathf.Abs(Axis.normalized.magnitude));
     }
-
-    Vector3 Axis
-    {
-        get => new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-    }
+    
+    
 
     public void WeaponVisibility(bool visibility)
     {
-        weapon.SetActive(visibility);
+        //weapon.SetActive(visibility);
     }
 
     void OnTriggerEnter(Collider other)
@@ -71,8 +64,67 @@ public class Player : Character3D
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
+            
+            Debug.Log("ganastePuntos");
+            Destroy(other.gameObject);
+        }
+        if(other.CompareTag("NPC"))
+        {
+             Player p = other.GetComponent<Player>();
+            if(!p.HasParty)
+            {
+                GameManager.instance.party.JoinParty(p);
+            }
+        }
+        if(other.tag == "Medkit")
+        {
+            MedkitUse medkitUse = other.GetComponent<MedkitUse>();
+            currentHealth += medkitUse.Use();
+            if(currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+            Debug.Log(currentHealth);
             Destroy(other.gameObject);
         }
     }
-    
+
+    IEnumerator WaitForPassiveHeal()
+    {
+        yield return new WaitForSeconds(6.0f);
+
+        if(currentHealth < maxHealth)
+        {
+            currentHealth += cure;
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag == "Enemy" && this.tag == "Player")
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+            if(!invincible)
+            {               
+                currentHealth -= enemy.Damage;
+                if(currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
+                
+                // Aquí pon la animación de puntos de vida perdidos
+                Debug.Log("Te quedan " + currentHealth + " puntos de vida");
+
+                StartCoroutine(Damage(enemy));
+                invincible = true;
+            }            
+        }
+    }
+
+    IEnumerator Damage(Enemy enemy)
+    {   
+        yield return new WaitForSeconds(3.0f);
+        invincible = false;
+    }
 }

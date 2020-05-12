@@ -155,5 +155,18 @@ namespace Platform2DUtils.GameplaySystem
                 }
             }
         }
+
+        public static void Movement3D(Transform transform, float moveSpeed)
+        {
+              transform.Translate(Axis.normalized.magnitude * Vector3.forward * moveSpeed * Time.deltaTime);
+              
+        }
+
+        public static  Vector3 Axis3D
+        {
+            get => new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        }
+
+
     }
 }

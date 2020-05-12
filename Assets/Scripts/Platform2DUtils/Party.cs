@@ -14,11 +14,16 @@ public class Party
     [SerializeField]
     Player[] players;
 
-    public Player[] Players { get => players; set => players = value; }
+    [SerializeField]
+    bool canChange = true;
 
-        ///<summary>
-        /// fill the party with the players that are in the scene
-        ///</summary>
+    public Player[] Players { get => players; set => players = value; }
+    public bool CanChange { get => canChange; }
+    public List<Player> CurrentParty { get => currentParty; set => currentParty = value; }
+
+    ///<summary>
+    /// fill the party with the players that are in the scene
+    ///</summary>
 
     public void InitParty()
     {
@@ -30,27 +35,21 @@ public class Party
             if (p.IsLeader)
             {
                 p.IsNpc = false;
-                if (currentParty.Count > 0)
-                {
-                    currentParty.Insert(0, p);
-                }
-                else
-                {
-                    currentParty.Add(p);
-                }
+                currentParty.Insert(0, p);
             }
             else
             {
                 p.IsNpc = true;
-                currentParty.Add(p);
             }
         }
-        for (int i = 1; i < currentParty.Count; i++)
-        {
-            currentParty[i].Target = currentParty[i - 1];
-        }
     }
-    
+    public void JoinParty(Player p)
+    {
+        currentParty.Add(p);
+        currentParty[currentParty.Count-1].Target = currentParty[currentParty.Count-2];
+        p.HasParty = true;
+    }
+
         ///<summary>
         /// Change the leader of the party when you press a button that you assign in the input manager
         ///</summary>
@@ -58,11 +57,15 @@ public class Party
 
     public void SwapLeader()
     {
-        if (Input.GetButtonDown("ChangeLeader") && currentParty.Count > 1)
+        if (Input.GetButtonDown("ChangeLeader") && currentParty.Count > 1 && canChange)
         {
+            
+            Debug.Log("no puedes cambiar de jugador por 6 segundos");
+
             Player currentLeader = currentParty[0];
             currentLeader.IsLeader = false;
             currentLeader.IsNpc = true;
+            currentLeader.HasParty = true;
             currentLeader.Target = currentParty[currentParty.Count - 1];
             currentParty.RemoveAt(0);
             currentLeader.gameObject.tag = "NPC";
@@ -71,6 +74,8 @@ public class Party
             currentParty[0].IsLeader = true;
             currentParty[0].IsNpc = false;
             currentParty[0].Target = null;
+            currentParty[0].HasParty = true;
+            canChange = false;
         }
     }
 
@@ -95,5 +100,14 @@ public class Party
         {
             currentParty.RemoveAt(0);
         }
+    }
+
+    public IEnumerator waitForChange()
+    {
+        
+        yield return new WaitForSeconds(6.0f);
+        canChange = true;
+        Debug.Log("puedes cambiar");
+
     }
 }

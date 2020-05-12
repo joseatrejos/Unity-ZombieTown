@@ -30,11 +30,11 @@ public class Character3D : MonoBehaviour
     [SerializeField] Player leader;
 
     [SerializeField] float minDistanceFollow;
-    
+
     float dirX;
     float dirY;
 
-    Vector2 npcDirection;
+    Vector3 npcDirection;
 
     protected Collider collider;
 
@@ -43,6 +43,19 @@ public class Character3D : MonoBehaviour
 
     [SerializeField] protected bool isNpc;
     public bool IsNpc { get => isNpc; set => isNpc = value; }
+
+    [SerializeField] private bool hasParty;
+
+    public bool HasParty { get => hasParty; set => hasParty = value; }
+
+    [SerializeField]
+    protected float maxHealth;
+
+    [SerializeField]
+    protected float currentHealth;
+
+    [SerializeField]
+    protected float cure;
     //********
 
     void Update()
@@ -52,7 +65,7 @@ public class Character3D : MonoBehaviour
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
     }
@@ -71,22 +84,31 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
-        if(transform.gameObject != null)
-            moving = Vector2.Distance(leader.transform.position, transform.position) > minDistanceFollow;
-        if (moving)
+        if (hasParty)
         {
-            // Esto es para decirle a la animación hacia donde tiene que moverse
-            npcDirection = leader.transform.position - transform.position;
-            npcDirection.Normalize();
-            transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
-            
-            //aqui va el animator
-            //anim.SetFloat("moveX", npcDirection.x);
-            //anim.SetFloat("moveY", npcDirection.y);
+
+            if (transform.gameObject != null)
+                moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
+            if (moving)
+            {
+                // Esto es para decirle a la animación hacia donde tiene que moverse
+                npcDirection = leader.transform.position - transform.position;
+                npcDirection.Normalize();
+                transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
+
+                if (npcDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.LookRotation(npcDirection);
+                }
+
+                // Aqui va el animator
+                //anim.SetFloat("moveX", npcDirection.x);
+                //anim.SetFloat("moveY", npcDirection.y);
+
+            }
 
         }
-        
-        
+
     }
 
     protected bool FlipSprite
