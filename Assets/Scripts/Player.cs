@@ -62,11 +62,15 @@ public class Player : Character3D
         else
         {
             base.Move();
-            if(followLeader)
+            if(npcLeader > -1 && distanceToLeader > this.nav.stoppingDistance)
             {
-                nav.destination = GameManager.instance.party.CurrentParty[GameManager.instance.party.CurrentParty.Count - 1].transform.position;
+                nav.destination = GameManager.instance.party.CurrentParty[npcLeader].transform.position;
+                StartCoroutine(WaitForPassiveHeal());
             }
-            StartCoroutine(WaitForPassiveHeal());
+            else
+            {
+                nav.destination = this.transform.position;
+            }
         }
     }
 
@@ -92,22 +96,24 @@ public class Player : Character3D
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Collectable"))
+        if (other.CompareTag("Collectable") && this.tag == "Player")
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
             Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
         }
-        if (other.CompareTag("NPC"))
+        else if (other.CompareTag("NPC") && this.tag == "Player")
         {
             Player p = other.GetComponent<Player>();
             if (!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
+                p.npcLeader = NewNPCsNumber - 1;
+                npcLeader = NewNPCsNumber;
             }
         }
-        if (other.tag == "Medkit")
+        else if (other.tag == "Medkit" && this.tag == "Player")
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
             currentHealth += medkitUse.Use();
@@ -118,17 +124,13 @@ public class Player : Character3D
             Debug.Log(currentHealth);
             Destroy(other.gameObject);
         }
-        if (other.gameObject.tag == "Enemy" && this.tag == "Player")
+        else if (other.gameObject.tag == "Enemy" && this.tag == "Player")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
             if (!invincible)
             {
                 currentHealth -= enemy.Damage;
-                if (currentHealth > maxHealth)
-                {
-                    currentHealth = maxHealth;
-                }
 
                 // Aquí pon la animación de puntos de vida perdidos
 
@@ -183,5 +185,10 @@ public class Player : Character3D
 
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
+    }
+
+    float distanceToLeader
+    {
+        get => Vector3.Distance(this.transform.position, GameManager.instance.party.CurrentParty[npcLeader].transform.position);
     }
 }

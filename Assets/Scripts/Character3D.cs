@@ -27,8 +27,6 @@ public class Character3D : MonoBehaviour
     //****** Follow
     protected bool moving;
     
-    protected bool followLeader = false;
-
     [SerializeField] Player leader;
 
     [SerializeField] float minDistanceFollow;
@@ -58,6 +56,9 @@ public class Character3D : MonoBehaviour
 
     [SerializeField]
     protected float cure;
+
+    protected int npcLeader = -1;
+
     //********
 
     void Update()
@@ -98,8 +99,6 @@ public class Character3D : MonoBehaviour
                     npcDirection = leader.transform.position - transform.position;
                     npcDirection.Normalize();
 
-                    followLeader = true;
-
                     // transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
 
                     if (npcDirection != Vector3.zero)
@@ -115,10 +114,16 @@ public class Character3D : MonoBehaviour
         }
     }
 
+    /*
     protected bool FlipSprite
     {
-        //get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
-        get => true;
+        get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
+    }
+    */
+    
+    protected int NewNPCsNumber
+    {
+        get => GameManager.instance.party.CurrentParty.Count - 1;
     }
 
     public Player Target
