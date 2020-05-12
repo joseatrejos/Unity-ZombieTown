@@ -24,31 +24,31 @@ public class Player : Character3D
 
     void Start()
     {
-        //WeaponVisibility(false);
+        // WeaponVisibility(false);
         currentHealth = maxHealth;
     }
 
     void Awake()
     {
-        //animator = GetComponent<Animator>();
+        // animator = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        if (!isNpc)
+        if (!isNpc && alive == true)
         {
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
 
             if (moving)
             {
-                //animaciones
+                // Animations here
             }
 
-            //animator
+            // Animator here
 
-            //anim.SetBool("moving", moving);
+            // anim.SetBool("moving", moving);
             if (GameplaySystem.Axis3D != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
@@ -81,7 +81,7 @@ public class Player : Character3D
 
     void Shot()
     {
-        //Bullet bullet = bulletGameObject.GetComponent<Bullet>();
+        // Bullet bullet = bulletGameObject.GetComponent<Bullet>();
         if (CanCreateBullets)
         {
             GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
@@ -145,8 +145,31 @@ public class Player : Character3D
                 invincible = true;
             }
         }
+        else if (other.tag == "Obstacle" && this.tag == "Player")
+        {
+            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
+            obstacle.ShowMessage();
+        }
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Obstacle" && this.tag == "Player")
+        {
+            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
+            obstacle.HideMessage();
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Obstacle" && this.tag == "Player")
+        {
+            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
+            obstacle.Unlock();
+            obstacle.waitForHideMessage();
+        }
+    }
     IEnumerator WaitForPassiveHeal()
     {
         yield return new WaitForSeconds(10.0f);
@@ -178,6 +201,7 @@ public class Player : Character3D
 
     public void Death()
     {
+        alive = false;
         // Insert death animation
         Debug.Log("El jugador está muerto");
 

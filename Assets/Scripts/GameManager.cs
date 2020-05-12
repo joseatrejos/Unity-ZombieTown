@@ -12,12 +12,18 @@ public class GameManager : MonoBehaviour
     public Player Player { get => player; }
 
     int score = 0;
+    
+    public int Score { get => score; }
     [SerializeField] Text txtScore;
+
+    
+    int kills = 0;
 
     bool isInCombat = false;
     public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
     bool isInChase = false;
     public bool IsInChase { get => isInChase; set => isInChase = value; }
+    public int Kills { get => kills; }
 
     [SerializeField] SoundManager soundManager;
 
@@ -25,6 +31,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     public Party party;
+
+    [SerializeField]
+    Enemy enemy;
 
     void Awake()
     {
@@ -62,7 +71,7 @@ public class GameManager : MonoBehaviour
             soundManager.PlayBGM();
         isInCombat = false;
         // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
-        //player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
+        // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
         // player.WeaponVisibility(false);
         isInChase = false;
 
@@ -107,11 +116,20 @@ public class GameManager : MonoBehaviour
     public void AddPoints(int points)
     {
         this.score += points;
+        
         txtScore.text = $"Score: {score} pts";
     }
 
     public void GameOver()
     {
         Debug.Log("Game Over");
+    }
+
+    public void CountZombieKill(int kill)
+    {
+        score += enemy.KillPoints;
+        kills += kill;
+        Debug.Log(kills);
+        Debug.Log("Tienes " + score + " Puntos");
     }
 }
