@@ -261,10 +261,10 @@ MonoBehaviour:
   isLeader: 0
   isNpc: 1
   hasParty: 0
-  maxHealth: 250
+  maxHealth: 10
   currentHealth: 50
   cure: 1
-  bulletSrc: {fileID: 0}
+  bulletSrc: {fileID: 38286767563453619, guid: 0362afb026c9af54dae950f20804ea22, type: 3}
   bullets: []
   bulletsLimit: 5
 --- !u!54 &263371019
@@ -277,7 +277,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -714,8 +714,8 @@ MonoBehaviour:
   isLeader: 1
   isNpc: 0
   hasParty: 0
-  maxHealth: 560
-  currentHealth: 50
+  maxHealth: 10
+  currentHealth: 10
   cure: 4
   bulletSrc: {fileID: 38286767563453619, guid: 0362afb026c9af54dae950f20804ea22, type: 3}
   bullets: []
@@ -730,7 +730,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -804,7 +804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757881240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.48}
+  m_LocalPosition: {x: -4.64, y: 0.5, z: 0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1768818731}
@@ -1100,10 +1100,10 @@ MonoBehaviour:
   isLeader: 0
   isNpc: 1
   hasParty: 0
-  maxHealth: 300
+  maxHealth: 10
   currentHealth: 20
-  cure: 3
-  bulletSrc: {fileID: 0}
+  cure: 5
+  bulletSrc: {fileID: 38286767563453619, guid: 0362afb026c9af54dae950f20804ea22, type: 3}
   bullets: []
   bulletsLimit: 5
 --- !u!54 &1211273695
@@ -1116,7 +1116,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1924,6 +1924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f3de6ec843ead489734625d9985162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   moveSpeed: 3.5
   minDistance: 5
   damage: 10
@@ -2069,10 +2070,10 @@ MonoBehaviour:
   isLeader: 0
   isNpc: 1
   hasParty: 0
-  maxHealth: 100
+  maxHealth: 10
   currentHealth: 10
   cure: 2
-  bulletSrc: {fileID: 0}
+  bulletSrc: {fileID: 38286767563453619, guid: 0362afb026c9af54dae950f20804ea22, type: 3}
   bullets: []
   bulletsLimit: 5
 --- !u!54 &2093692608
@@ -2085,7 +2086,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0

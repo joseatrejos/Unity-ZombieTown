@@ -102,12 +102,6 @@ public class GameManager : MonoBehaviour
         }
         party.SwapLeader();
     }
-
-     public void KillPlayer()
-    {
-        party.KillLeader();
-    }
-
     public void AddPoints(int points)
     {
         this.score += points;

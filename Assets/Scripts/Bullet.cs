@@ -8,17 +8,11 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField]
     float damage = 5f;
-    [SerializeField]
-    float speed = 5f;
+
     [SerializeField]
     float lifeTime = 5f;
 
     Rigidbody rb;
-
-    IEnumerator move;
-
-    [SerializeField]
-    float moveInterval = 0.1f;
 
     [SerializeField]
     float bulletForce = 20f;
@@ -35,9 +29,6 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        //move = MoveBullet(moveInterval);
-
-        //StartCoroutine(move);
         Shot();
     }
 
@@ -50,16 +41,23 @@ public class Bullet : MonoBehaviour
     IEnumerator CleanBullet(float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
-        GameManager.instance.Player.RemoveBullet(gameObject);
+        GameManager.instance.party.CurrentParty[0].RemoveBullet(gameObject);
         Destroy(gameObject);
     }
 
-    IEnumerator MoveBullet(float interval)
+    private void OnTriggerEnter(Collider other)
     {
-        while(true)
+        if(other.tag == "Enemy")
         {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
-            yield return new WaitForSeconds(interval);
+            Enemy enemy;
+            enemy = other.gameObject.GetComponent<Enemy>();
+            enemy.Health -= damage;
+            Debug.Log("El enemigo tiene: " + enemy.Health + " puntos de vida restantes");
+            
+            if(enemy.Health <= 0)
+            {
+                enemy.Death();
+            }                
         }
     }
 }

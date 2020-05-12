@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     //Animator animator;
+    [SerializeField]
+    float health = 100;
+    public float Health { get => health; set => health = value; }
 
     [SerializeField, Range(0.1f, 10f)]
     float moveSpeed = 3.5f;
@@ -27,31 +30,31 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if(AttackRange)
+        if(!GameManager.instance.party.PartyDeath)
         {
-            // In case you prefer the combat to begin as soon as the enemy starts following you
-
-            if(!GameManager.instance.IsInChase)
+            if(AttackRange)
             {
-                GameManager.instance.BeginChase();
+                if(!GameManager.instance.IsInChase)
+                {
+                    GameManager.instance.BeginChase();
+                }
+                navMeshAgent.destination = GameManager.instance.party.CurrentParty[0].transform.position;
+                transform.LookAt(GameManager.instance.party.CurrentParty[0].transform);
             }
-            // transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-            navMeshAgent.destination = GameManager.instance.Player.transform.position;
-            transform.LookAt(GameManager.instance.Player.transform);
-        }
-        else
-        {
-            navMeshAgent.destination = transform.position;
+            else
+            {
+                navMeshAgent.destination = transform.position;
 
-            if(GameManager.instance.IsInChase && distanceToPlayer <= minDistance && !GameManager.instance.IsInCombat)
-            {
-                GameManager.instance.StartCombat();
-                //animator.SetLayerWeight(1, 1);
-            }
-            else if(OutOfAttackRange)
-            {
-                GameManager.instance.EscapeCombatAndChase();
-                EndEnemyCombat();
+                if(GameManager.instance.IsInChase && distanceToPlayer <= minDistance && !GameManager.instance.IsInCombat)
+                {
+                    GameManager.instance.StartCombat();
+                    //animator.SetLayerWeight(1, 1);
+                }
+                else if(OutOfAttackRange)
+                {
+                    GameManager.instance.EscapeCombatAndChase();
+                    EndEnemyCombat();
+                }
             }
         }
     }
@@ -78,13 +81,24 @@ public class Enemy : MonoBehaviour
     }
 
     float distanceToPlayer
-    {
-        get => Vector3.Distance(this.transform.position, GameManager.instance.Player.transform.position);
+    {        
+        get => Vector3.Distance(this.transform.position, GameManager.instance.party.CurrentParty[0].transform.position);
     }
-
+    
     public void EndEnemyCombat()
     {
         //animator.SetLayerWeight(1, 0);
         //animator.SetLayerWeight(0, 1);
+    }
+
+    public void Death()
+    {
+        // Insert death animation
+        Debug.Log("El enemigo esta muerto");
+
+        Destroy(gameObject.GetComponent<Collider>());
+
+        // Replace seconds for the correct animations duration
+        Destroy(gameObject, 2.0f);
     }
 }

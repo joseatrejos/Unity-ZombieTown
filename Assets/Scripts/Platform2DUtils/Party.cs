@@ -11,14 +11,19 @@ public class Party
 { 
     [SerializeField]
     List<Player> currentParty;
+
     [SerializeField]
     Player[] players;
 
     [SerializeField]
     bool canChange = true;
+    public bool CanChange { get => canChange; }
+
+    bool partyDeath = false;
+    public bool PartyDeath { get => partyDeath; }
+
 
     public Player[] Players { get => players; set => players = value; }
-    public bool CanChange { get => canChange; }
     public List<Player> CurrentParty { get => currentParty; set => currentParty = value; }
 
     ///<summary>
@@ -50,17 +55,14 @@ public class Party
         p.HasParty = true;
     }
 
-        ///<summary>
-        /// Change the leader of the party when you press a button that you assign in the input manager
-        ///</summary>
-
-
+    ///<summary>
+    /// Change the leader of the party when you press a button that you assign in the input manager
+    ///</summary>
     public void SwapLeader()
     {
         if (Input.GetButtonDown("ChangeLeader") && currentParty.Count > 1 && canChange)
         {
-            
-            Debug.Log("no puedes cambiar de jugador por 6 segundos");
+            Debug.Log("No puedes cambiar de jugador por 6 segundos");
 
             Player currentLeader = currentParty[0];
             currentLeader.IsLeader = false;
@@ -79,12 +81,11 @@ public class Party
         }
     }
 
-        ///<summary>
-        /// Allow the player that is leading the party to die and give control to the next one
-        ///</summary>
+    ///<summary>
+    /// Allow the player that is leading the party to die and give control to the next one
+    ///</summary>
     public void KillLeader()
     {
-        
         if(currentParty.Count > 1)
         {
             Player currentLeader = currentParty[0];
@@ -99,15 +100,14 @@ public class Party
         else
         {
             currentParty.RemoveAt(0);
+            partyDeath = true;
         }
     }
 
     public IEnumerator waitForChange()
     {
-        
         yield return new WaitForSeconds(6.0f);
         canChange = true;
-        Debug.Log("puedes cambiar");
-
+        Debug.Log("Puedes cambiar");
     }
 }

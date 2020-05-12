@@ -30,7 +30,7 @@ public class Character3D : MonoBehaviour
     [SerializeField] Player leader;
 
     [SerializeField] float minDistanceFollow;
-    
+
     float dirX;
     float dirY;
 
@@ -46,7 +46,7 @@ public class Character3D : MonoBehaviour
 
     [SerializeField] private bool hasParty;
 
-    
+
     public bool HasParty { get => hasParty; set => hasParty = value; }
 
     [SerializeField]
@@ -54,7 +54,7 @@ public class Character3D : MonoBehaviour
 
     [SerializeField]
     protected float currentHealth;
-    
+
     [SerializeField]
     protected float cure;
     //********
@@ -85,31 +85,31 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
-        if(hasParty)
+     
+        if (hasParty)
         {
-            
-        if(transform.gameObject != null)
-           moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
-        if (moving)
-        {
-            // Esto es para decirle a la animación hacia donde tiene que moverse
-            npcDirection = leader.transform.position - transform.position;
-            npcDirection.Normalize();
-            transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
+               if (leader)
+                {
+                moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
 
-              if(npcDirection != Vector3.zero)
-              {
-                transform.rotation = Quaternion.LookRotation(npcDirection);
+                if (moving)
+                {
+                    // Esto es para decirle a la animación hacia donde tiene que moverse
+                    npcDirection = leader.transform.position - transform.position;
+                    npcDirection.Normalize();
+                    transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
+
+                    if (npcDirection != Vector3.zero)
+                    {
+                        transform.rotation = Quaternion.LookRotation(npcDirection);
+                    }
+
+                    //aqui va el animator
+                    //anim.SetFloat("moveX", npcDirection.x);
+                    //anim.SetFloat("moveY", npcDirection.y);
                 }
-
-            //aqui va el animator
-            //anim.SetFloat("moveX", npcDirection.x);
-            //anim.SetFloat("moveY", npcDirection.y);
-
+            }
         }
-        
-        }
-        
     }
 
     protected bool FlipSprite

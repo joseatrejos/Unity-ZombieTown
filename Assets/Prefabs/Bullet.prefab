@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  speed: 46
-  lifeTime: 2
-  moveInterval: 0.1
+  speed: 5
+  lifeTime: 0.5
+  moveInterval: 10
   bulletForce: 20
