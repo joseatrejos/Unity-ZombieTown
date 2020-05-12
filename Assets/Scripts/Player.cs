@@ -84,21 +84,21 @@ public class Player : Character3D
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Collectable"))
+        if (other.tag == "Collectable")
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
             Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
-        }
-        if(other.CompareTag("NPC"))
+        }else
+        if(other.tag == "NPC")
         {
              Player p = other.GetComponent<Player>();
             if(!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
             }
-        }
+        }else
         if(other.tag == "Medkit")
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
@@ -109,7 +109,7 @@ public class Player : Character3D
             }
             Debug.Log(currentHealth);
             Destroy(other.gameObject);
-        }
+        }else
         if(other.gameObject.tag == "Enemy" && this.tag == "Player")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -134,9 +134,32 @@ public class Player : Character3D
                 StartCoroutine(Damage(enemy));
                 invincible = true;
             }            
+        }else
+        if(other.tag == "Obstacle")
+        {
+            Obstacle obstacle =  other.GetComponent<Obstacle>();;
+            obstacle.ShowMessage();
         }
     }
 
+ void OnTriggerExit(Collider other)
+    {
+          if(other.tag == "Obstacle")
+        {
+            Obstacle obstacle =  other.GetComponent<Obstacle>();;
+            obstacle.HideMessage();
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+     if(other.tag == "Obstacle")
+        {
+            Obstacle obstacle =  other.GetComponent<Obstacle>();;
+            obstacle.Unlock();
+            obstacle.waitForHideMessage();
+        }   
+    }
     IEnumerator WaitForPassiveHeal()
     {
         yield return new WaitForSeconds(1.0f);
