@@ -17,41 +17,38 @@ public class Player : Character3D
 
     // [SerializeField]
     // GameObject weapon;
+    
+    protected NavMeshAgent nav;
 
     protected bool invincible;
 
-
-    NavMeshAgent navMeshAgent;
-
-
     void Start()
     {
-        //WeaponVisibility(false);
+        // WeaponVisibility(false);
         currentHealth = maxHealth;
     }
 
     void Awake()
     {
-        //animator = GetComponent<Animator>();
-
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        // animator = GetComponent<Animator>();
+        nav = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        if (!isNpc)
+        if (!isNpc && alive == true)
         {
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
 
             if (moving)
             {
-                //animaciones
+                // Animations here
             }
 
-            //animator
+            // Animator here
 
-            //anim.SetBool("moving", moving);
+            // anim.SetBool("moving", moving);
             if (GameplaySystem.Axis3D != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
@@ -64,26 +61,27 @@ public class Player : Character3D
         }
         else
         {
-            StartCoroutine(WaitForPassiveHeal());
             base.Move();
-            if (GameManager.instance.party.CurrentParty.Count >= 2)
+            if(npcLeader > -1 && distanceToLeader > this.nav.stoppingDistance)
             {
-                for (int i = 2; GameManager.instance.party.CurrentParty.Count > i; i++)
-                {
-                    GameManager.instance.party.CurrentParty[i-1].navMeshAgent.destination = GameManager.instance.party.CurrentParty[i-2].transform.position;
-                }
+                nav.destination = GameManager.instance.party.CurrentParty[npcLeader].transform.position;
+                StartCoroutine(WaitForPassiveHeal());
+            }
+            else
+            {
+                nav.destination = this.transform.position;
             }
         }
     }
 
     public void WeaponVisibility(bool visibility)
     {
-        //weapon.SetActive(visibility);
+        // weapon.SetActive(visibility);
     }
 
     void Shot()
     {
-        //Bullet bullet = bulletGameObject.GetComponent<Bullet>();
+        // Bullet bullet = bulletGameObject.GetComponent<Bullet>();
         if (CanCreateBullets)
         {
             GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
@@ -98,26 +96,24 @@ public class Player : Character3D
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Collectable")
+        if (other.CompareTag("Collectable") && this.tag == "Player")
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
             Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
         }
-        else
-        if (other.tag == "NPC")
+        else if (other.CompareTag("NPC") && this.tag == "Player")
         {
             Player p = other.GetComponent<Player>();
             if (!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
-
-
+                p.npcLeader = NewNPCsNumber - 1;
+                npcLeader = NewNPCsNumber;
             }
         }
-        else
-        if (other.tag == "Medkit")
+        else if (other.tag == "Medkit" && this.tag == "Player")
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
             currentHealth += medkitUse.Use();
@@ -128,18 +124,13 @@ public class Player : Character3D
             Debug.Log(currentHealth);
             Destroy(other.gameObject);
         }
-        else
-        if (other.gameObject.tag == "Enemy" && this.tag == "Player")
+        else if (other.gameObject.tag == "Enemy" && this.tag == "Player")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
             if (!invincible)
             {
                 currentHealth -= enemy.Damage;
-                if (currentHealth > maxHealth)
-                {
-                    currentHealth = maxHealth;
-                }
 
                 // Aquí pon la animación de puntos de vida perdidos
 
@@ -154,8 +145,7 @@ public class Player : Character3D
                 invincible = true;
             }
         }
-        else
-        if (other.tag == "Obstacle")
+        else if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
             obstacle.ShowMessage();
@@ -164,7 +154,7 @@ public class Player : Character3D
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
             obstacle.HideMessage();
@@ -173,7 +163,7 @@ public class Player : Character3D
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
             obstacle.Unlock();
@@ -182,8 +172,8 @@ public class Player : Character3D
     }
     IEnumerator WaitForPassiveHeal()
     {
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("te curaste");
+        yield return new WaitForSeconds(10.0f);
+        //Debug.Log("te curaste");
 
         if (currentHealth < maxHealth)
         {
@@ -196,9 +186,7 @@ public class Player : Character3D
                 currentHealth += cure;
             }
         }
-
     }
-
 
     IEnumerator Damage(Enemy enemy)
     {
@@ -213,12 +201,18 @@ public class Player : Character3D
 
     public void Death()
     {
+        alive = false;
         // Insert death animation
-        Debug.Log("El jugador esta muerto");
+        Debug.Log("El jugador está muerto");
 
         Destroy(gameObject.GetComponent<Collider>());
 
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
+    }
+
+    float distanceToLeader
+    {
+        get => Vector3.Distance(this.transform.position, GameManager.instance.party.CurrentParty[npcLeader].transform.position);
     }
 }

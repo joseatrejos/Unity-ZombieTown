@@ -8,7 +8,7 @@ using Cinemachine;
 [Serializable]
 
 public class Party
-{ 
+{
     [SerializeField]
     List<Player> currentParty;
 
@@ -22,14 +22,12 @@ public class Party
     bool partyDeath = false;
     public bool PartyDeath { get => partyDeath; }
 
-
     public Player[] Players { get => players; set => players = value; }
     public List<Player> CurrentParty { get => currentParty; set => currentParty = value; }
 
     ///<summary>
-    /// fill the party with the players that are in the scene
+    /// Fill the party with the players that are in the scene
     ///</summary>
-
     public void InitParty()
     {
         players = GameplaySystem.FindPlayer;
@@ -48,10 +46,11 @@ public class Party
             }
         }
     }
+
     public void JoinParty(Player p)
     {
         currentParty.Add(p);
-        currentParty[currentParty.Count-1].Target = currentParty[currentParty.Count-2];
+        currentParty[currentParty.Count - 1].Target = currentParty[currentParty.Count - 2];
         p.HasParty = true;
     }
 
@@ -86,7 +85,7 @@ public class Party
     ///</summary>
     public void KillLeader()
     {
-        if(currentParty.Count > 1)
+        if (currentParty.Count > 1)
         {
             Player currentLeader = currentParty[0];
             currentLeader.IsLeader = false;
@@ -96,7 +95,7 @@ public class Party
             currentParty[0].IsLeader = true;
             currentParty[0].IsNpc = false;
             currentParty[0].Target = null;
-        } 
+        }
         else
         {
             currentParty.RemoveAt(0);
