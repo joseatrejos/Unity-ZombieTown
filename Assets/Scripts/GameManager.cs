@@ -24,11 +24,11 @@ public class GameManager : MonoBehaviour
     AudioSource audioSource;
 
     [SerializeField]
-    public Party party; 
+    public Party party;
 
     void Awake()
     {
-        if(!instance)
+        if (!instance)
         {
             instance = this;
         }
@@ -51,19 +51,19 @@ public class GameManager : MonoBehaviour
         soundManager.WeaponDrawn();
         StartCoroutine(DelayedCombatMusic());
         isInCombat = true;
-       // player.Animator.SetLayerWeight(1, 1);
-       // player.WeaponVisibility(true);
+        // player.Animator.SetLayerWeight(1, 1);
+        // player.WeaponVisibility(true);
         isInCombat = true;
     }
 
     public void EscapeCombatAndChase()
     {
-        if(isInCombat || isInChase)
+        if (isInCombat || isInChase)
             soundManager.PlayBGM();
         isInCombat = false;
-       // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
+        // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
         //player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
-       // player.WeaponVisibility(false);
+        // player.WeaponVisibility(false);
         isInChase = false;
 
         /*
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void BeginChase()
     {
         soundManager.PlayChaseMusic();
-        isInChase = true;  
+        isInChase = true;
     }
 
     IEnumerator DelayedCombatMusic()
@@ -86,26 +86,32 @@ public class GameManager : MonoBehaviour
         soundManager.PlayCombatMusic();
     }
 
-  
+
     void Update()
     {
-        if(Input.GetButtonDown("ChangeLeader"))
+        if (Input.GetButtonDown("ChangeLeader"))
         {
-            if(party.CurrentParty.Count > 1)
+            if (party.CurrentParty.Count > 1)
             {
-                
-            StartCoroutine(party.waitForChange());
-            } else
+
+                StartCoroutine(party.waitForChange());
+            }
+            else
             {
                 Debug.Log("solo tienes un personaje en el grupo");
             }
         }
         party.SwapLeader();
     }
+
     public void AddPoints(int points)
     {
         this.score += points;
         txtScore.text = $"Score: {score} pts";
     }
 
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
+    }
 }

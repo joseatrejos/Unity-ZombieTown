@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Platform2DUtils.GameplaySystem;
+using UnityEngine.AI;
 
 public class Player : Character3D
 {
@@ -10,12 +11,14 @@ public class Player : Character3D
 
     [SerializeField]
     List<GameObject> bullets;
-    
+
     [SerializeField]
-    float bulletsLimit = 5; 
+    float bulletsLimit = 5;
 
     // [SerializeField]
     // GameObject weapon;
+    
+    protected NavMeshAgent nav;
 
     protected bool invincible;
 
@@ -28,6 +31,7 @@ public class Player : Character3D
     void Awake()
     {
         //animator = GetComponent<Animator>();
+        nav = GetComponent<NavMeshAgent>();
     }
 
     void Update()
@@ -43,22 +47,26 @@ public class Player : Character3D
             }
 
             //animator
-            
+
             //anim.SetBool("moving", moving);
-            if(GameplaySystem.Axis3D != Vector3.zero)
+            if (GameplaySystem.Axis3D != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
             }
 
-            if(GameplaySystem.JumpBtn)
+            if (GameplaySystem.JumpBtn)
             {
                 Shot();
             }
         }
         else
         {
-            StartCoroutine(WaitForPassiveHeal());
             base.Move();
+            if(followLeader)
+            {
+                nav.destination = GameManager.instance.party.CurrentParty[GameManager.instance.party.CurrentParty.Count - 1].transform.position;
+            }
+            StartCoroutine(WaitForPassiveHeal());
         }
     }
 
@@ -67,20 +75,20 @@ public class Player : Character3D
         // weapon.SetActive(visibility);
     }
 
-     void Shot()
+    void Shot()
     {
         //Bullet bullet = bulletGameObject.GetComponent<Bullet>();
-        if(CanCreateBullets)
+        if (CanCreateBullets)
         {
-            GameObject bulletGameObject = (GameObject) Instantiate(bulletSrc, transform.position, transform.rotation);
+            GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
             bullets.Add(bulletGameObject);
         }
     }
 
     bool CanCreateBullets
     {
-        get => bullets.Count < bulletsLimit; 
-    }    
+        get => bullets.Count < bulletsLimit;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -91,40 +99,40 @@ public class Player : Character3D
             Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
         }
-        if(other.CompareTag("NPC"))
+        if (other.CompareTag("NPC"))
         {
-             Player p = other.GetComponent<Player>();
-            if(!p.HasParty)
+            Player p = other.GetComponent<Player>();
+            if (!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
             }
         }
-        if(other.tag == "Medkit")
+        if (other.tag == "Medkit")
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
             currentHealth += medkitUse.Use();
-            if(currentHealth > maxHealth)
+            if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
             }
             Debug.Log(currentHealth);
             Destroy(other.gameObject);
         }
-        if(other.gameObject.tag == "Enemy" && this.tag == "Player")
+        if (other.gameObject.tag == "Enemy" && this.tag == "Player")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-            if(!invincible)
-            {               
+            if (!invincible)
+            {
                 currentHealth -= enemy.Damage;
-                if(currentHealth > maxHealth)
+                if (currentHealth > maxHealth)
                 {
                     currentHealth = maxHealth;
                 }
-                
+
                 // Aquí pon la animación de puntos de vida perdidos
 
-                if(currentHealth <= 0)
+                if (currentHealth <= 0)
                 {
                     currentHealth = 0;
                     GameManager.instance.party.KillLeader();
@@ -133,36 +141,35 @@ public class Player : Character3D
                 Debug.Log("Te quedan " + currentHealth + " puntos de vida");
                 StartCoroutine(Damage(enemy));
                 invincible = true;
-            }            
+            }
         }
     }
 
     IEnumerator WaitForPassiveHeal()
     {
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("te curaste");
+        yield return new WaitForSeconds(10.0f);
+        //Debug.Log("te curaste");
 
-        if(currentHealth < maxHealth)
+        if (currentHealth < maxHealth)
         {
-            if(currentHealth + cure > maxHealth)
+            if (currentHealth + cure > maxHealth)
             {
                 currentHealth = maxHealth;
-            }else
+            }
+            else
             {
                 currentHealth += cure;
             }
         }
-       
     }
 
-
     IEnumerator Damage(Enemy enemy)
-    {   
+    {
         yield return new WaitForSeconds(3.0f);
         invincible = false;
     }
 
-      public void RemoveBullet(GameObject bullet)
+    public void RemoveBullet(GameObject bullet)
     {
         bullets.Remove(bullet);
     }
@@ -170,7 +177,7 @@ public class Player : Character3D
     public void Death()
     {
         // Insert death animation
-        Debug.Log("El jugador esta muerto");
+        Debug.Log("El jugador está muerto");
 
         Destroy(gameObject.GetComponent<Collider>());
 

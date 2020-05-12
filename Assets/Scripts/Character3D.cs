@@ -26,6 +26,8 @@ public class Character3D : MonoBehaviour
 
     //****** Follow
     protected bool moving;
+    
+    protected bool followLeader = false;
 
     [SerializeField] Player leader;
 
@@ -45,7 +47,6 @@ public class Character3D : MonoBehaviour
     public bool IsNpc { get => isNpc; set => isNpc = value; }
 
     [SerializeField] private bool hasParty;
-
 
     public bool HasParty { get => hasParty; set => hasParty = value; }
 
@@ -85,19 +86,21 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
-     
         if (hasParty)
         {
-               if (leader)
-                {
+            if (leader)
+            {
                 moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
 
-                if (moving)
+                if (moving && gameObject.tag == "NPC")
                 {
                     // Esto es para decirle a la animación hacia donde tiene que moverse
                     npcDirection = leader.transform.position - transform.position;
                     npcDirection.Normalize();
-                    transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
+
+                    followLeader = true;
+
+                    // transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
 
                     if (npcDirection != Vector3.zero)
                     {
@@ -116,14 +119,6 @@ public class Character3D : MonoBehaviour
     {
         //get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
         get => true;
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-        if (other.collider.CompareTag("Player"))
-        {
-            Physics.IgnoreCollision(other.collider, collider);
-        }
     }
 
     public Player Target
