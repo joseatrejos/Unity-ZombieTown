@@ -19,6 +19,14 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     int damage = 10;
     public int Damage { get => damage; }
+    
+    [SerializeField]
+    int kill=1;
+    
+    [SerializeField]
+    int killPoints = 5;
+    
+    public int KillPoints { get => killPoints; }
 
 
     NavMeshAgent navMeshAgent;
@@ -84,7 +92,7 @@ public class Enemy : MonoBehaviour
     {        
         get => Vector3.Distance(this.transform.position, GameManager.instance.party.CurrentParty[0].transform.position);
     }
-    
+
     public void EndEnemyCombat()
     {
         //animator.SetLayerWeight(1, 0);
@@ -95,6 +103,10 @@ public class Enemy : MonoBehaviour
     {
         // Insert death animation
         Debug.Log("El enemigo esta muerto");
+
+        GameManager.instance.CountZombieKill(kill);
+
+        navMeshAgent.isStopped = true;
 
         Destroy(gameObject.GetComponent<Collider>());
 
