@@ -69,6 +69,7 @@ public class Character3D : MonoBehaviour
         //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
+        
     }
 
     protected bool Grounding
@@ -97,7 +98,6 @@ public class Character3D : MonoBehaviour
                     // Esto es para decirle a la animación hacia donde tiene que moverse
                     npcDirection = leader.transform.position - transform.position;
                     npcDirection.Normalize();
-                    transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
 
                     if (npcDirection != Vector3.zero)
                     {

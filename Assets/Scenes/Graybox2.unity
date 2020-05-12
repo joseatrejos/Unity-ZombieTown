@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textBox: {fileID: 757782360}
-  message: "Precio de desbloqueo: 500 pts \nPulsa Z para desbloquear o C para cancelar"
+  message: "Precio de desbloqueo: 10 pts \nPulsa Z para desbloquear o C para cancelar"
   ScoreCost: 10
 --- !u!1 &1589553040
 GameObject:
