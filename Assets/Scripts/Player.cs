@@ -17,7 +17,7 @@ public class Player : Character3D
 
     // [SerializeField]
     // GameObject weapon;
-    
+
     protected NavMeshAgent nav;
 
     protected bool invincible;
@@ -62,15 +62,8 @@ public class Player : Character3D
         else
         {
             base.Move();
-            if(npcLeader > -1 && distanceToLeader > this.nav.stoppingDistance)
-            {
-                nav.destination = GameManager.instance.party.CurrentParty[npcLeader].transform.position;
-                StartCoroutine(WaitForPassiveHeal());
-            }
-            else
-            {
-                nav.destination = this.transform.position;
-            }
+
+            StartCoroutine(WaitForPassiveHeal());
         }
     }
 
@@ -109,8 +102,6 @@ public class Player : Character3D
             if (!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
-                p.npcLeader = NewNPCsNumber - 1;
-                npcLeader = NewNPCsNumber;
             }
         }
         else if (other.tag == "Medkit" && this.tag == "Player")
