@@ -21,7 +21,7 @@ public class Player : Character3D
     protected bool invincible;
 
 
-    NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
 
 
     void Start()
@@ -64,14 +64,12 @@ public class Player : Character3D
         }
         else
         {
-            StartCoroutine(WaitForPassiveHeal());
             base.Move();
-            if (GameManager.instance.party.CurrentParty.Count >= 2)
+            for (int i = 1; GameManager.instance.party.CurrentParty.Count > i; i++)
             {
-                for (int i = 2; GameManager.instance.party.CurrentParty.Count > i; i++)
-                {
-                    GameManager.instance.party.CurrentParty[i-1].navMeshAgent.destination = GameManager.instance.party.CurrentParty[i-2].transform.position;
-                }
+                
+                StartCoroutine(WaitForPassiveHeal());
+                GameManager.instance.party.CurrentParty[i].navMeshAgent.destination = GameManager.instance.party.CurrentParty[i - 1].transform.position;
             }
         }
     }
@@ -129,6 +127,23 @@ public class Player : Character3D
             Destroy(other.gameObject);
         }
         else
+        if (other.tag == "Obstacle")
+        {
+            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
+            obstacle.ShowMessage();
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Obstacle")
+        {
+            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
+            obstacle.HideMessage();
+        }
+    }
+    void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject.tag == "Enemy" && this.tag == "Player")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -154,26 +169,11 @@ public class Player : Character3D
                 invincible = true;
             }
         }
-        else
-        if (other.tag == "Obstacle")
-        {
-            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
-            obstacle.ShowMessage();
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Obstacle")
-        {
-            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
-            obstacle.HideMessage();
-        }
     }
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
             obstacle.Unlock();

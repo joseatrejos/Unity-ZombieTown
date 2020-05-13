@@ -69,6 +69,8 @@ public class Party
             currentLeader.IsNpc = true;
             currentLeader.HasParty = true;
             currentLeader.Target = currentParty[currentParty.Count - 1];
+            currentLeader.navMeshAgent.enabled = true;
+            currentLeader.GetComponent<Collider>().isTrigger = true;
             currentParty.RemoveAt(0);
             currentLeader.gameObject.tag = "NPC";
             currentParty.Add(currentLeader);
@@ -78,6 +80,8 @@ public class Party
             currentParty[0].Target = null;
             currentParty[0].HasParty = true;
             canChange = false;
+            currentParty[0].navMeshAgent.enabled = false;
+            currentParty[0].GetComponent<Collider>().isTrigger = false;
         }
     }
 
@@ -91,11 +95,15 @@ public class Party
             Player currentLeader = currentParty[0];
             currentLeader.IsLeader = false;
             currentLeader.IsNpc = true;
+            currentLeader.navMeshAgent.enabled = true;
+            currentLeader.GetComponent<Collider>().isTrigger = true;
             currentParty.RemoveAt(0);
             currentParty[0].gameObject.tag = "Player";
             currentParty[0].IsLeader = true;
             currentParty[0].IsNpc = false;
             currentParty[0].Target = null;
+            currentParty[0].navMeshAgent.enabled = false;
+            currentParty[0].GetComponent<Collider>().isTrigger = false;
         } 
         else
         {

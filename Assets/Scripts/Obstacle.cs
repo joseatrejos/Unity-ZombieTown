@@ -14,9 +14,16 @@ public class Obstacle : MonoBehaviour
     [SerializeField]
     int ScoreCost;
     // Start is called before the first frame update
+
+    string defaultMessage;
     void Start()
     {
         
+    }
+
+     void Awake()
+    {
+        defaultMessage = message;
     }
 
     // Update is called once per frame
@@ -61,6 +68,7 @@ public class Obstacle : MonoBehaviour
     {
          textBox.gameObject.SetActive(false);
          textBox.ClearText();
+         message = defaultMessage;
     }
 
    public IEnumerator waitForHideMessage()
