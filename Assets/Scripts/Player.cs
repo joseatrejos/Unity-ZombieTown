@@ -18,8 +18,6 @@ public class Player : Character3D
     // [SerializeField]
     // GameObject weapon;
 
-    protected NavMeshAgent nav;
-
     protected bool invincible;
 
 
@@ -28,31 +26,32 @@ public class Player : Character3D
 
     void Start()
     {
-        // WeaponVisibility(false);
+        //WeaponVisibility(false);
         currentHealth = maxHealth;
     }
 
     void Awake()
     {
-        // animator = GetComponent<Animator>();
-        nav = GetComponent<NavMeshAgent>();
+        //animator = GetComponent<Animator>();
+
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        if (!isNpc && alive == true)
+        if (!isNpc)
         {
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
 
             if (moving)
             {
-                // Animations here
+                //animaciones
             }
 
-            // Animator here
+            //animator
 
-            // anim.SetBool("moving", moving);
+            //anim.SetBool("moving", moving);
             if (GameplaySystem.Axis3D != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
@@ -77,12 +76,12 @@ public class Player : Character3D
 
     public void WeaponVisibility(bool visibility)
     {
-        // weapon.SetActive(visibility);
+        //weapon.SetActive(visibility);
     }
 
     void Shot()
     {
-        // Bullet bullet = bulletGameObject.GetComponent<Bullet>();
+        //Bullet bullet = bulletGameObject.GetComponent<Bullet>();
         if (CanCreateBullets)
         {
             GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
@@ -97,22 +96,26 @@ public class Player : Character3D
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Collectable") && this.tag == "Player")
+        if (other.tag == "Collectable")
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
             Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
         }
-        else if (other.CompareTag("NPC") && this.tag == "Player")
+        else
+        if (other.tag == "NPC")
         {
             Player p = other.GetComponent<Player>();
             if (!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
+
+
             }
         }
-        else if (other.tag == "Medkit" && this.tag == "Player")
+        else
+        if (other.tag == "Medkit")
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
             currentHealth += medkitUse.Use();
@@ -148,6 +151,10 @@ public class Player : Character3D
             if (!invincible)
             {
                 currentHealth -= enemy.Damage;
+                if (currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
 
                 // Aquí pon la animación de puntos de vida perdidos
 
@@ -175,8 +182,8 @@ public class Player : Character3D
     }
     IEnumerator WaitForPassiveHeal()
     {
-        yield return new WaitForSeconds(10.0f);
-        //Debug.Log("te curaste");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("te curaste");
 
         if (currentHealth < maxHealth)
         {
@@ -189,7 +196,9 @@ public class Player : Character3D
                 currentHealth += cure;
             }
         }
+
     }
+
 
     IEnumerator Damage(Enemy enemy)
     {
@@ -204,18 +213,12 @@ public class Player : Character3D
 
     public void Death()
     {
-        alive = false;
         // Insert death animation
-        Debug.Log("El jugador está muerto");
+        Debug.Log("El jugador esta muerto");
 
         Destroy(gameObject.GetComponent<Collider>());
 
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
-    }
-
-    float distanceToLeader
-    {
-        get => Vector3.Distance(this.transform.position, GameManager.instance.party.CurrentParty[npcLeader].transform.position);
     }
 }

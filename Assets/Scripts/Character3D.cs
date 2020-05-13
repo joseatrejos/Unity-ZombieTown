@@ -20,14 +20,13 @@ public class Character3D : MonoBehaviour
 
     //********Jump**********
     [SerializeField] protected bool jump = false;
+    protected bool invencible = false;
     protected float scale;
     //*******
 
     //****** Follow
     protected bool moving;
-    protected bool invencible = false;
-    protected bool alive = true;
-    
+
     [SerializeField] Player leader;
 
     [SerializeField] float minDistanceFollow;
@@ -47,6 +46,7 @@ public class Character3D : MonoBehaviour
 
     [SerializeField] private bool hasParty;
 
+
     public bool HasParty { get => hasParty; set => hasParty = value; }
 
     [SerializeField]
@@ -57,9 +57,6 @@ public class Character3D : MonoBehaviour
 
     [SerializeField]
     protected float cure;
-
-    protected int npcLeader = -1;
-
     //********
 
     void Update()
@@ -89,13 +86,14 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
+     
         if (hasParty)
         {
-            if (leader)
-            {
+               if (leader)
+                {
                 moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
 
-                if (moving && gameObject.tag == "NPC")
+                if (moving)
                 {
                     // Esto es para decirle a la animación hacia donde tiene que moverse
                     npcDirection = leader.transform.position - transform.position;
@@ -114,16 +112,18 @@ public class Character3D : MonoBehaviour
         }
     }
 
-    /*
     protected bool FlipSprite
     {
-        get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
+        //get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
+        get => true;
     }
-    */
-    
-    protected int NewNPCsNumber
+
+    void OnCollisionEnter(Collision other)
     {
-        get => GameManager.instance.party.CurrentParty.Count - 1;
+        if (other.collider.CompareTag("Player"))
+        {
+            Physics.IgnoreCollision(other.collider, collider);
+        }
     }
 
     public Player Target

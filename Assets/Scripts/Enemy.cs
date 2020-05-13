@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     //Animator animator;
-
     [SerializeField]
     float health = 100;
     public float Health { get => health; set => health = value; }
@@ -29,6 +28,7 @@ public class Enemy : MonoBehaviour
     
     public int KillPoints { get => killPoints; }
 
+
     NavMeshAgent navMeshAgent;
 
     void Start()
@@ -38,11 +38,11 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.party.PartyDeath)
+        if(!GameManager.instance.party.PartyDeath)
         {
-            if (AttackRange)
+            if(AttackRange)
             {
-                if (!GameManager.instance.IsInChase)
+                if(!GameManager.instance.IsInChase)
                 {
                     GameManager.instance.BeginChase();
                 }
@@ -53,21 +53,17 @@ public class Enemy : MonoBehaviour
             {
                 navMeshAgent.destination = transform.position;
 
-                if (GameManager.instance.IsInChase && distanceToPlayer <= minDistance && !GameManager.instance.IsInCombat)
+                if(GameManager.instance.IsInChase && distanceToPlayer <= minDistance && !GameManager.instance.IsInCombat)
                 {
                     GameManager.instance.StartCombat();
                     //animator.SetLayerWeight(1, 1);
                 }
-                else if (OutOfAttackRange)
+                else if(OutOfAttackRange)
                 {
                     GameManager.instance.EscapeCombatAndChase();
                     EndEnemyCombat();
                 }
             }
-        }
-        else
-        {
-            GameManager.instance.GameOver();
         }
     }
 
@@ -86,14 +82,14 @@ public class Enemy : MonoBehaviour
     {
         get => GameManager.instance.IsInChase && distanceToPlayer > minDistance;
     }
-
+    
     bool AttackRange
     {
         get => distanceToPlayer <= minDistance && distanceToPlayer > navMeshAgent.stoppingDistance;
     }
 
     float distanceToPlayer
-    {
+    {        
         get => Vector3.Distance(this.transform.position, GameManager.instance.party.CurrentParty[0].transform.position);
     }
 
