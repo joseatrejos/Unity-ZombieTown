@@ -22,6 +22,10 @@ public class Player : Character3D
 
     protected bool invincible;
 
+
+    public NavMeshAgent navMeshAgent;
+
+
     void Start()
     {
         // WeaponVisibility(false);
@@ -62,8 +66,12 @@ public class Player : Character3D
         else
         {
             base.Move();
-
-            StartCoroutine(WaitForPassiveHeal());
+            for (int i = 1; GameManager.instance.party.CurrentParty.Count > i; i++)
+            {
+                
+                StartCoroutine(WaitForPassiveHeal());
+                GameManager.instance.party.CurrentParty[i].navMeshAgent.destination = GameManager.instance.party.CurrentParty[i - 1].transform.position;
+            }
         }
     }
 
@@ -115,7 +123,25 @@ public class Player : Character3D
             Debug.Log(currentHealth);
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.tag == "Enemy" && this.tag == "Player")
+        else
+        if (other.tag == "Obstacle")
+        {
+            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
+            obstacle.ShowMessage();
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Obstacle")
+        {
+            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
+            obstacle.HideMessage();
+        }
+    }
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy" && this.tag == "Player")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
@@ -135,20 +161,6 @@ public class Player : Character3D
                 StartCoroutine(Damage(enemy));
                 invincible = true;
             }
-        }
-        else if (other.tag == "Obstacle" && this.tag == "Player")
-        {
-            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
-            obstacle.ShowMessage();
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Obstacle" && this.tag == "Player")
-        {
-            Obstacle obstacle = other.GetComponent<Obstacle>(); ;
-            obstacle.HideMessage();
         }
     }
 
