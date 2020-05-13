@@ -6,7 +6,12 @@ ModelImporter:
   - first:
       74: 8273325049105940540
     second: Dead
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: UVS-Coloreados-Personaje-3
+    second: {fileID: 2800000, guid: 2fb7e92c0820969468184f703b872ea2, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
