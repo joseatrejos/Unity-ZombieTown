@@ -13,7 +13,7 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
 2. Recolectables:  
   - ~~Botiquines.~~  
   - ~~NPCs (quien sabe si habrá texto, probablemente no).~~  
-  - ~~2 armas~~ (Escopeta, pistola y si hay tiempo, una metralleta).  
+  - ~~2 armas (Escopeta, pistola y si hay tiempo,~~ una metralleta).  
   - ~~Antídotos para encontrar la cura del virus.~~  
   - ~~Buffs para mejorar el gameplay (Disparo más rapido, Velocidad de movimiento, invencibilidad de 5-10 segundos, disparas más fuerte, quien sabe)~~  
 3. UI  
