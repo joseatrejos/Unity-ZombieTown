@@ -6,8 +6,14 @@ using Platform2DUtils.GameplaySystem;
 public class Player : Character3D
 {
 
-   // [SerializeField]
-   // GameObject weapon;
+    [SerializeField]
+    Object bulletSrc;
+
+    [SerializeField]
+    List<GameObject> bullets;
+
+    [SerializeField, Range(7, 40)]
+    float bulletsLimit = 8f;
 
     protected bool invincible;
 
@@ -35,23 +41,43 @@ public class Player : Character3D
             }
 
             //animator
-            
-           
             //anim.SetBool("moving", moving);
-               if(GameplaySystem.Axis3D != Vector3.zero)
-                {
-                  transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
-                }
+            if (GameplaySystem.Axis3D != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
+            }
 
+            if(GameplaySystem.JumpBtn)
+            {
+                Shoot();
+            }
         }
         else
         {
-             StartCoroutine(WaitForPassiveHeal());
+            StartCoroutine(WaitForPassiveHeal());
             base.Move();
         }
     }
-    
-    
+
+    void Shoot()
+    {
+        // Bullet bullet = bulletGameObject.GetComponent<Bullet>();
+        if(CanCreateBullets)
+        {
+            GameObject bulletGameObject = (GameObject) Instantiate(bulletSrc, transform.position, transform.rotation);
+            bullets.Add(bulletGameObject);
+        }
+    }
+
+    bool CanCreateBullets
+    {
+        get => bullets.Count < bulletsLimit;
+    }
+
+    public void RemoveBullet(GameObject bullet)
+    {
+        bullets.Remove(bullet);
+    }
 
     public void WeaponVisibility(bool visibility)
     {
@@ -64,23 +90,23 @@ public class Player : Character3D
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
-            
+
             Debug.Log("ganastePuntos");
             Destroy(other.gameObject);
         }
-        if(other.CompareTag("NPC"))
+        if (other.CompareTag("NPC"))
         {
-             Player p = other.GetComponent<Player>();
-            if(!p.HasParty)
+            Player p = other.GetComponent<Player>();
+            if (!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
             }
         }
-        if(other.tag == "Medkit")
+        if (other.tag == "Medkit")
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
             currentHealth += medkitUse.Use();
-            if(currentHealth > maxHealth)
+            if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
             }
@@ -93,7 +119,7 @@ public class Player : Character3D
     {
         yield return new WaitForSeconds(6.0f);
 
-        if(currentHealth < maxHealth)
+        if (currentHealth < maxHealth)
         {
             currentHealth += cure;
         }
@@ -101,29 +127,29 @@ public class Player : Character3D
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Enemy" && this.tag == "Player")
+        if (other.gameObject.tag == "Enemy" && this.tag == "Player")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-            if(!invincible)
-            {               
+            if (!invincible)
+            {
                 currentHealth -= enemy.Damage;
-                if(currentHealth > maxHealth)
+                if (currentHealth > maxHealth)
                 {
                     currentHealth = maxHealth;
                 }
-                
+
                 // Aquí pon la animación de puntos de vida perdidos
                 Debug.Log("Te quedan " + currentHealth + " puntos de vida");
 
-                StartCoroutine(Damage(enemy));
+                StartCoroutine(ReceiveDamage(enemy));
                 invincible = true;
-            }            
+            }
         }
     }
 
-    IEnumerator Damage(Enemy enemy)
-    {   
+    IEnumerator ReceiveDamage(Enemy enemy)
+    {
         yield return new WaitForSeconds(3.0f);
         invincible = false;
     }
