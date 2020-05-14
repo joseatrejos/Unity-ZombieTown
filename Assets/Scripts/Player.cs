@@ -66,7 +66,7 @@ public class Player : Character3D
             base.Move();
             for (int i = 1; GameManager.instance.party.CurrentParty.Count > i; i++)
             {
-                
+
                 StartCoroutine(WaitForPassiveHeal());
                 GameManager.instance.party.CurrentParty[i].navMeshAgent.destination = GameManager.instance.party.CurrentParty[i - 1].transform.position;
             }
@@ -112,7 +112,7 @@ public class Player : Character3D
             }
         }
         else
-        if (other.tag == "Medkit" && this.tag == "Player") 
+        if (other.tag == "Medkit" && this.tag == "Player")
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
             currentHealth += medkitUse.Use();
@@ -142,23 +142,22 @@ public class Player : Character3D
     }
     void OnCollisionEnter(Collision other)
     {
+        // Reset rigidbody impulse to avoid perpetual rotation/movement
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
         if (other.gameObject.tag == "Enemy")
         {
             // Intento #1
             //rb.AddForce(Vector3.back * Axis.x, ForceMode.Impulse);
             //transform.position = (other.transform.position - new Vector3(1f, 0f, 0f) );
-            
+
             /* Intento #2
             ContactPoint contact = other.GetContact(0);
             Vector3 dir = contact.normal - transform.position;
             dir = -dir.normalized;
             rigidbody.AddForce(dir*pushDamagedForce);
             */
-
-            // Reset rigidbody impulse to avoid perpetual rotation/movement
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-
             if (this.tag == "Player")
             {
                 Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -192,11 +191,11 @@ public class Player : Character3D
         if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
-            if(obstacle.CanInteract)
+            if (obstacle.CanInteract)
             {
                 obstacle.Unlock();
                 obstacle.waitForHideMessage();
-                if(Input.GetButton("Acept"))
+                if (Input.GetButton("Acept"))
                 {
                     obstacle.CanInteract = false;
                 }

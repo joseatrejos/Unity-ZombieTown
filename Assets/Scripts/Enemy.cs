@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     
     public int KillPoints { get => killPoints; }
 
-
+    Rigidbody rb;
     NavMeshAgent navMeshAgent;
 
     void Start()
@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour
     {
         //animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
     }
       void Update()
     {
@@ -114,10 +115,11 @@ public class Enemy : MonoBehaviour
         //Destroy(gameObject, 2.0f);
     }
     
-    protected bool GetAxis
+    void OnCollisionEnter(Collision other)
     {
-        //get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
-        get => true;
+        // Reset rigidbody impulse to avoid perpetual rotation/movement
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;    
     }
 
 }
