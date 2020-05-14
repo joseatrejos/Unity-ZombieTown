@@ -23,7 +23,6 @@ public class Player : Character3D
 
     public NavMeshAgent navMeshAgent;
 
-
     void Start()
     {
         //WeaponVisibility(false);
@@ -145,11 +144,21 @@ public class Player : Character3D
     {
         if (other.gameObject.tag == "Enemy")
         {
+            // Intento #1
             //rb.AddForce(Vector3.back * Axis.x, ForceMode.Impulse);
             //transform.position = (other.transform.position - new Vector3(1f, 0f, 0f) );
             
+            /* Intento #2
+            ContactPoint contact = other.GetContact(0);
+            Vector3 dir = contact.normal - transform.position;
+            dir = -dir.normalized;
+            rigidbody.AddForce(dir*pushDamagedForce);
+            */
+
+            // Reset rigidbody impulse to avoid perpetual rotation/movement
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+
             if (this.tag == "Player")
             {
                 Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -210,7 +219,6 @@ public class Player : Character3D
                 currentHealth += cure;
             }
         }
-
     }
 
 
@@ -235,5 +243,4 @@ public class Player : Character3D
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
     }
-    
 }

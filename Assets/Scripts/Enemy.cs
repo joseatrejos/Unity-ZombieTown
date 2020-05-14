@@ -114,9 +114,10 @@ public class Enemy : MonoBehaviour
         //Destroy(gameObject, 2.0f);
     }
     
-    protected Vector3 GetAxis
+    protected bool GetAxis
     {
-        get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
+        //get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
+        get => true;
     }
 
 }
