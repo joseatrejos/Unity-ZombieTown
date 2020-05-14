@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 578cc43d968c17b4980ffb18bfc35369
+guid: 2bac5d5587ca25c41921ed6ce7a45d1d
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
@@ -39,7 +39,7 @@ ModelImporter:
       takeName: Attack
       internalID: 0
       firstFrame: 1
-      lastFrame: 50
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -62,7 +62,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 0
   meshes:
     lODScreenPercentages: []
