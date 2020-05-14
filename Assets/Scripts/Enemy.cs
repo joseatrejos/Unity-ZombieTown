@@ -36,7 +36,17 @@ public class Enemy : MonoBehaviour
         // Spawn
     }
 
-    void Update()
+    void LateUpdate()
+    {
+        //animator.SetBool("attack", AttackRange);
+    }
+
+    void Awake()
+    {
+        //animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+      void Update()
     {
         if(!GameManager.instance.party.PartyDeath)
         {
@@ -67,17 +77,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void LateUpdate()
-    {
-        //animator.SetBool("attack", AttackRange);
-    }
-
-    void Awake()
-    {
-        //animator = GetComponent<Animator>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
-    }
-
     bool OutOfAttackRange
     {
         get => GameManager.instance.IsInChase && distanceToPlayer > minDistance;
@@ -104,13 +103,13 @@ public class Enemy : MonoBehaviour
         // Insert death animation
         Debug.Log("El enemigo esta muerto");
 
-        GameManager.instance.CountZombieKill(kill);
+        GameManager.instance.CountZombieKill(kill,killPoints);
 
-        navMeshAgent.isStopped = true;
-
-        Destroy(gameObject.GetComponent<Collider>());
+        transform.position = ObjectPooler.Instance.transform.position + new Vector3(Random.Range(-4.0f, 4.0f), 0, Random.Range(-4.0f, 4.0f));
+        //Destroy(gameObject.GetComponent<Collider>());
 
         // Replace seconds for the correct animations duration
-        Destroy(gameObject, 2.0f);
+        //Destroy(gameObject, 2.0f);
     }
+
 }

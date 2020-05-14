@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     int score = 0;
     
-    public int Score { get => score; }
+    public int Score { get => score; set => score = value; }
     [SerializeField] Text txtScore;
 
     
@@ -118,9 +118,9 @@ public class GameManager : MonoBehaviour
         txtScore.text = $"Score: {score} pts";
     }
 
-    public void CountZombieKill(int kill)
+    public void CountZombieKill(int kill,int killPoints)
     {
-        score += enemy.KillPoints;
+        score += killPoints;
         kills += kill;
         Debug.Log(kills);
         Debug.Log("Tienes " + score + " Puntos");

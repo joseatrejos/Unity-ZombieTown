@@ -96,7 +96,7 @@ public class Player : Character3D
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Collectable")
+        if (other.tag == "Collectable" && this.tag == "Player")
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             //GameManager.instance.AddPoints(collectable.Points);
@@ -104,7 +104,7 @@ public class Player : Character3D
             Destroy(other.gameObject);
         }
         else
-        if (other.tag == "NPC")
+        if (other.tag == "NPC" && this.tag == "Player")
         {
             Player p = other.GetComponent<Player>();
             if (!p.HasParty)
@@ -115,7 +115,7 @@ public class Player : Character3D
             }
         }
         else
-        if (other.tag == "Medkit")
+        if (other.tag == "Medkit" && this.tag == "Player") 
         {
             MedkitUse medkitUse = other.GetComponent<MedkitUse>();
             currentHealth += medkitUse.Use();
@@ -127,7 +127,7 @@ public class Player : Character3D
             Destroy(other.gameObject);
         }
         else
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
             obstacle.ShowMessage();
@@ -136,10 +136,11 @@ public class Player : Character3D
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
             obstacle.HideMessage();
+            obstacle.CanInteract = true;
         }
     }
     void OnCollisionEnter(Collision other)
@@ -176,8 +177,15 @@ public class Player : Character3D
         if (other.tag == "Obstacle" && this.tag == "Player")
         {
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
-            obstacle.Unlock();
-            obstacle.waitForHideMessage();
+            if(obstacle.CanInteract)
+            {
+                obstacle.Unlock();
+                obstacle.waitForHideMessage();
+                if(Input.GetButton("Acept"))
+                {
+                    obstacle.CanInteract = false;
+                }
+            }
         }
     }
     IEnumerator WaitForPassiveHeal()
@@ -221,4 +229,5 @@ public class Player : Character3D
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
     }
+    
 }

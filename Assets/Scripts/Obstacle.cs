@@ -16,6 +16,11 @@ public class Obstacle : MonoBehaviour
     // Start is called before the first frame update
 
     string defaultMessage;
+
+    bool canInteract = true;
+
+    public bool CanInteract { get => canInteract; set => canInteract = value; }
+
     void Start()
     {
         
@@ -43,6 +48,7 @@ public class Obstacle : MonoBehaviour
                     message = "Camino desbloqueado";
                     ShowMessage();
                     StartCoroutine(waitForHideMessage());
+                    GameManager.instance.Score -= ScoreCost;
                     
                 }else
                 {
@@ -76,4 +82,5 @@ public class Obstacle : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         HideMessage(); 
     }
+
 }
