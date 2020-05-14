@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Platform2DUtils.GameplaySystem;
 
 public class Enemy : MonoBehaviour
 {
@@ -106,10 +107,16 @@ public class Enemy : MonoBehaviour
         GameManager.instance.CountZombieKill(kill,killPoints);
 
         transform.position = ObjectPooler.Instance.transform.position + new Vector3(Random.Range(-4.0f, 4.0f), 0, Random.Range(-4.0f, 4.0f));
+
         //Destroy(gameObject.GetComponent<Collider>());
 
         // Replace seconds for the correct animations duration
         //Destroy(gameObject, 2.0f);
+    }
+    
+    protected Vector3 GetAxis
+    {
+        get => GameplaySystem.AxisTopdown.x < 0 ? true : GameplaySystem.AxisTopdown.x > 0 ? false : spr.flipX;
     }
 
 }

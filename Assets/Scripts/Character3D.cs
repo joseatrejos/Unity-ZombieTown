@@ -67,9 +67,7 @@ public class Character3D : MonoBehaviour
     void Awake()
     {
         //anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
-        
+        collider = GetComponent<Collider>();        
     }
 
     protected bool Grounding

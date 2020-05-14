@@ -15,11 +15,11 @@ public class Player : Character3D
     [SerializeField]
     float bulletsLimit = 5;
 
+    [SerializeField]
+    float pushDamagedForce = 20;
+
     // [SerializeField]
     // GameObject weapon;
-
-    protected bool invincible;
-
 
     public NavMeshAgent navMeshAgent;
 
@@ -33,7 +33,7 @@ public class Player : Character3D
     void Awake()
     {
         //animator = GetComponent<Animator>();
-
+        rb = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -110,8 +110,6 @@ public class Player : Character3D
             if (!p.HasParty)
             {
                 GameManager.instance.party.JoinParty(p);
-
-
             }
         }
         else
@@ -145,29 +143,37 @@ public class Player : Character3D
     }
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Enemy" && this.tag == "Player")
+        if (other.gameObject.tag == "Enemy")
         {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-
-            if (!invincible)
+            //rb.AddForce(Vector3.back * Axis.x, ForceMode.Impulse);
+            //transform.position = (other.transform.position - new Vector3(1f, 0f, 0f) );
+            
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            if (this.tag == "Player")
             {
-                currentHealth -= enemy.Damage;
-                if (currentHealth > maxHealth)
-                {
-                    currentHealth = maxHealth;
-                }
+                Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-                // Aquí pon la animación de puntos de vida perdidos
-
-                if (currentHealth <= 0)
+                if (!invencible)
                 {
-                    currentHealth = 0;
-                    GameManager.instance.party.KillLeader();
-                    Death();
+                    currentHealth -= enemy.Damage;
+                    if (currentHealth > maxHealth)
+                    {
+                        currentHealth = maxHealth;
+                    }
+
+                    // Aquí pon la animación de puntos de vida perdidos
+
+                    if (currentHealth <= 0)
+                    {
+                        currentHealth = 0;
+                        GameManager.instance.party.KillLeader();
+                        this.Death();
+                    }
+                    Debug.Log("Te quedan " + currentHealth + " puntos de vida");
+                    StartCoroutine(Damage());
+                    invencible = true;
                 }
-                Debug.Log("Te quedan " + currentHealth + " puntos de vida");
-                StartCoroutine(Damage(enemy));
-                invincible = true;
             }
         }
     }
@@ -208,10 +214,10 @@ public class Player : Character3D
     }
 
 
-    IEnumerator Damage(Enemy enemy)
+    IEnumerator Damage()
     {
         yield return new WaitForSeconds(3.0f);
-        invincible = false;
+        invencible = false;
     }
 
     public void RemoveBullet(GameObject bullet)
