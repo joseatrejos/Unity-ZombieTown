@@ -54,6 +54,10 @@ public class Party
         currentParty.Add(p);
         currentParty[currentParty.Count-1].Target = currentParty[currentParty.Count-2];
         p.HasParty = true;
+        if(currentParty.Count == 2)
+        {
+            GameManager.instance.CantChange.SetActive(false);
+        }
     }
 
     ///<summary>
@@ -83,6 +87,7 @@ public class Party
             canChange = false;
             currentParty[0].navMeshAgent.enabled = false;
             currentParty[0].GetComponent<Collider>().isTrigger = false;
+            GameManager.instance.party.currentParty[0].ScaleLife();
         }
     }
 
@@ -105,6 +110,7 @@ public class Party
             currentParty[0].Target = null;
             currentParty[0].navMeshAgent.enabled = false;
             currentParty[0].GetComponent<Collider>().isTrigger = false;
+            GameManager.instance.party.currentParty[0].ScaleLife();
         } 
         else
         {
@@ -116,6 +122,7 @@ public class Party
     public IEnumerator waitForChange()
     {
         yield return new WaitForSeconds(6.0f);
+        GameManager.instance.CantChange.SetActive(false);
         canChange = true;
         Debug.Log("Puedes cambiar");
     }

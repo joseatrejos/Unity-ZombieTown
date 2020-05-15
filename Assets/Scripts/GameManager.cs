@@ -40,7 +40,29 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     public Party party; 
+
+    [SerializeField]
+    GameObject cantChange;
+    public GameObject CantChange { get => cantChange; set => cantChange = value; }
+    [SerializeField]
+    GameObject invencible;
     
+    public GameObject Invencible { get => invencible; set => invencible = value; }
+
+
+     [SerializeField]
+    GameObject life;
+    
+    public GameObject Life { get => life; set => life = value; }
+  
+    [SerializeField] Text txtRound;
+
+    int round = 1;
+
+    float scale;
+
+    public float Scale { get => scale; set => scale = value; }
+
     void Awake()
     {
         if(!instance)
@@ -107,21 +129,15 @@ public class GameManager : MonoBehaviour
         {
             if(party.CurrentParty.Count > 1)
             {
-                
-            StartCoroutine(party.waitForChange());
+                 cantChange.SetActive(true);
+                StartCoroutine(party.waitForChange());
             } else
             {
+                cantChange.SetActive(true);
                 Debug.Log("solo tienes un personaje en el grupo");
             }
         }
         party.SwapLeader();
-    }
-
-    public void AddPoints(int points)
-    {
-        this.score += points;
-        
-        txtScore.text = $"Score: {score} pts";
     }
 
     public void CountZombieKill(int kill,int killPoints)
@@ -130,6 +146,16 @@ public class GameManager : MonoBehaviour
         kills += kill;
         Debug.Log(kills);
         Debug.Log("Tienes " + score + " Puntos");
+        txtScore.text = $"{score}";
+    }
+
+    public void ChangeRound()
+    {
+        if(kills > round * 5)
+        {
+            round++;
+            txtRound.text = $"{round}";
+        }
     }
     
     // Reset Buff stats after 12 seconds
