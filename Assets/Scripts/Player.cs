@@ -148,16 +148,6 @@ public class Player : Character3D
 
         if (other.gameObject.tag == "Enemy")
         {
-            // Intento #1
-            //rb.AddForce(Vector3.back * Axis.x, ForceMode.Impulse);
-            //transform.position = (other.transform.position - new Vector3(1f, 0f, 0f) );
-
-            /* Intento #2
-            ContactPoint contact = other.GetContact(0);
-            Vector3 dir = contact.normal - transform.position;
-            dir = -dir.normalized;
-            rigidbody.AddForce(dir*pushDamagedForce);
-            */
             if (this.tag == "Player")
             {
                 Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -165,9 +155,13 @@ public class Player : Character3D
                 if (!invencible)
                 {
                     currentHealth -= enemy.Damage;
+
+                    ScaleLife();
+                      
                     if (currentHealth > maxHealth)
                     {
                         currentHealth = maxHealth;
+                         GameManager.instance.Life.transform.localScale = new Vector3(10.07844f,10.07844f,10.07844f);
                     }
 
                     // Aquí pon la animación de puntos de vida perdidos
@@ -177,6 +171,8 @@ public class Player : Character3D
                         currentHealth = 0;
                         GameManager.instance.party.KillLeader();
                         this.Death();
+
+                        GameManager.instance.Life.SetActive(false);
                     }
                     Debug.Log("Te quedan " + currentHealth + " puntos de vida");
                     StartCoroutine(Damage());
@@ -207,7 +203,7 @@ public class Player : Character3D
     IEnumerator WaitForPassiveHeal()
     {
         yield return new WaitForSeconds(1.0f);
-        Debug.Log("te curaste");
+        //Debug.Log("te curaste");
 
         if (currentHealth < maxHealth)
         {
@@ -244,5 +240,12 @@ public class Player : Character3D
 
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
+    }
+
+    public void ScaleLife()
+    {
+         GameManager.instance.Scale = (currentHealth * 100) / maxHealth;        
+       
+        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f * (GameManager.instance.Scale/100f) ,10.07844f * (GameManager.instance.Scale/100f),10.07844f * (GameManager.instance.Scale/100f)); 
     }
 }

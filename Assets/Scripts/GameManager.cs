@@ -43,12 +43,21 @@ public class GameManager : MonoBehaviour
     GameObject invencible;
     
     public GameObject Invencible { get => invencible; set => invencible = value; }
+
+
+     [SerializeField]
+    GameObject life;
+    
+    public GameObject Life { get => life; set => life = value; }
+  
     [SerializeField] Text txtRound;
 
     int round = 1;
 
+    float scale;
 
-    
+    public float Scale { get => scale; set => scale = value; }
+
     void Awake()
     {
         if(!instance)
@@ -144,4 +153,5 @@ public class GameManager : MonoBehaviour
             txtRound.text = $"{round}";
         }
     }
+
 }
