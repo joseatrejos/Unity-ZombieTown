@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     Button btnResume;
     [SerializeField]
     Button btnMain;
-    
+
     void Awake()
     {
         btnResume.onClick.AddListener(togglePause);
@@ -22,13 +22,13 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause"))
             togglePause();
     }
-    
+
     void togglePause()
     {
-        if(Time.timeScale == 0f)
+        if (Time.timeScale == 0f)
         {
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
@@ -38,14 +38,14 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
-            paused = true;    
+            paused = true;
         }
-   }
+    }
 
-   void LoadMenu()
-   {
-       pauseMenu.SetActive(false);
-       //Main menu
-       SceneManager.LoadScene(1);
-   }
+    void LoadMenu()
+    {
+        pauseMenu.SetActive(false);
+        //Main menu
+        SceneManager.LoadScene(1);
+    }
 }

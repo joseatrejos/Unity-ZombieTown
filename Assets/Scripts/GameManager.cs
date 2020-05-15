@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     public GameObject gameOver;
+
+    [SerializeField]
+    public GameObject gameWin;
     
     public GameObject Life { get => life; set => life = value; }
   
@@ -65,6 +68,12 @@ public class GameManager : MonoBehaviour
     int round = 1;
 
     float scale;
+
+    [SerializeField] int vaccineCount = 0;
+    public int VaccineCount { get => vaccineCount; }
+    [SerializeField] int winCount = 10;
+    public int WinCount { get => winCount; }
+
 
     public float Scale { get => scale; set => scale = value; }
 
@@ -88,6 +97,7 @@ public class GameManager : MonoBehaviour
         party.InitParty();
 
         gameOver.SetActive(false);
+        gameWin.SetActive(false);
     }
 
     public void StartCombat()
@@ -95,8 +105,8 @@ public class GameManager : MonoBehaviour
         soundManager.WeaponDrawn();
         StartCoroutine(DelayedCombatMusic());
         isInCombat = true;
-       // player.Animator.SetLayerWeight(1, 1);
-       // player.WeaponVisibility(true);
+        // player.Animator.SetLayerWeight(1, 1);
+        // player.WeaponVisibility(true);
         isInCombat = true;
     }
 
@@ -199,5 +209,16 @@ public class GameManager : MonoBehaviour
                 instakillBuff = false;
             break;
         }
+    }
+    
+    public void AddPoints(int points)
+    {
+        vaccineCount += points;
+        Debug.Log("Numero de vacunas: " + vaccineCount);
+    }
+
+    public bool Win
+    {
+        get =>  VaccineCount >= WinCount;
     }
 }

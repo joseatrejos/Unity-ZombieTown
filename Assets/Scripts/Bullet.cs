@@ -42,17 +42,18 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             enemy.Health -= GameManager.instance.bulletDamage;
-            
-            if(enemy.Health <= 0 || GameManager.instance.instakillBuff == true)
+
+            if (enemy.Health <= 0 || GameManager.instance.instakillBuff == true)
             {
                 enemy.Health = 0;
                 enemy.Death();
-            } else
-                Debug.Log("El enemigo tiene: " + enemy.Health + " puntos de vida restantes");                
+            }
+            else
+                Debug.Log("El enemigo tiene: " + enemy.Health + " puntos de vida restantes");
         }
     }
 }

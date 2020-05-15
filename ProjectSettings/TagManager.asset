@@ -10,7 +10,6 @@ TagManager:
   - Medkit
   - Obstacle
   - Buff
-  - GameOver
   layers:
   - Default
   - TransparentFX

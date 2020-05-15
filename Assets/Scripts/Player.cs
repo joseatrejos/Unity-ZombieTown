@@ -38,7 +38,7 @@ public class Player : Character3D
 
     void Update()
     {
-        if (!isNpc)
+        if (!isNpc && !GameManager.instance.Win)
         {
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
@@ -98,9 +98,12 @@ public class Player : Character3D
         if (other.tag == "Collectable" && this.tag == "Player")
         {
             CollectableObject collectable = other.GetComponent<CollectableObject>();
-            //GameManager.instance.AddPoints(collectable.Points);
-            Debug.Log("ganastePuntos");
+            GameManager.instance.AddPoints(collectable.Points);
             Destroy(other.gameObject);
+            if(GameManager.instance.Win)
+            {
+                GameManager.instance.gameWin.SetActive(true);
+            }
         }
         else
         if (other.tag == "NPC" && this.tag == "Player")
@@ -130,33 +133,33 @@ public class Player : Character3D
             obstacle.ShowMessage();
         }
         else
-        if(other.tag == "Buff" && this.tag =="Player")
+        if (other.tag == "Buff" && this.tag == "Player")
         {
             CollectedBuff buffUse = other.GetComponent<CollectedBuff>();
-            
-            switch(buffUse.Buffs.name)
+
+            switch (buffUse.Buffs.name)
             {
                 case "SpeedBuff":
                     buffUse.ApplySpeedBuff(this.GetComponent<Player>());
                     StartCoroutine(ResetSpeedBuff());
                     break;
 
-                case "DamageBuff":                
+                case "DamageBuff":
                     buffUse.ApplyDamageBuff();
-                    StartCoroutine( GameManager.instance.ResetBuffs("damage") );
+                    StartCoroutine(GameManager.instance.ResetBuffs("damage"));
                     break;
 
-                case "Instakill":    
+                case "Instakill":
                     buffUse.ApplyInstaKillBuff();
-                    StartCoroutine( GameManager.instance.ResetBuffs("instakill") );
+                    StartCoroutine(GameManager.instance.ResetBuffs("instakill"));
                     break;
 
-                case "DefenseBuff":    
+                case "DefenseBuff":
                     buffUse.ApplyDefenseBuff();
-                    StartCoroutine( GameManager.instance.ResetBuffs("defense") );
+                    StartCoroutine(GameManager.instance.ResetBuffs("defense"));
                     break;
             }
-            
+
             Destroy(other.gameObject);
         }
     }
@@ -188,11 +191,11 @@ public class Player : Character3D
                     currentHealth -= GameManager.instance.zombieDamage;
 
                     ScaleLife();
-                    
+
                     if (currentHealth > maxHealth)
                     {
                         currentHealth = maxHealth;
-                        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f,10.07844f,10.07844f);
+                        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f, 10.07844f, 10.07844f);
                     }
 
                     // Aquí pon la animación de puntos de vida perdidos
@@ -219,7 +222,7 @@ public class Player : Character3D
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
-    
+
     void OnTriggerStay(Collider other)
     {
         if (other.tag == "Obstacle" && this.tag == "Player")
@@ -264,7 +267,7 @@ public class Player : Character3D
     IEnumerator ResetSpeedBuff()
     {
         yield return new WaitForSeconds(12f);
-        moveSpeed *= (2.0f/3.0f);
+        moveSpeed *= (2.0f / 3.0f);
         Debug.Log("Speed Buff reset");
     }
 
@@ -283,7 +286,7 @@ public class Player : Character3D
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
 
-        if(GameManager.instance.party.CurrentParty.Count == 0)
+        if (GameManager.instance.party.CurrentParty.Count == 0)
         {
             // Make this a coroutine if you want to delay the GameOver-animation to be able to see your last leader's death
             GameManager.instance.gameOver.SetActive(true);
@@ -292,8 +295,8 @@ public class Player : Character3D
 
     public void ScaleLife()
     {
-        GameManager.instance.Scale = (currentHealth * 100) / maxHealth;        
-       
-        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f * (GameManager.instance.Scale/100f) ,10.07844f * (GameManager.instance.Scale/100f),10.07844f * (GameManager.instance.Scale/100f)); 
+        GameManager.instance.Scale = (currentHealth * 100) / maxHealth;
+
+        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f * (GameManager.instance.Scale / 100f), 10.07844f * (GameManager.instance.Scale / 100f), 10.07844f * (GameManager.instance.Scale / 100f));
     }
 }

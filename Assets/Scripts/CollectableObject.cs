@@ -6,7 +6,6 @@ public class CollectableObject : MonoBehaviour
 {
     [SerializeField]
     int points;
-    
-    public int Points { get => points; }
 
+    public int Points { get => points; }
 }

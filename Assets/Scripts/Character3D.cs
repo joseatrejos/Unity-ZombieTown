@@ -67,7 +67,7 @@ public class Character3D : MonoBehaviour
     void Awake()
     {
         //anim = GetComponent<Animator>();
-        collider = GetComponent<Collider>();        
+        collider = GetComponent<Collider>();
     }
 
     protected bool Grounding
@@ -84,11 +84,11 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
-     
+
         if (hasParty)
         {
-               if (leader)
-                {
+            if (leader)
+            {
                 moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
 
                 if (moving)

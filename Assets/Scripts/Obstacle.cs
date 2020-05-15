@@ -8,7 +8,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField]
     TextBoxDialogue textBox;
 
-    [SerializeField,TextArea(3,5)]
+    [SerializeField, TextArea(3, 5)]
     string message;
 
     [SerializeField]
@@ -23,10 +23,10 @@ public class Obstacle : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
-     void Awake()
+    void Awake()
     {
         defaultMessage = message;
     }
@@ -34,33 +34,35 @@ public class Obstacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Unlock()
     {
-            if(Input.GetButton("Acept"))
+        if (Input.GetButton("Acept"))
+        {
+            if (GameManager.instance.Score >= ScoreCost)
             {
-                if(GameManager.instance.Score >= ScoreCost)
-                {
-                    Destroy(gameObject,1.3f);
-                    HideMessage();
-                    message = "Camino desbloqueado";
-                    ShowMessage();
-                    StartCoroutine(waitForHideMessage());
-                    GameManager.instance.Score -= ScoreCost;
-                    
-                }else
-                {
-                    HideMessage();
-                    message = "Puntos Insuficientes";
-                    ShowMessage();
-                }
-            }else
-            if(Input.GetButton("Cancel"))
+                Destroy(gameObject, 1.3f);
+                HideMessage();
+                message = "Camino desbloqueado";
+                ShowMessage();
+                StartCoroutine(waitForHideMessage());
+                GameManager.instance.Score -= ScoreCost;
+
+            }
+            else
             {
                 HideMessage();
+                message = "Puntos Insuficientes";
+                ShowMessage();
             }
+        }
+        else
+        if (Input.GetButton("Cancel"))
+        {
+            HideMessage();
+        }
     }
 
     public void ShowMessage()
@@ -72,15 +74,15 @@ public class Obstacle : MonoBehaviour
 
     public void HideMessage()
     {
-         textBox.gameObject.SetActive(false);
-         textBox.ClearText();
-         message = defaultMessage;
+        textBox.gameObject.SetActive(false);
+        textBox.ClearText();
+        message = defaultMessage;
     }
 
-   public IEnumerator waitForHideMessage()
+    public IEnumerator waitForHideMessage()
     {
         yield return new WaitForSeconds(1.0f);
-        HideMessage(); 
+        HideMessage();
     }
 
 }
