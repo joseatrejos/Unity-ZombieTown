@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
         {
             if(AttackRange)
             {
+                this.GetComponent<Collider>().isTrigger = false;
                 if(!GameManager.instance.IsInChase)
                 {
                     GameManager.instance.BeginChase();
@@ -106,6 +107,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("El enemigo esta muerto");
 
         GameManager.instance.CountZombieKill(kill,killPoints);
+        GameManager.instance.ChangeRound();
 
         transform.position = ObjectPooler.Instance.transform.position + new Vector3(Random.Range(-4.0f, 4.0f), 0, Random.Range(-4.0f, 4.0f));
 
