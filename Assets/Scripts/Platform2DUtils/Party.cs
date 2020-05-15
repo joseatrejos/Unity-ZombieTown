@@ -22,7 +22,6 @@ public class Party
     bool partyDeath = false;
     public bool PartyDeath { get => partyDeath; }
 
-
     public Player[] Players { get => players; set => players = value; }
     public List<Player> CurrentParty { get => currentParty; set => currentParty = value; }
 

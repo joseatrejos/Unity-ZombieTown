@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public bool instakillBuff = false;
 
+    [SerializeField]
+    public float enemySpeed = 3.5f;
+
     [SerializeField] SoundManager soundManager;
     AudioSource audioSource;
 
@@ -49,8 +52,7 @@ public class GameManager : MonoBehaviour
     
     public GameObject Invencible { get => invencible; set => invencible = value; }
 
-
-     [SerializeField]
+    [SerializeField]
     GameObject life;
     
     public GameObject Life { get => life; set => life = value; }
@@ -155,6 +157,10 @@ public class GameManager : MonoBehaviour
         {
             round++;
             txtRound.text = $"{round}";
+            if(enemySpeed <= player.moveSpeed)
+                enemySpeed *= 1.01f;
+            else
+                zombieDamage *= 1.05f;
         }
     }
     

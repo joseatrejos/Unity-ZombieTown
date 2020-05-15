@@ -188,11 +188,11 @@ public class Player : Character3D
                     currentHealth -= GameManager.instance.zombieDamage;
 
                     ScaleLife();
-                      
+                    
                     if (currentHealth > maxHealth)
                     {
                         currentHealth = maxHealth;
-                         GameManager.instance.Life.transform.localScale = new Vector3(10.07844f,10.07844f,10.07844f);
+                        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f,10.07844f,10.07844f);
                     }
 
                     // Aquí pon la animación de puntos de vida perdidos
@@ -201,9 +201,8 @@ public class Player : Character3D
                         currentHealth = 0;
                         GameManager.instance.party.KillLeader();
                         this.Death();
-
-                        GameManager.instance.Life.SetActive(false);
                     }
+
                     Debug.Log("Te quedan " + currentHealth + " puntos de vida");
                     StartCoroutine(Damage());
                     GameManager.instance.Invencible.SetActive(true);
@@ -212,7 +211,6 @@ public class Player : Character3D
             }
         }
     }
-
 
     void OnTriggerStay(Collider other)
     {
@@ -280,7 +278,7 @@ public class Player : Character3D
 
     public void ScaleLife()
     {
-         GameManager.instance.Scale = (currentHealth * 100) / maxHealth;        
+        GameManager.instance.Scale = (currentHealth * 100) / maxHealth;        
        
         GameManager.instance.Life.transform.localScale = new Vector3(10.07844f * (GameManager.instance.Scale/100f) ,10.07844f * (GameManager.instance.Scale/100f),10.07844f * (GameManager.instance.Scale/100f)); 
     }

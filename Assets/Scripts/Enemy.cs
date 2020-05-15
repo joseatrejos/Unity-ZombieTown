@@ -12,9 +12,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] float health = 100;
     public float Health { get => health; set => health = value; }
 
-    [SerializeField, Range(0.1f, 10f)]
-    float moveSpeed = 3.5f;
-
     [SerializeField, Range(0f, 10f)]
     float minDistance = 5f;
     
@@ -60,6 +57,7 @@ public class Enemy : MonoBehaviour
                 }
                 navMeshAgent.destination = GameManager.instance.party.CurrentParty[0].transform.position;
                 transform.LookAt(GameManager.instance.party.CurrentParty[0].transform);
+                navMeshAgent.speed = GameManager.instance.enemySpeed;
             }
             else
             {
