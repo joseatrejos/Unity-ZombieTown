@@ -66,8 +66,8 @@ public class Player : Character3D
             base.Move();
             for (int i = 1; GameManager.instance.party.CurrentParty.Count > i; i++)
             {
-
-                StartCoroutine(WaitForPassiveHeal());
+                if (this.currentHealth < maxHealth)
+                    StartCoroutine(WaitForPassiveHeal());
                 GameManager.instance.party.CurrentParty[i].navMeshAgent.destination = GameManager.instance.party.CurrentParty[i - 1].transform.position;
             }
         }
@@ -129,6 +129,36 @@ public class Player : Character3D
             Obstacle obstacle = other.GetComponent<Obstacle>(); ;
             obstacle.ShowMessage();
         }
+        else
+        if(other.tag == "Buff" && this.tag =="Player")
+        {
+            CollectedBuff buffUse = other.GetComponent<CollectedBuff>();
+            
+            switch(buffUse.Buffs.name)
+            {
+                case "SpeedBuff":
+                    buffUse.ApplySpeedBuff(this.GetComponent<Player>());
+                    StartCoroutine(ResetSpeedBuff());
+                    break;
+
+                case "DamageBuff":                
+                    buffUse.ApplyDamageBuff();
+                    StartCoroutine( GameManager.instance.ResetBuffs("damage") );
+                    break;
+
+                case "Instakill":    
+                    buffUse.ApplyInstaKillBuff();
+                    StartCoroutine( GameManager.instance.ResetBuffs("instakill") );
+                    break;
+
+                case "DefenseBuff":    
+                    buffUse.ApplyDefenseBuff();
+                    StartCoroutine( GameManager.instance.ResetBuffs("defense") );
+                    break;
+            }
+            
+            Destroy(other.gameObject);
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -140,6 +170,7 @@ public class Player : Character3D
             obstacle.CanInteract = true;
         }
     }
+
     void OnCollisionEnter(Collision other)
     {
         // Reset rigidbody impulse to avoid perpetual rotation/movement
@@ -154,9 +185,9 @@ public class Player : Character3D
 
                 if (!invencible)
                 {
-                    currentHealth -= enemy.Damage;
+                    currentHealth -= GameManager.instance.zombieDamage;
 
-                     ScaleLife();
+                    ScaleLife();
                       
                     if (currentHealth > maxHealth)
                     {
@@ -165,7 +196,6 @@ public class Player : Character3D
                     }
 
                     // Aquí pon la animación de puntos de vida perdidos
-
                     if (currentHealth <= 0)
                     {
                         currentHealth = 0;
@@ -200,10 +230,10 @@ public class Player : Character3D
             }
         }
     }
+
     IEnumerator WaitForPassiveHeal()
     {
         yield return new WaitForSeconds(1.0f);
-        //Debug.Log("te curaste");
 
         if (currentHealth < maxHealth)
         {
@@ -218,12 +248,18 @@ public class Player : Character3D
         }
     }
 
-
     IEnumerator Damage()
     {
         yield return new WaitForSeconds(3.0f);
         GameManager.instance.Invencible.SetActive(false);
         invencible = false;
+    }
+
+    IEnumerator ResetSpeedBuff()
+    {
+        yield return new WaitForSeconds(12f);
+        moveSpeed *= (2.0f/3.0f);
+        Debug.Log("Speed Buff reset");
     }
 
     public void RemoveBullet(GameObject bullet)

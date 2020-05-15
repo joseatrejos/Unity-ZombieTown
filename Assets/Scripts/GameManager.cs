@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public int Score { get => score; set => score = value; }
     [SerializeField] Text txtScore;
 
-    
     int kills = 0;
 
     bool isInCombat = false;
@@ -25,16 +24,22 @@ public class GameManager : MonoBehaviour
     public bool IsInChase { get => isInChase; set => isInChase = value; }
     public int Kills { get => kills; }
 
+    [SerializeField]
+    public const float originalBulletDamage = 5f;
+    public float bulletDamage = 5f;
+    
+    [SerializeField]
+    public const float originalZombieDamage = 10f;
+    public float zombieDamage = 10f;
+    
+    [SerializeField]
+    public bool instakillBuff = false;
 
     [SerializeField] SoundManager soundManager;
-
     AudioSource audioSource;
 
     [SerializeField]
     public Party party; 
-
-    [SerializeField]
-    Enemy enemy;
 
     [SerializeField]
     GameObject cantChange;
@@ -93,9 +98,9 @@ public class GameManager : MonoBehaviour
         if(isInCombat || isInChase)
             soundManager.PlayBGM();
         isInCombat = false;
-       // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
-        //player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
-       // player.WeaponVisibility(false);
+        // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
+        // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
+        // player.WeaponVisibility(false);
         isInChase = false;
 
         /*
@@ -117,7 +122,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         soundManager.PlayCombatMusic();
     }
-
   
     void Update()
     {
@@ -153,5 +157,29 @@ public class GameManager : MonoBehaviour
             txtRound.text = $"{round}";
         }
     }
+    
+    // Reset Buff stats after 12 seconds
+    public IEnumerator ResetBuffs(string buff)
+    {
+        Debug.Log("Se quiere resetear");
+        yield return new WaitForSeconds(12);
 
+        switch(buff)
+        {
+            case "damage":
+                Debug.Log(buff + " reset");
+                bulletDamage = originalBulletDamage;
+            break;
+
+            case "defense":
+                Debug.Log(buff + " reset");
+                zombieDamage = originalZombieDamage;  
+            break;
+
+            case "instakill":
+                Debug.Log(buff + " reset");
+                instakillBuff = false;
+            break;
+        }
+    }
 }

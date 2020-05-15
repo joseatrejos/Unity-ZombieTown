@@ -10,7 +10,7 @@ public class Character3D : MonoBehaviour
     protected Animator anim;
     protected Rigidbody rb;
     [SerializeField] protected float jumpForce = 7f;
-    [SerializeField] protected float moveSpeed = 2f;
+    [SerializeField] public float moveSpeed = 2f;
 
     //******* Raycast *******
     [SerializeField] Color rayColor = Color.magenta;

@@ -48,6 +48,7 @@ public class Party
             }
         }
     }
+    
     public void JoinParty(Player p)
     {
         currentParty.Add(p);
