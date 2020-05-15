@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
         {
             if(AttackRange)
             {
+                this.GetComponent<Collider>().isTrigger = false;
                 if(!GameManager.instance.IsInChase)
                 {
                     GameManager.instance.BeginChase();
