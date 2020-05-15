@@ -42,6 +42,8 @@ public class Enemy : MonoBehaviour
         //animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        gameObject.SetActive(true);
+        this.GetComponent<Collider>().isTrigger = false;
     }
     
     void Update()
@@ -50,7 +52,6 @@ public class Enemy : MonoBehaviour
         {
             if(AttackRange)
             {
-                this.GetComponent<Collider>().isTrigger = false;
                 if(!GameManager.instance.IsInChase)
                 {
                     GameManager.instance.BeginChase();

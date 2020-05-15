@@ -37,7 +37,7 @@ public class ObjectPooler : MonoBehaviour
         foreach(Pool pool in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
-            for(int i = 0; i <pool.size; i++)
+            for(int i = 0; i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
                 obj.SetActive(false);
@@ -60,12 +60,38 @@ public class ObjectPooler : MonoBehaviour
 
         if(!spawned)
         {
-            objectToSpawn.transform.position += new Vector3(Random.Range(-4.0f, 4.0f), 0, Random.Range(-4.0f, 4.0f));
+            objectToSpawn.transform.position += new Vector3(Random.Range(-8.0f, 8.0f), 0, Random.Range(-8.0f, 8.0f));
             objectToSpawn.GetComponent<Collider>().isTrigger = false;
             spawned = true;
         }
         
         poolDictionary[tag].Enqueue(objectToSpawn);
+        return objectToSpawn;
+    }
+
+    public GameObject AddEnemiesToPool(string tag)
+    {
+        foreach(Pool pool in pools)
+        {
+            Queue<GameObject> objectPool = new Queue<GameObject>();
+            for(int i = 0; i < pool.size; i++)
+            {
+                GameObject obj = Instantiate(pool.prefab);
+                obj.SetActive(false);
+                objectPool.Enqueue(obj);
+            }
+            poolDictionary[tag].Enqueue(Instantiate(pool.prefab));
+        }
+
+        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+        objectToSpawn.SetActive(true);
+
+        if(!spawned)
+        {
+            objectToSpawn.GetComponent<Collider>().isTrigger = false;
+            spawned = true;
+        }
+    
         return objectToSpawn;
     }
  

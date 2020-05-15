@@ -157,6 +157,13 @@ public class GameManager : MonoBehaviour
         {
             round++;
             txtRound.text = $"{round}";
+            
+            // Increase the size of the enemy pool
+            ObjectPooler.Instance.pools[0].size += round;
+            
+            // Fill the pool
+            ObjectPooler.Instance.AddEnemiesToPool( "Enemy" );
+
             if(enemySpeed <= player.moveSpeed)
                 enemySpeed *= 1.01f;
             else

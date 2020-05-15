@@ -120,7 +120,7 @@ public class Player : Character3D
             {
                 currentHealth = maxHealth;
             }
-            Debug.Log(currentHealth);
+            ScaleLife();
             Destroy(other.gameObject);
         }
         else
