@@ -180,11 +180,13 @@ public class Player : Character3D
                     }
                     Debug.Log("Te quedan " + currentHealth + " puntos de vida");
                     StartCoroutine(Damage());
+                    GameManager.instance.Invencible.SetActive(true);
                     invencible = true;
                 }
             }
         }
     }
+
 
     void OnTriggerStay(Collider other)
     {
@@ -224,6 +226,7 @@ public class Player : Character3D
     IEnumerator Damage()
     {
         yield return new WaitForSeconds(3.0f);
+        GameManager.instance.Invencible.SetActive(false);
         invencible = false;
     }
 

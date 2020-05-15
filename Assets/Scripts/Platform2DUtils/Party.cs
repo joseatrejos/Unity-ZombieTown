@@ -53,6 +53,10 @@ public class Party
         currentParty.Add(p);
         currentParty[currentParty.Count-1].Target = currentParty[currentParty.Count-2];
         p.HasParty = true;
+        if(currentParty.Count == 2)
+        {
+            GameManager.instance.CantChange.SetActive(false);
+        }
     }
 
     ///<summary>
@@ -115,6 +119,7 @@ public class Party
     public IEnumerator waitForChange()
     {
         yield return new WaitForSeconds(6.0f);
+        GameManager.instance.CantChange.SetActive(false);
         canChange = true;
         Debug.Log("Puedes cambiar");
     }

@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public bool IsInChase { get => isInChase; set => isInChase = value; }
     public int Kills { get => kills; }
 
+
     [SerializeField] SoundManager soundManager;
 
     AudioSource audioSource;
@@ -35,6 +36,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Enemy enemy;
 
+    [SerializeField]
+    GameObject cantChange;
+    public GameObject CantChange { get => cantChange; set => cantChange = value; }
+    [SerializeField]
+    GameObject invencible;
+    
+    public GameObject Invencible { get => invencible; set => invencible = value; }
+    [SerializeField] Text txtRound;
+
+    int round = 1;
+
+
+    
     void Awake()
     {
         if(!instance)
@@ -102,20 +116,15 @@ public class GameManager : MonoBehaviour
         {
             if(party.CurrentParty.Count > 1)
             {
-                
-            StartCoroutine(party.waitForChange());
+                 cantChange.SetActive(true);
+                StartCoroutine(party.waitForChange());
             } else
             {
+                cantChange.SetActive(true);
                 Debug.Log("solo tienes un personaje en el grupo");
             }
         }
         party.SwapLeader();
-    }
-    public void AddPoints(int points)
-    {
-        this.score += points;
-        
-        txtScore.text = $"Score: {score} pts";
     }
 
     public void CountZombieKill(int kill,int killPoints)
@@ -124,6 +133,15 @@ public class GameManager : MonoBehaviour
         kills += kill;
         Debug.Log(kills);
         Debug.Log("Tienes " + score + " Puntos");
+        txtScore.text = $"{score}";
     }
 
+    public void ChangeRound()
+    {
+        if(kills > round * 5)
+        {
+            round++;
+            txtRound.text = $"{round}";
+        }
+    }
 }
