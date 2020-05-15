@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     public Party party; 
-
+    
     void Awake()
     {
         if(!instance)
