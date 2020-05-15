@@ -1295,6 +1295,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 757881241}
   txtScore: {fileID: 0}
+  bulletDamage: 5
+  zombieDamage: 10
+  instakillBuff: 0
   soundManager:
     backgroundMusic: {fileID: 8300000, guid: c481a35166960fc4aa87fcc74e24c484, type: 3}
     combatMusic: {fileID: 8300000, guid: c481a35166960fc4aa87fcc74e24c484, type: 3}
@@ -1304,7 +1307,6 @@ MonoBehaviour:
     currentParty: []
     players: []
     canChange: 1
-  enemy: {fileID: 0}
 --- !u!4 &780287870
 Transform:
   m_ObjectHideFlags: 0
