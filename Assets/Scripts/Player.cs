@@ -156,7 +156,7 @@ public class Player : Character3D
                 {
                     currentHealth -= enemy.Damage;
 
-                   // ScaleLife();
+                     ScaleLife();
                       
                     if (currentHealth > maxHealth)
                     {

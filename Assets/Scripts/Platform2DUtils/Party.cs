@@ -86,6 +86,7 @@ public class Party
             canChange = false;
             currentParty[0].navMeshAgent.enabled = false;
             currentParty[0].GetComponent<Collider>().isTrigger = false;
+            GameManager.instance.party.currentParty[0].ScaleLife();
         }
     }
 
@@ -108,6 +109,7 @@ public class Party
             currentParty[0].Target = null;
             currentParty[0].navMeshAgent.enabled = false;
             currentParty[0].GetComponent<Collider>().isTrigger = false;
+            GameManager.instance.party.currentParty[0].ScaleLife();
         } 
         else
         {
