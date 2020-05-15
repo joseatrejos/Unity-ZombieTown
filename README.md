@@ -7,8 +7,8 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - ~~Empiezas solo y vas encontrando a los NPC.~~  
   - ~~Es posible cambiar al líder del equipo (con la limitación de 6 segundo de retraso)~~  
   - ~~Habrán zombies que perseguirán al líder del equipo.~~  
-  - Si matan al líder del equipo pierdes.  
-  - Rounds con cada vez más zombies y cuya velocidad va aumentando.  
+  - ~~Si matan a todo el equipo pierdes.~~  
+  - ~~Rounds con cada vez más zombies y cuya velocidad va aumentando.~~  
   - Para ganar, es necesario recolectar todos los antídotos.  
 2. Recolectables:  
   - ~~Botiquines.~~  
@@ -21,7 +21,8 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - Start que diga "Pausa" y oscurezca un poco la pantalla  
   - Gif y audio del Round Over en el centro con un UIText abajo a la izquierda que diga el numero del round  
   - ~~HUD de la vida~~  
-  - Game Over  
+  - Game Over 
+  - Win
 4. Audio  
   - Música ambiental  
   - Sonidos de disparo para cada arma  
