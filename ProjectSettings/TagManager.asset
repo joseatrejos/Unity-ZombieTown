@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Medkit
   - Obstacle
+  - Buff
   layers:
   - Default
   - TransparentFX

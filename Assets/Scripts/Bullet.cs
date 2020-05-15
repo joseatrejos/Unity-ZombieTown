@@ -7,17 +7,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    float damage = 5f;
-
-    [SerializeField]
     float lifeTime = 5f;
 
     Rigidbody rb;
 
     [SerializeField]
     float bulletForce = 20f;
-
-    public float Damage { get => damage; }
 
     IEnumerator cleanBullet;
 
@@ -49,15 +44,15 @@ public class Bullet : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            Enemy enemy;
-            enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.Health -= damage;
-            Debug.Log("El enemigo tiene: " + enemy.Health + " puntos de vida restantes");
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            enemy.Health -= GameManager.instance.bulletDamage;
             
-            if(enemy.Health <= 0)
+            if(enemy.Health <= 0 || GameManager.instance.instakillBuff == true)
             {
+                enemy.Health = 0;
                 enemy.Death();
-            }                
+            } else
+                Debug.Log("El enemigo tiene: " + enemy.Health + " puntos de vida restantes");                
         }
     }
 }

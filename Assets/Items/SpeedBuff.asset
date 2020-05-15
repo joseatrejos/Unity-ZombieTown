@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3eee54398e048d42a3ee6db38b7542a, type: 3}
   m_Name: SpeedBuff
   m_EditorClassIdentifier: 
-  buffs: {fileID: 0}
+  objectName: Speed Buff
+  instaKill: 0
+  speedBuff: 1.5
+  zombieDamage: 1
+  bulletDamage: 1

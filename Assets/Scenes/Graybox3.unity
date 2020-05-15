@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 82025065}
   m_Layer: 0
   m_Name: Buff instakill
-  m_TagString: Untagged
+  m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 82025060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5820686c4a86d0c4ea23db5672bfc3d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 03caaa20c428b8f419a9cb0babd99eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buffs: {fileID: 11400000, guid: f6e1065439284fb409f762eecd1e8476, type: 2}
@@ -1426,7 +1426,7 @@ GameObject:
   - component: {fileID: 888089639}
   m_Layer: 0
   m_Name: Buff defense
-  m_TagString: Untagged
+  m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 888089634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 924badbb7c824a147991539bfa14eb12, type: 3}
+  m_Script: {fileID: 11500000, guid: 03caaa20c428b8f419a9cb0babd99eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buffs: {fileID: 11400000, guid: 36a337b86ff5ae145a1b7ff5e93e38e8, type: 2}
@@ -1775,7 +1775,7 @@ GameObject:
   - component: {fileID: 1289704708}
   m_Layer: 0
   m_Name: Buff damage
-  m_TagString: Untagged
+  m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1863,7 +1863,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1289704703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 859ba28c56a0c1b409f9acd2d8588365, type: 3}
+  m_Script: {fileID: 11500000, guid: 03caaa20c428b8f419a9cb0babd99eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buffs: {fileID: 11400000, guid: de16b05f94cdf90449d4c68a7c2a9042, type: 2}
@@ -2101,7 +2101,7 @@ GameObject:
   - component: {fileID: 1554720823}
   m_Layer: 0
   m_Name: Buff speed
-  m_TagString: Untagged
+  m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2189,7 +2189,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1554720818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 519ae76446414694e87758b1a7583f4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 03caaa20c428b8f419a9cb0babd99eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buffs: {fileID: 11400000, guid: daf52d4cb5159d546a2ae67550dcfb3f, type: 2}

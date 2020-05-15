@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc096d39aa2eb046ab1d5c434229916, type: 3}
   m_Name: DefenseBuff
   m_EditorClassIdentifier: 
+  objectName: Defense Buff
+  instaKill: 0
+  speedBuff: 1
+  zombieDamage: 0.5
+  bulletDamage: 1

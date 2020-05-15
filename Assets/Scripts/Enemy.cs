@@ -7,8 +7,9 @@ using Platform2DUtils.GameplaySystem;
 public class Enemy : MonoBehaviour
 {
     //Animator animator;
-    [SerializeField]
-    float health = 100;
+    [SerializeField] float maxHealth = 100;
+
+    [SerializeField] float health = 100;
     public float Health { get => health; set => health = value; }
 
     [SerializeField, Range(0.1f, 10f)]
@@ -16,10 +17,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField, Range(0f, 10f)]
     float minDistance = 5f;
-
-    [SerializeField]
-    int damage = 10;
-    public int Damage { get => damage; }
     
     [SerializeField]
     int kill=1;
@@ -35,6 +32,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         // Spawn
+        health = maxHealth;
     }
 
     void LateUpdate()
@@ -48,7 +46,8 @@ public class Enemy : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
     }
-      void Update()
+    
+    void Update()
     {
         if(!GameManager.instance.party.PartyDeath)
         {
@@ -108,6 +107,7 @@ public class Enemy : MonoBehaviour
         GameManager.instance.CountZombieKill(kill,killPoints);
 
         transform.position = ObjectPooler.Instance.transform.position + new Vector3(Random.Range(-4.0f, 4.0f), 0, Random.Range(-4.0f, 4.0f));
+        health = maxHealth;
 
         //Destroy(gameObject.GetComponent<Collider>());
 
