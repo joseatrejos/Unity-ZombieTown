@@ -51,7 +51,7 @@ public class Player : Character3D
             //animator
 
             //anim.SetBool("moving", moving);
-            if (GameplaySystem.Axis3D != Vector3.zero)
+            if (GameplaySystem.Axis3D != Vector3.zero && moveSpeed != 0)
             {
                 transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
             }
@@ -199,6 +199,7 @@ public class Player : Character3D
                     if (currentHealth <= 0)
                     {
                         currentHealth = 0;
+                        moveSpeed = 0;
                         GameManager.instance.party.KillLeader();
                         this.Death();
                     }
@@ -212,6 +213,13 @@ public class Player : Character3D
         }
     }
 
+    void OnCollisionExit(Collision other)
+    {
+        // Reset rigidbody impulse to avoid perpetual rotation/movement
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+    }
+    
     void OnTriggerStay(Collider other)
     {
         if (other.tag == "Obstacle" && this.tag == "Player")
@@ -274,6 +282,12 @@ public class Player : Character3D
 
         // Replace seconds for the correct animations duration
         Destroy(gameObject, 2.0f);
+
+        if(GameManager.instance.party.CurrentParty.Count == 0)
+        {
+            // Make this a coroutine if you want to delay the GameOver-animation to be able to see your last leader's death
+            GameManager.instance.gameOver.SetActive(true);
+        }
     }
 
     public void ScaleLife()

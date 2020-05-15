@@ -76,6 +76,8 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
+        else 
+            navMeshAgent.destination = transform.position;
     }
 
     bool OutOfAttackRange
@@ -121,6 +123,13 @@ public class Enemy : MonoBehaviour
         // Reset rigidbody impulse to avoid perpetual rotation/movement
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;    
+    }
+
+    void OnCollisionExit(Collision other)
+    {
+        // Reset rigidbody impulse to avoid perpetual rotation/movement
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
 }

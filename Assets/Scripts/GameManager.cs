@@ -54,6 +54,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     GameObject life;
+
+    [SerializeField]
+    public GameObject gameOver;
     
     public GameObject Life { get => life; set => life = value; }
   
@@ -83,6 +86,8 @@ public class GameManager : MonoBehaviour
         soundManager.AudioSource = GetComponent<AudioSource>();
         soundManager.PlayBGM();
         party.InitParty();
+
+        gameOver.SetActive(false);
     }
 
     public void StartCombat()
