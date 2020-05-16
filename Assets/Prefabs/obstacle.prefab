@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 539682850536647425}
   - component: {fileID: 8801810544468447543}
   - component: {fileID: 2961918733563440590}
-  - component: {fileID: 322401661716809349}
+  - component: {fileID: 4808564845182185792}
+  - component: {fileID: 799014242603751067}
+  - component: {fileID: -5179412325702725370}
+  - component: {fileID: -8124758017428413736}
   m_Layer: 0
   m_Name: obstacle
   m_TagString: Untagged
@@ -80,7 +83,51 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &322401661716809349
+--- !u!208 &4808564845182185792
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541535103204038930}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &799014242603751067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541535103204038930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8867368987870b745bc2b4a0b262d678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 0}
+  message: "Precio de desbloqueo: 10 pts \nPulsa Z para desbloquear o C para cancelar"
+  ScoreCost: 10
+--- !u!65 &-5179412325702725370
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541535103204038930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.102410495, y: 0.013075795, z: 0.010000003}
+  m_Center: {x: -0.00073756796, y: 0.001537898, z: 5.239796e-10}
+--- !u!65 &-8124758017428413736
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,5 +138,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0076265144, y: 0.0064991345, z: 0.010000003}
-  m_Center: {x: 0.000000009546056, y: -0.0017504318, z: 6.9849204e-10}
+  m_Size: {x: 0.007626515, y: 0.009436323, z: 0.010000003}
+  m_Center: {x: 0.000000009574355, y: -0.0002818416, z: 5.239796e-10}
