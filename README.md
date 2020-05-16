@@ -9,20 +9,20 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - ~~Habrán zombies que perseguirán al líder del equipo.~~  
   - ~~Si matan a todo el equipo pierdes.~~  
   - ~~Rounds con cada vez más zombies y cuya velocidad va aumentando.~~  
-  - Para ganar, es necesario recolectar todos los antídotos.  
+  - ~~Para ganar, es necesario recolectar todos los antídotos.~~  
 2. Recolectables:  
   - ~~Botiquines.~~  
   - ~~NPCs (quien sabe si habrá texto, probablemente no).~~  
-  - ~~2 armas (Escopeta, pistola y si hay tiempo,~~ una metralleta).  
+  - ~~2 armas (Escopeta, pistola y si hay tiempo, una metralleta).~~  
   - ~~Antídotos para encontrar la cura del virus.~~  
   - ~~Buffs para mejorar el gameplay (Disparo más rapido, Velocidad de movimiento, invencibilidad de 5-10 segundos, disparas más fuerte, quien sabe)~~  
 3. UI  
   - ~~Menu de inicio~~  
-  - Start que diga "Pausa" y oscurezca un poco la pantalla  
+  - Start que diga "Pausa" y ~~oscurezca un poco la pantalla~~  
   - Gif y audio del Round Over en el centro con un UIText abajo a la izquierda que diga el numero del round  
   - ~~HUD de la vida~~  
-  - Game Over 
-  - Win
+  - ~~Game Over~~ 
+  - ~~Win~~
 4. Audio  
   - Música ambiental  
   - Sonidos de disparo para cada arma  
@@ -35,7 +35,7 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - ~~Antídotos~~  
   - ~~Botiquínes~~  
   - ~~Orbes de colores para los buffs~~  
-  - ~~Entorno: Edificios~~, cajas, barriles, ~~hidrante, barreras de cemento~~, botes de basura,~~carros (1 civil, 1 de policía)~~
+  - ~~Entorno: Edificios, cajas, barriles, hidrante, barreras de cemento, botes de basura, carros (1 civil, 1 de policía)~~
   6. Animaciones  
   - ~~Idle de los players~~  
   - ~~Shooting de los players~~  
