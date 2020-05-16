@@ -232,7 +232,7 @@ public class Player : Character3D
             {
                 obstacle.Unlock();
                 obstacle.waitForHideMessage();
-                if (Input.GetButton("Acept"))
+                if (Input.GetButton("Accept"))
                 {
                     obstacle.CanInteract = false;
                 }

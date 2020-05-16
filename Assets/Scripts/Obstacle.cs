@@ -39,7 +39,7 @@ public class Obstacle : MonoBehaviour
 
     public void Unlock()
     {
-        if (Input.GetButton("Acept"))
+        if (Input.GetButton("Accept"))
         {
             if (GameManager.instance.Score >= ScoreCost)
             {
