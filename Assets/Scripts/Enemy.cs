@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     Rigidbody rb;
     NavMeshAgent navMeshAgent;
+    bool active = false;
 
     void Start()
     {
@@ -42,8 +43,6 @@ public class Enemy : MonoBehaviour
         //animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        gameObject.SetActive(true);
-        this.GetComponent<Collider>().isTrigger = false;
     }
 
     void Update()
@@ -51,8 +50,10 @@ public class Enemy : MonoBehaviour
         // If your party's still alive but you haven't won
         if (!GameManager.instance.party.PartyDeath && !GameManager.instance.Win)
         {
+            
             if (AttackRange)
             {
+            this.GetComponent<Collider>().isTrigger = false;
                 if (!GameManager.instance.IsInChase)
                 {
                     GameManager.instance.BeginChase();
@@ -117,7 +118,6 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         // Insert death animation
-        Debug.Log("El enemigo esta muerto");
 
         GameManager.instance.CountZombieKill(kill, killPoints);
         GameManager.instance.ChangeRound();

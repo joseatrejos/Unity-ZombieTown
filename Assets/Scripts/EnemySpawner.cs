@@ -9,10 +9,12 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         objectPooler = ObjectPooler.Instance;
+        
+      
     }
     
     void FixedUpdate()
     {
-        objectPooler.SpawnFromPool("Enemy", this.transform.position);
+        ObjectPooler.Instance.SpawnFromPool( "Enemy" );
     }
 }
