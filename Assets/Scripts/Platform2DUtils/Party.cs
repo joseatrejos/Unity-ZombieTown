@@ -64,10 +64,8 @@ public class Party
     ///</summary>
     public void SwapLeader()
     {
-        if (Input.GetButtonDown("ChangeLeader") && currentParty.Count > 1 && canChange)
+        if (currentParty.Count > 1 && canChange)
         {
-            Debug.Log("No puedes cambiar de jugador por 6 segundos");
-
             Player currentLeader = currentParty[0];
             currentLeader.IsLeader = false;
             currentLeader.IsNpc = true;
@@ -113,6 +111,7 @@ public class Party
         } 
         else
         {
+            GameManager.instance.CantChange.SetActive(false);
             currentParty.RemoveAt(0);
             partyDeath = true;
         }
@@ -123,6 +122,5 @@ public class Party
         yield return new WaitForSeconds(6.0f);
         GameManager.instance.CantChange.SetActive(false);
         canChange = true;
-        Debug.Log("Puedes cambiar");
     }
 }
