@@ -47,7 +47,9 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject SpawnFromPool(string tag, Vector3 position)
+
+
+    public GameObject SpawnFromPool(string tag)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
@@ -71,28 +73,29 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject AddEnemiesToPool(string tag)
     {
+        pools[0].size++;
         foreach (Pool pool in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
-            for (int i = 0; i < pool.size; i++)
+                for (int i = 0; i < pool.size-1; i++)
+                {
+                    Debug.Log(pool.size);
+                    GameObject obj = Instantiate(pool.prefab);
+                    obj.SetActive(true);
+                    objectPool.Enqueue(obj);
+                }
+                poolDictionary[tag].Enqueue(Instantiate(pool.prefab));
+        }
+
+            GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+
+            if (!spawned)
             {
-                GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(false);
-                objectPool.Enqueue(obj);
+                objectToSpawn.GetComponent<Collider>().isTrigger = false;
+                spawned = true;
             }
-            poolDictionary[tag].Enqueue(Instantiate(pool.prefab));
-        }
 
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-        objectToSpawn.SetActive(true);
-
-        if (!spawned)
-        {
-            objectToSpawn.GetComponent<Collider>().isTrigger = false;
-            spawned = true;
-        }
-
-        return objectToSpawn;
+            return objectToSpawn;
     }
 
 }

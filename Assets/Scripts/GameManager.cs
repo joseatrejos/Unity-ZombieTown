@@ -77,8 +77,13 @@ public class GameManager : MonoBehaviour
 
     public float Scale { get => scale; set => scale = value; }
 
+    private Vector3 lifeSize;
+    
+    public Vector3 LifeSize { get => lifeSize; set => lifeSize = value; }
+    public int Round { get => round; set => round = value; }
     void Awake()
     {
+        lifeSize = life.transform.localScale;
         if(!instance)
         {
             instance = this;
@@ -161,8 +166,6 @@ public class GameManager : MonoBehaviour
     {
         score += killPoints;
         kills += kill;
-        Debug.Log(kills);
-        Debug.Log("Tienes " + score + " Puntos");
         txtScore.text = $"{score}";
     }
 
@@ -173,12 +176,12 @@ public class GameManager : MonoBehaviour
             round++;
             txtRound.text = $"{round}";
             
-            // Increase the size of the enemy pool
-            ObjectPooler.Instance.pools[0].size += round;
-            
             // Fill the pool
-            ObjectPooler.Instance.AddEnemiesToPool( "Enemy" );
-
+            if (round<=3)
+            {
+                ObjectPooler.Instance.AddEnemiesToPool( "Enemy" );
+            }
+              
             if(enemySpeed <= player.moveSpeed)
                 enemySpeed *= 1.01f;
             else

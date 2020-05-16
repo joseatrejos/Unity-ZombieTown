@@ -195,7 +195,6 @@ public class Player : Character3D
                     if (currentHealth > maxHealth)
                     {
                         currentHealth = maxHealth;
-                        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f, 10.07844f, 10.07844f);
                     }
 
                     // Aquí pon la animación de puntos de vida perdidos
@@ -206,8 +205,6 @@ public class Player : Character3D
                         GameManager.instance.party.KillLeader();
                         this.Death();
                     }
-
-                    Debug.Log("Te quedan " + currentHealth + " puntos de vida");
                     StartCoroutine(Damage());
                     GameManager.instance.Invencible.SetActive(true);
                     invencible = true;
@@ -297,6 +294,6 @@ public class Player : Character3D
     {
         GameManager.instance.Scale = (currentHealth * 100) / maxHealth;
 
-        GameManager.instance.Life.transform.localScale = new Vector3(10.07844f * (GameManager.instance.Scale / 100f), 10.07844f * (GameManager.instance.Scale / 100f), 10.07844f * (GameManager.instance.Scale / 100f));
+        GameManager.instance.Life.transform.localScale = new Vector3(GameManager.instance.LifeSize.x * (GameManager.instance.Scale / 100f), GameManager.instance.LifeSize.y * (GameManager.instance.Scale / 100f), GameManager.instance.LifeSize.z * (GameManager.instance.Scale / 100f));
     }
 }
