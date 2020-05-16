@@ -13,7 +13,6 @@ public class Obstacle : MonoBehaviour
 
     [SerializeField]
     int ScoreCost;
-    // Start is called before the first frame update
 
     string defaultMessage;
 
@@ -21,20 +20,9 @@ public class Obstacle : MonoBehaviour
 
     public bool CanInteract { get => canInteract; set => canInteract = value; }
 
-    void Start()
-    {
-
-    }
-
     void Awake()
     {
         defaultMessage = message;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void Unlock()

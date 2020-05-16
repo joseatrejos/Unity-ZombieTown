@@ -10,13 +10,13 @@ public class Buffs : ScriptableObject
     [SerializeField] protected bool instaKill = false;
     public bool InstaKill { get => instaKill; set => instaKill = value; }
 
-    [SerializeField] protected float speedBuff = 1;
+    [SerializeField] protected float speedBuff = 1f;
     public float SpeedBuff { get => speedBuff; set => speedBuff = value; }
 
-    [SerializeField] protected float zombieDamage = 1;
+    [SerializeField] protected float zombieDamage = 1f;
     public float ZombieDamage { get => zombieDamage; set => zombieDamage = value; }
 
-    [SerializeField] protected float bulletDamage = 1;
+    [SerializeField] protected float bulletDamage = 1f;
     public float BulletDamage { get => bulletDamage; set => bulletDamage = value; }
 
     public virtual void Use()

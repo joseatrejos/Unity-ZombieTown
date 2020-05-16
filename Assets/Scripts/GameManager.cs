@@ -202,7 +202,6 @@ public class GameManager : MonoBehaviour
     // Reset Buff stats after 12 seconds
     public IEnumerator ResetBuffs(string buff)
     {
-        Debug.Log("Se quiere resetear");
         yield return new WaitForSeconds(12);
 
         switch (buff)
