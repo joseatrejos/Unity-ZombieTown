@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         StartCoroutine(FadeOut(blkImage));
+
     }
 
     IEnumerator FadeIn(MaskableGraphic element)
