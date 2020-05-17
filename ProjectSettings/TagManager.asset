@@ -8,6 +8,8 @@ TagManager:
   - Collectable
   - Enemy
   - Medkit
+  - Obstacle
+  - Buff
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 

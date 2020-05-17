@@ -17,7 +17,7 @@ public class SoundManager
 
     public void PlayAudio(AudioClip audioClip)
     {
-        if( !CompareAudio(audioClip) )
+        if (!CompareAudio(audioClip))
         {
             audioSource.clip = audioClip;
             audioSource.Play();

@@ -10,7 +10,7 @@ public class Character3D : MonoBehaviour
     protected Animator anim;
     protected Rigidbody rb;
     [SerializeField] protected float jumpForce = 7f;
-    [SerializeField] protected float moveSpeed = 2f;
+    [SerializeField] public float moveSpeed = 2f;
 
     //******* Raycast *******
     [SerializeField] Color rayColor = Color.magenta;
@@ -46,6 +46,7 @@ public class Character3D : MonoBehaviour
 
     [SerializeField] private bool hasParty;
 
+
     public bool HasParty { get => hasParty; set => hasParty = value; }
 
     [SerializeField]
@@ -66,7 +67,6 @@ public class Character3D : MonoBehaviour
     void Awake()
     {
         //anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
     }
 
@@ -84,31 +84,30 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
+
         if (hasParty)
         {
-
-            if (transform.gameObject != null)
-                moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
-            if (moving)
+            if (leader)
             {
-                // Esto es para decirle a la animación hacia donde tiene que moverse
-                npcDirection = leader.transform.position - transform.position;
-                npcDirection.Normalize();
-                transform.position = Vector3.MoveTowards(transform.position, leader.transform.position, moveSpeed * Time.deltaTime);
+                moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
 
-                if (npcDirection != Vector3.zero)
+                if (moving)
                 {
-                    transform.rotation = Quaternion.LookRotation(npcDirection);
+                    // Esto es para decirle a la animación hacia donde tiene que moverse
+                    npcDirection = leader.transform.position - transform.position;
+                    npcDirection.Normalize();
+
+                    if (npcDirection != Vector3.zero)
+                    {
+                        transform.rotation = Quaternion.LookRotation(npcDirection);
+                    }
+
+                    //aqui va el animator
+                    //anim.SetFloat("moveX", npcDirection.x);
+                    //anim.SetFloat("moveY", npcDirection.y);
                 }
-
-                // Aqui va el animator
-                //anim.SetFloat("moveX", npcDirection.x);
-                //anim.SetFloat("moveY", npcDirection.y);
-
             }
-
         }
-
     }
 
     protected bool FlipSprite

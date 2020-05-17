@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -12,22 +13,73 @@ public class GameManager : MonoBehaviour
     public Player Player { get => player; }
 
     int score = 0;
+
+    public int Score { get => score; set => score = value; }
     [SerializeField] Text txtScore;
+
+    int kills = 0;
 
     bool isInCombat = false;
     public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
     bool isInChase = false;
     public bool IsInChase { get => isInChase; set => isInChase = value; }
+    public int Kills { get => kills; }
+
+    [SerializeField] public const float originalBulletDamage = 5f;
+    public float bulletDamage = 5f;
+
+    [SerializeField] public const float originalZombieDamage = 10f;
+    public float zombieDamage = 10f;
+
+    [SerializeField] public bool instakillBuff = false;
+
+    [SerializeField] public float enemySpeed = 3.5f;
 
     [SerializeField] SoundManager soundManager;
-
     AudioSource audioSource;
 
-    [SerializeField]
-    public Party party; 
+    [SerializeField] public Party party;
 
+    [SerializeField] GameObject cantChange;
+    public GameObject CantChange { get => cantChange; set => cantChange = value; }
+
+    [SerializeField] GameObject invencible;
+
+    public GameObject Invencible { get => invencible; set => invencible = value; }
+
+    [SerializeField] GameObject life;
+
+    [SerializeField] public GameObject gameOver;
+
+    [SerializeField] public GameObject gameWin;
+
+    public GameObject Life { get => life; set => life = value; }
+
+    [SerializeField] Text txtRound;
+
+    int round = 1;
+
+    float scale;
+
+    [SerializeField] int vaccineCount = 0;
+    public int VaccineCount { get => vaccineCount; }
+    [SerializeField] int winCount = 10;
+    public int WinCount { get => winCount; }
+
+    public float Scale { get => scale; set => scale = value; }
+   
+    bool start = false;
+
+    [SerializeField] Image blkImage;
+
+    private Vector3 lifeSize;
+    public Vector3 LifeSize { get => lifeSize; set => lifeSize = value; }
+    
+    public int Round { get => round; set => round = value; }
+    
     void Awake()
     {
+        lifeSize = life.transform.localScale;
         if(!instance)
         {
             instance = this;
@@ -43,7 +95,11 @@ public class GameManager : MonoBehaviour
     {
         soundManager.AudioSource = GetComponent<AudioSource>();
         soundManager.PlayBGM();
+
         party.InitParty();
+
+        gameOver.SetActive(false);
+        gameWin.SetActive(false);
     }
 
     public void StartCombat()
@@ -51,18 +107,18 @@ public class GameManager : MonoBehaviour
         soundManager.WeaponDrawn();
         StartCoroutine(DelayedCombatMusic());
         isInCombat = true;
-       // player.Animator.SetLayerWeight(1, 1);
-       // player.WeaponVisibility(true);
+        // player.Animator.SetLayerWeight(1, 1);
+        // player.WeaponVisibility(true);
         isInCombat = true;
     }
 
     public void EscapeCombatAndChase()
     {
-        if(isInCombat || isInChase)
+        if (isInCombat || isInChase)
             soundManager.PlayBGM();
         isInCombat = false;
         // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
-        //player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
+        // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
         // player.WeaponVisibility(false);
         isInChase = false;
 
@@ -77,7 +133,7 @@ public class GameManager : MonoBehaviour
     public void BeginChase()
     {
         soundManager.PlayChaseMusic();
-        isInChase = true;  
+        isInChase = true;
     }
 
     IEnumerator DelayedCombatMusic()
@@ -85,32 +141,134 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         soundManager.PlayCombatMusic();
     }
-  
+
     void Update()
     {
-        if(Input.GetButtonDown("ChangeLeader"))
+        if (Input.GetButtonDown("ChangeLeader"))
         {
-            if(party.CurrentParty.Count > 1)
+            if (party.CurrentParty.Count > 1)
             {
-                
-            StartCoroutine(party.waitForChange());
-            } else
+                cantChange.SetActive(true);
+                StartCoroutine(party.waitForChange());
+            }
+            else
             {
-                Debug.Log("solo tienes un personaje en el grupo");
+                cantChange.SetActive(true);
             }
             party.SwapLeader();
+        } 
+        else if (Input.GetButtonDown("Submit") && !Win && !party.PartyDeath)
+        {
+            if (!start)
+            {
+                Pause();
+                start = true;
+            }
+            else
+            {
+                Unpause();
+                start = false;
+            }
         }
     }
 
-     public void KillPlayer()
+    public void CountZombieKill(int kill, int killPoints)
     {
-        party.KillLeader();
+        score += killPoints;
+        kills += kill;
+        txtScore.text = $"{score}";
+    }
+
+    public void ChangeRound()
+    {
+        if (kills > round * 5)
+        {
+            round++;
+            txtRound.text = $"{round}";
+            
+            // Fill the pool
+            if (round<=3)
+            {
+                ObjectPooler.Instance.AddEnemiesToPool( "Enemy" );
+            }
+              
+            if(enemySpeed <= player.moveSpeed)
+                enemySpeed *= 1.01f;
+            else
+                zombieDamage *= 1.05f;
+        }
+    }
+
+    // Reset Buff stats after 12 seconds
+    public IEnumerator ResetBuffs(string buff)
+    {
+        yield return new WaitForSeconds(12);
+
+        switch (buff)
+        {
+            case "damage":
+                Debug.Log(buff + " reset");
+                bulletDamage = originalBulletDamage;
+                break;
+
+            case "defense":
+                Debug.Log(buff + " reset");
+                zombieDamage = originalZombieDamage;
+                break;
+
+            case "instakill":
+                Debug.Log(buff + " reset");
+                instakillBuff = false;
+                break;
+        }
     }
 
     public void AddPoints(int points)
     {
-        this.score += points;
-        txtScore.text = $"Score: {score} pts";
+        vaccineCount += points;
+        Debug.Log("Numero de vacunas: " + vaccineCount);
     }
 
+    public void Pause()
+    {
+        StartCoroutine(FadeIn(blkImage));
+    }
+
+    public void Unpause()
+    {
+        // Resume time
+        Time.timeScale = 1;
+
+        StartCoroutine(FadeOut(blkImage));
+    }
+
+    IEnumerator FadeIn(MaskableGraphic element)
+    {
+        for (double i = 0; i <= 0.75; i += 0.1)
+        {
+            Color tmp = element.color;
+            tmp.a = (float)i;
+            element.color = tmp;
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        // Stop time
+        Time.timeScale = 0;    
+    }
+
+    IEnumerator FadeOut(MaskableGraphic element)
+    {
+        for (double i = 0.75; i >= 0.0; i -= 0.1)
+        {
+            Color tmp = element.color;
+            tmp.a = (float)i;
+            element.color = tmp;
+            yield return new WaitForSeconds(0.001f);
+        }
+    }
+
+    public bool Win
+    {
+        get => VaccineCount >= WinCount;
+    }
 }

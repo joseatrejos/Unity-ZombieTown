@@ -8,9 +8,9 @@ public class TextBoxDialogue : MonoBehaviour
     [SerializeField]
     Text dialogue;
     public string Dialogue { set => dialogue.text = value; }
-    
+
     [SerializeField]
-    string message ;
+    string message;
     public string Message { get => message; set => message = value; }
 
     [SerializeField, Range(0.001f, 4f)]
@@ -32,8 +32,8 @@ public class TextBoxDialogue : MonoBehaviour
     IEnumerator Animate(float time)
     {
         int i = 0;
-        
-        while(i < Message.Length)
+
+        while (i < Message.Length)
         {
             dialogue.text += message[i];
             i++;

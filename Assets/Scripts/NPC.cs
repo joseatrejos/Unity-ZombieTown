@@ -23,18 +23,18 @@ public class NPC : MonoBehaviour
         textBoxDialogue.gameObject.SetActive(false);
         textBoxDialogue.ClearText();
     }
-    
+
     void OnTriggerEnter(Collider col)
     {
-        if( col.CompareTag("Player") )
+        if (col.CompareTag("Player"))
         {
             StartTalking();
         }
     }
 
-     void OnTriggerExit(Collider col)
+    void OnTriggerExit(Collider col)
     {
-        if(col.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
             StopTalking();
         }
