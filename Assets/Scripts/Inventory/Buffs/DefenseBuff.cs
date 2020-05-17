@@ -9,6 +9,5 @@ public class DefenseBuff : Buffs
     public override void Use()
     {
         base.Use();
-        zombieDamage = 0.5f;
     }
 }

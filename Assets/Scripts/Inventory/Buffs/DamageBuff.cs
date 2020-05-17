@@ -9,6 +9,5 @@ public class DamageBuff : Buffs
     public override void Use()
     {
         base.Use();
-        bulletDamage = 1.5f;
     }
 }

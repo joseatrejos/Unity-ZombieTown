@@ -14,16 +14,13 @@ public class FollowPlayer : MonoBehaviour
         vcam = GetComponent<CinemachineVirtualCamera>();
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if (tPlayer == null || Input.GetButtonDown("ChangeLeader"))
+        if (GameManager.instance.party.CurrentParty.Count >= 1 && (tPlayer == null || Input.GetButtonDown("ChangeLeader") ) )
         {
-            tPlayer = GameObject.FindWithTag("Player");
-            if (tPlayer != null)
-            {
-                tFollowTarget = tPlayer.transform;
-                vcam.Follow = tFollowTarget;
-            }
+            tPlayer = GameManager.instance.party.CurrentParty[0].gameObject;
+            tFollowTarget = tPlayer.transform;
+            vcam.Follow = tPlayer.transform;
         }
     }
 }

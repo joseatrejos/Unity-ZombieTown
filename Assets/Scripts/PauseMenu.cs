@@ -5,47 +5,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
-{
-    bool paused = false;
-    [SerializeField]
-    GameObject pauseMenu;
-    [SerializeField]
-    Button btnResume;
-    [SerializeField]
-    Button btnMain;
-
-    void Awake()
+{        
+    void QuitToMenu()
     {
-        btnResume.onClick.AddListener(togglePause);
-        btnMain.onClick.AddListener(LoadMenu);
+        SceneManager.LoadScene(0);
     }
 
-    void Update()
+    void TogglePause()
     {
-        if (Input.GetButtonDown("Pause"))
-            togglePause();
-    }
-
-    void togglePause()
-    {
-        if (Time.timeScale == 0f)
-        {
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
-            paused = false;
-        }
-        else
-        {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
-            paused = true;
-        }
-    }
-
-    void LoadMenu()
-    {
-        pauseMenu.SetActive(false);
-        //Main menu
-        SceneManager.LoadScene(1);
+        this.gameObject.SetActive(false);
+        GameManager.instance.Unpause();
+        Time.timeScale = 1;
     }
 }

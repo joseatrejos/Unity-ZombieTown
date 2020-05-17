@@ -40,18 +40,23 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public Party party;
 
+    [SerializeField] protected GameObject pauseMenu;
     [SerializeField] GameObject cantChange;
     public GameObject CantChange { get => cantChange; set => cantChange = value; }
 
     [SerializeField] GameObject invencible;
-
     public GameObject Invencible { get => invencible; set => invencible = value; }
+    
+    bool invencibility = false;
+    public bool Invencibility { get => invencibility; set => invencibility = value; }
 
     [SerializeField] GameObject life;
 
     [SerializeField] public GameObject gameOver;
 
     [SerializeField] public GameObject gameWin;
+
+    [SerializeField] public GameObject roundOver;
 
     public GameObject Life { get => life; set => life = value; }
 
@@ -100,6 +105,7 @@ public class GameManager : MonoBehaviour
 
         gameOver.SetActive(false);
         gameWin.SetActive(false);
+        roundOver.SetActive(false);
     }
 
     public void StartCombat()
@@ -183,6 +189,8 @@ public class GameManager : MonoBehaviour
     {
         if (kills > round * 5)
         {
+            roundOver.SetActive(true);
+
             round++;
             txtRound.text = $"{round}";
             
@@ -199,9 +207,9 @@ public class GameManager : MonoBehaviour
     }
 
     // Reset Buff stats after 12 seconds
-    public IEnumerator ResetBuffs(string buff)
+    public IEnumerator ResetBuffs(string buff, float buffDuration, Player playerBuffed)
     {
-        yield return new WaitForSeconds(12);
+        yield return new WaitForSeconds(buffDuration);
 
         switch (buff)
         {
@@ -213,6 +221,8 @@ public class GameManager : MonoBehaviour
             case "defense":
                 Debug.Log(buff + " reset");
                 zombieDamage = originalZombieDamage;
+                Invencible.SetActive(false);
+                invencibility = false;
                 break;
 
             case "instakill":
@@ -252,7 +262,9 @@ public class GameManager : MonoBehaviour
         }
 
         // Stop time
-        Time.timeScale = 0;    
+        Time.timeScale = 0; 
+
+        pauseMenu.gameObject.SetActive(true);
     }
 
     IEnumerator FadeOut(MaskableGraphic element)
@@ -264,6 +276,7 @@ public class GameManager : MonoBehaviour
             element.color = tmp;
             yield return new WaitForSeconds(0.001f);
         }
+        pauseMenu.gameObject.SetActive(false);
     }
 
     public bool Win

@@ -16,4 +16,4 @@ MonoBehaviour:
   instaKill: 0
   speedBuff: 1
   zombieDamage: 1
-  bulletDamage: 1.5
+  bulletDamage: 2

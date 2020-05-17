@@ -9,6 +9,5 @@ public class InstakillBuff : Buffs
     public override void Use()
     {
         base.Use();
-        instaKill = true;
     }
 }

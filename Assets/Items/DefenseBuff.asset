@@ -15,5 +15,5 @@ MonoBehaviour:
   objectName: Defense Buff
   instaKill: 0
   speedBuff: 1
-  zombieDamage: 0.5
+  zombieDamage: 0
   bulletDamage: 1

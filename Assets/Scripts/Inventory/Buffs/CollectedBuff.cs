@@ -23,6 +23,7 @@ public class CollectedBuff : MonoBehaviour
     public void ApplyDefenseBuff()
     {
         buffs.Use();
+        GameManager.instance.Invencible.SetActive(true);
         GameManager.instance.zombieDamage *= buffs.ZombieDamage;
     }
 

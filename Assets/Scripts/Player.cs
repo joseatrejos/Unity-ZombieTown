@@ -13,10 +13,13 @@ public class Player : Character3D
     List<GameObject> bullets;
 
     [SerializeField]
-    float bulletsLimit = 5;
+    float bulletsLimit = 5f;
 
     [SerializeField]
-    float pushDamagedForce = 20;
+    float pushDamagedForce = 20f;
+
+    [SerializeField]
+    float buffsDuration = 12f;
 
     Animator animator;
 
@@ -44,7 +47,6 @@ public class Player : Character3D
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
 
-
             //animator
 
             anim.SetBool("moving", moving);
@@ -57,14 +59,15 @@ public class Player : Character3D
             {
                 Shot();
             }
-        }
-        else
+        }else
         {
             base.Move();
             for (int i = 1; GameManager.instance.party.CurrentParty.Count > i; i++)
             {
                 if (this.currentHealth < maxHealth)
+                {
                     StartCoroutine(WaitForPassiveHeal());
+                }
                 GameManager.instance.party.CurrentParty[i].navMeshAgent.destination = GameManager.instance.party.CurrentParty[i - 1].transform.position;
             }
         }
@@ -97,7 +100,7 @@ public class Player : Character3D
             CollectableObject collectable = other.GetComponent<CollectableObject>();
             GameManager.instance.AddPoints(collectable.Points);
             Destroy(other.gameObject);
-            if(GameManager.instance.Win)
+            if (GameManager.instance.Win)
             {
                 GameManager.instance.gameWin.SetActive(true);
             }
@@ -143,17 +146,18 @@ public class Player : Character3D
 
                 case "DamageBuff":
                     buffUse.ApplyDamageBuff();
-                    StartCoroutine(GameManager.instance.ResetBuffs("damage"));
+                    StartCoroutine(GameManager.instance.ResetBuffs("damage", buffsDuration, this));
                     break;
 
                 case "Instakill":
                     buffUse.ApplyInstaKillBuff();
-                    StartCoroutine(GameManager.instance.ResetBuffs("instakill"));
+                    StartCoroutine(GameManager.instance.ResetBuffs("instakill", buffsDuration, this));
                     break;
 
                 case "DefenseBuff":
                     buffUse.ApplyDefenseBuff();
-                    StartCoroutine(GameManager.instance.ResetBuffs("defense"));
+                    GameManager.instance.Invencibility = true;
+                    StartCoroutine(GameManager.instance.ResetBuffs("defense", buffsDuration, this));
                     break;
             }
 
@@ -183,16 +187,14 @@ public class Player : Character3D
             {
                 Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-                if (!invencible)
+                if (!GameManager.instance.Invencibility)
                 {
                     currentHealth -= GameManager.instance.zombieDamage;
 
-                    ScaleLife();
+                    GameManager.instance.Invencible.SetActive(true);
+                    GameManager.instance.Invencibility = true;
 
-                    if (currentHealth > maxHealth)
-                    {
-                        currentHealth = maxHealth;
-                    }
+                    ScaleLife();
 
                     // Aquí pon la animación de puntos de vida perdidos
                     if (currentHealth <= 0)
@@ -201,10 +203,8 @@ public class Player : Character3D
                         moveSpeed = 0;
                         GameManager.instance.party.KillLeader();
                         this.Death();
-                    }
-                    StartCoroutine(Damage());
-                    GameManager.instance.Invencible.SetActive(true);
-                    invencible = true;
+                    } else
+                        StartCoroutine(ResetInvincibility());
                 }
             }
         }
@@ -251,11 +251,11 @@ public class Player : Character3D
         }
     }
 
-    IEnumerator Damage()
+    IEnumerator ResetInvincibility()
     {
         yield return new WaitForSeconds(3.0f);
         GameManager.instance.Invencible.SetActive(false);
-        invencible = false;
+        GameManager.instance.Invencibility = false;
     }
 
     IEnumerator ResetSpeedBuff()
@@ -277,14 +277,17 @@ public class Player : Character3D
 
         Destroy(gameObject.GetComponent<Collider>());
 
-        // Replace seconds for the correct animations duration
-        Destroy(gameObject, 2.0f);
+        GameManager.instance.Invencible.SetActive(false);
+        GameManager.instance.Invencibility = false;
 
         if (GameManager.instance.party.CurrentParty.Count == 0)
         {
             // Make this a coroutine if you want to delay the GameOver-animation to be able to see your last leader's death
             GameManager.instance.gameOver.SetActive(true);
         }
+
+        // Replace seconds for the correct animations duration
+        Destroy(gameObject, 2.0f);
     }
 
     public void ScaleLife()

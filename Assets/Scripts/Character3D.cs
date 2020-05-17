@@ -21,7 +21,6 @@ public class Character3D : MonoBehaviour
 
     //********Jump**********
     [SerializeField] protected bool jump = false;
-    protected bool invencible = false;
     protected float scale;
     //*******
 
@@ -87,7 +86,6 @@ public class Character3D : MonoBehaviour
 
     public virtual void Move()
     {
-
         if (hasParty)
         {
             if (leader)

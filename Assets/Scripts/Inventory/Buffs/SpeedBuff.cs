@@ -9,6 +9,5 @@ public class SpeedBuff : Buffs
     public override void Use()
     {
         base.Use();
-        speedBuff = 1.5f;
     }
 }
