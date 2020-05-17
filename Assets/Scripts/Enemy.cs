@@ -6,7 +6,7 @@ using Platform2DUtils.GameplaySystem;
 
 public class Enemy : MonoBehaviour
 {
-    //Animator animator;
+    Animator animator;
     [SerializeField] float maxHealth = 100;
 
     [SerializeField] float health = 100;
@@ -35,12 +35,12 @@ public class Enemy : MonoBehaviour
 
     void LateUpdate()
     {
-        //animator.SetBool("attack", AttackRange);
+        animator.SetBool("attack", AttackRange);
     }
 
     void Awake()
     {
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
     }
@@ -111,8 +111,8 @@ public class Enemy : MonoBehaviour
 
     public void EndEnemyCombat()
     {
-        //animator.SetLayerWeight(1, 0);
-        //animator.SetLayerWeight(0, 1);
+       // animator.SetLayerWeight(1, 0);
+       // animator.SetLayerWeight(0, 1);
     }
 
     public void Death()

@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 4998124899045637503}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -463,8 +463,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3926299996156518374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.732319, y: 0.00000011920929, z: 0.1998561}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -29.354992, y: -0.060837746, z: -26.372267}
+  m_LocalScale: {x: 32.50755, y: 32.50755, z: 32.50755}
   m_Children:
   - {fileID: 740374327955794500}
   - {fileID: 5138225914280393284}
@@ -517,9 +517,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.0063992143
-  m_Height: 0.05099958
+  m_Height: 0.047489773
   m_Direction: 1
-  m_Center: {x: 0, y: 0.021428138, z: -0.0005565882}
+  m_Center: {x: 0, y: 0.023183042, z: -0.0005565882}
 --- !u!114 &4998124899045637502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,10 +532,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f3de6ec843ead489734625d9985162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
   health: 100
-  moveSpeed: 3.5
   minDistance: 5
-  damage: 10
   kill: 1
   killPoints: 5
 --- !u!195 &4998124899045637503
@@ -547,7 +546,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3926299996156518374}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.01
+  m_Radius: 0.006
   m_Speed: 5
   m_Acceleration: 5.5
   avoidancePriority: 50
