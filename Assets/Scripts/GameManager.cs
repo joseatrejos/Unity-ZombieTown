@@ -191,7 +191,6 @@ public class GameManager : MonoBehaviour
             {
                 ObjectPooler.Instance.AddEnemiesToPool( "Enemy" );
             }
-              
             if(enemySpeed <= player.moveSpeed)
                 enemySpeed *= 1.01f;
             else
