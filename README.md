@@ -19,7 +19,7 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
 3. UI  
   - ~~Menu de inicio~~  
   - Start que diga "Pausa" y ~~oscurezca un poco la pantalla~~  
-  - Gif y audio del Round Over en el centro con un UIText abajo a la izquierda que diga el numero del round  
+  - Gif y audio del Round Over en el centro con un ~~UIText que diga el numero del round~~    
   - ~~HUD de la vida~~  
   - ~~Game Over~~ 
   - ~~Win~~
