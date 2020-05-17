@@ -60,7 +60,6 @@ public class Character3D : MonoBehaviour
     protected float cure;
     
     public NavMeshAgent navMeshAgent;
-        Player player;
     //********
 
     void Update()
@@ -72,7 +71,6 @@ public class Character3D : MonoBehaviour
     {
         //anim = GetComponent<Animator>();
         collider = GetComponent<Collider>();
-        player.GetComponent<Player>();
     }
 
     protected bool Grounding
@@ -101,16 +99,17 @@ public class Character3D : MonoBehaviour
                     // Esto es para decirle a la animación hacia donde tiene que moverse
                     npcDirection = leader.transform.position - transform.position;
                     npcDirection.Normalize();
+                     if (GameplaySystem.Axis3D != Vector3.zero && moveSpeed != 0)
+                    {
+                    transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
+                    }
                     //aqui va el animator
                     //anim.SetFloat("moveX", npcDirection.x);
                     //anim.SetFloat("moveY", npcDirection.y);   
                 }
                 //animator
                 anim.SetBool("moving", moving);
-                if (GameplaySystem.Axis3D != Vector3.zero && moveSpeed != 0)
-                {
-                    transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
-                }
+               
             }
         }
     }
