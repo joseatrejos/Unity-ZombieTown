@@ -18,7 +18,7 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - ~~Buffs para mejorar el gameplay (Disparo más rapido, Velocidad de movimiento, invencibilidad de 5-10 segundos, disparas más fuerte, quien sabe)~~  
 3. UI  
   - ~~Menu de inicio~~  
-  - Start que diga "Pausa" y ~~oscurezca un poco la pantalla~~  
+  - ~~Start que diga "Pausa" y oscurezca un poco la pantalla~~  
   - Gif y audio del Round Over en el centro con un ~~UIText que diga el numero del round~~    
   - ~~HUD de la vida~~  
   - ~~Game Over~~ 
