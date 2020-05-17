@@ -12,26 +12,17 @@ public class GameOver : MonoBehaviour
 
     public void Win()
     {
-        StartCoroutine(ExecuteAfterDelay("win"));
+        StartCoroutine(ExecuteAfterDelay());
     }
 
     public void RoundOver()
     {
-        StartCoroutine(ExecuteAfterDelay("roundOver"));
+        GameManager.instance.roundOver.SetActive(false);
     }
 
-    IEnumerator ExecuteAfterDelay(string gameEvent)
+    IEnumerator ExecuteAfterDelay()
     {
         yield return new WaitForSeconds(4);
-        switch(gameEvent)
-        {
-            case "win":
-                SceneManager.LoadScene(0);
-                break;
-
-            case "roundOver":
-                GameManager.instance.ChangeRound();
-                break;
-        }
+        SceneManager.LoadScene(0);
     }
 }

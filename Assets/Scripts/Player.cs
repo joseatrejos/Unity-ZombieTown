@@ -86,6 +86,14 @@ public class Player : Character3D
             GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
             bullets.Add(bulletGameObject);
         }
+        anim.SetBool("shooting", CanCreateBullets);
+    }
+
+    IEnumerator isShooting()
+    {
+        
+        yield return new WaitForSeconds(1);
+        anim.SetBool("shooting", false);
     }
 
     bool CanCreateBullets
