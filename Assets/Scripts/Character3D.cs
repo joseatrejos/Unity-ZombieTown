@@ -4,6 +4,7 @@ using UnityEngine;
 using Platform2DUtils.GameplaySystem;
 using Cinemachine;
 using System;
+using UnityEngine.AI;
 
 public class Character3D : MonoBehaviour
 {
@@ -57,6 +58,9 @@ public class Character3D : MonoBehaviour
 
     [SerializeField]
     protected float cure;
+    
+    public NavMeshAgent navMeshAgent;
+        Player player;
     //********
 
     void Update()
@@ -68,6 +72,7 @@ public class Character3D : MonoBehaviour
     {
         //anim = GetComponent<Animator>();
         collider = GetComponent<Collider>();
+        player.GetComponent<Player>();
     }
 
     protected bool Grounding
@@ -89,22 +94,22 @@ public class Character3D : MonoBehaviour
         {
             if (leader)
             {
-                moving = Vector3.Distance(leader.transform.position, transform.position) > minDistanceFollow;
+                moving = Vector3.Distance(leader.transform.position, transform.position) > this.navMeshAgent.stoppingDistance;
 
                 if (moving)
                 {
                     // Esto es para decirle a la animación hacia donde tiene que moverse
                     npcDirection = leader.transform.position - transform.position;
                     npcDirection.Normalize();
-
-                    if (npcDirection != Vector3.zero)
-                    {
-                        transform.rotation = Quaternion.LookRotation(npcDirection);
-                    }
-
                     //aqui va el animator
                     //anim.SetFloat("moveX", npcDirection.x);
-                    //anim.SetFloat("moveY", npcDirection.y);
+                    //anim.SetFloat("moveY", npcDirection.y);   
+                }
+                //animator
+                anim.SetBool("moving", moving);
+                if (GameplaySystem.Axis3D != Vector3.zero && moveSpeed != 0)
+                {
+                    transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
                 }
             }
         }

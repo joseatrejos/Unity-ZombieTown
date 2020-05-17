@@ -18,10 +18,11 @@ public class Player : Character3D
     [SerializeField]
     float pushDamagedForce = 20;
 
+    Animator animator;
+
     // [SerializeField]
     // GameObject weapon;
 
-    public NavMeshAgent navMeshAgent;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class Player : Character3D
 
     void Awake()
     {
-        //animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -43,14 +44,10 @@ public class Player : Character3D
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
 
-            if (moving)
-            {
-                //animaciones
-            }
 
             //animator
 
-            //anim.SetBool("moving", moving);
+            anim.SetBool("moving", moving);
             if (GameplaySystem.Axis3D != Vector3.zero && moveSpeed != 0)
             {
                 transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
