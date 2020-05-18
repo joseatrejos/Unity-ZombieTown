@@ -24,10 +24,8 @@ Durante una pandemia zombie que se apodera de Lazy Town, un biólogo con la espe
   - ~~Game Over~~ 
   - ~~Win~~
 4. Audio  
-  - ~~Música ambiental~~    
-  - Sonidos de disparo
-  - Gruñidos de zombies  
-  - Ruido al recolectar items  
+  - ~~Música ambiental~~ 
+  - ~~Gruñidos de zombies~~  
 5. Modelos 3D *Low Poly*  
   - ~~Un zombie repetido hasta el infinito~~  
   - ~~4 personajes controlables~~  
