@@ -11160,6 +11160,11 @@ PrefabInstance:
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 25 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!4 &225375159
@@ -16473,6 +16478,11 @@ PrefabInstance:
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 30 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!1 &337945713
@@ -16636,13 +16646,18 @@ PrefabInstance:
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: ScoreCost
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 50 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!1 &339722231
@@ -48141,7 +48156,12 @@ PrefabInstance:
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: ScoreCost
-      value: 15
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 30 pts \nPulsa Z para desbloquear o C para cancelar"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
@@ -84382,6 +84402,16 @@ PrefabInstance:
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: ScoreCost
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 15 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!1 &1826115070
