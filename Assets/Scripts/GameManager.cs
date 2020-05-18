@@ -139,11 +139,11 @@ public class GameManager : MonoBehaviour
         */
     }
 
-    /*public void BeginChase()
+    public void BeginChase()
     {
         //soundManager.PlayChaseMusic();
         isInChase = true;
-    }*/
+    }
 
     IEnumerator DelayedCombatMusic()
     {
@@ -217,19 +217,16 @@ public class GameManager : MonoBehaviour
         switch (buff)
         {
             case "damage":
-                Debug.Log(buff + " reset");
                 bulletDamage = originalBulletDamage;
                 break;
 
             case "defense":
-                Debug.Log(buff + " reset");
                 zombieDamage = originalZombieDamage;
                 Invencible.SetActive(false);
                 invencibility = false;
                 break;
 
             case "instakill":
-                Debug.Log(buff + " reset");
                 instakillBuff = false;
                 break;
         }
@@ -238,7 +235,6 @@ public class GameManager : MonoBehaviour
     public void AddPoints(int points)
     {
         vaccineCount += points;
-        Debug.Log("Numero de vacunas: " + vaccineCount);
     }
 
     public void Pause()

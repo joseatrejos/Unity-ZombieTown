@@ -261,7 +261,6 @@ public class Player : Character3D
     {
         yield return new WaitForSeconds(12f);
         moveSpeed *= (2.0f / 3.0f);
-        Debug.Log("Speed Buff reset");
     }
 
     public void RemoveBullet(GameObject bullet)
@@ -272,7 +271,6 @@ public class Player : Character3D
     public void Death()
     {
         anim.SetBool("dead", true);
-        Debug.Log("El jugador esta muerto");
 
         Destroy(gameObject.GetComponent<Collider>());
 

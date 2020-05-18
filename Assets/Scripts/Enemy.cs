@@ -55,10 +55,10 @@ public class Enemy : MonoBehaviour
             if (AttackRange)
             {
                 this.GetComponent<Collider>().isTrigger = false;
-              /*  if (!GameManager.instance.IsInChase)
+                if (!GameManager.instance.IsInChase)
                 {
                     GameManager.instance.BeginChase();
-                }*/
+                }
                 navMeshAgent.destination = GameManager.instance.party.CurrentParty[0].transform.position;
                 animator.SetBool("moving", true);
                 transform.LookAt(GameManager.instance.party.CurrentParty[0].transform);
