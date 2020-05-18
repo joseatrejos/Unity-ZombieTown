@@ -35,6 +35,7 @@ public class Obstacle : MonoBehaviour
                 HideMessage();
                 message = "Camino desbloqueado";
                 ShowMessage();
+                GetComponent<Collider>().enabled = false;
                 StartCoroutine(waitForHideMessage());
                 GameManager.instance.Score -= ScoreCost;
                 GameManager.instance.TxtScore.text = $"{GameManager.instance.Score}";
