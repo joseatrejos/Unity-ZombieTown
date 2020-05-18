@@ -24,8 +24,8 @@ public class Player : Character3D
     [SerializeField]
     float invencibilityCharacter = 3.0f;
 
-    // [SerializeField]
-    // GameObject weapon;
+    [SerializeField]
+    GameObject weapon;
 
     void Start()
     {
@@ -82,7 +82,7 @@ public class Player : Character3D
     {
         if (CanCreateBullets)
         {
-            GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
+            GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, weapon.transform.position, transform.rotation);
             bullets.Add(bulletGameObject);
         }
         anim.SetBool("shooting", true);
