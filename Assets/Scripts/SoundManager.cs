@@ -39,10 +39,10 @@ public class SoundManager
         PlayAudio(combatMusic);
     }*/
 
-    public void WeaponDrawn()
+   /* public void WeaponDrawn()
     {
         PlayAudio(weaponDrawn);
-    }
+    }*/
 
     public bool CompareAudio(AudioClip newAudioClip)
     {

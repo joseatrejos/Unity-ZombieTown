@@ -83804,10 +83804,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -26.23
       objectReference: {fileID: 0}
+    - target: {fileID: 3290145134270247939, guid: 063b70cdd1d10fd4a8894220bc134c9c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501048590559456936, guid: 063b70cdd1d10fd4a8894220bc134c9c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510346563605963510, guid: 063b70cdd1d10fd4a8894220bc134c9c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
     - target: {fileID: 5765344916305741507, guid: 063b70cdd1d10fd4a8894220bc134c9c,
         type: 3}
       propertyPath: invencibilityCharacter
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037789912653841111, guid: 063b70cdd1d10fd4a8894220bc134c9c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 84
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 063b70cdd1d10fd4a8894220bc134c9c, type: 3}

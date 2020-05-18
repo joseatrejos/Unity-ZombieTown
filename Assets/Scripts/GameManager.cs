@@ -113,8 +113,7 @@ public class GameManager : MonoBehaviour
 
     public void StartCombat()
     {
-        soundManager.WeaponDrawn();
-        //StartCoroutine(DelayedCombatMusic());
+        //soundManager.WeaponDrawn();
         isInCombat = true;
         // player.Animator.SetLayerWeight(1, 1);
         // player.WeaponVisibility(true);
@@ -123,8 +122,8 @@ public class GameManager : MonoBehaviour
 
     public void EscapeCombatAndChase()
     {
-        if (isInCombat || isInChase)
-            soundManager.PlayBGM();
+       /* if (isInCombat || isInChase)
+            soundManager.PlayBGM();*/
         isInCombat = false;
         // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Base Layer"), 1);
         // player.Animator.SetLayerWeight(player.Animator.GetLayerIndex("Combat"), 0);
