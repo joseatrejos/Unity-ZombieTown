@@ -47,8 +47,6 @@ public class Player : Character3D
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
 
-            //animator
-
             anim.SetBool("moving", moving);
             if (GameplaySystem.Axis3D != Vector3.zero && moveSpeed != 0)
             {
@@ -80,12 +78,18 @@ public class Player : Character3D
 
     void Shot()
     {
-        //Bullet bullet = bulletGameObject.GetComponent<Bullet>();
         if (CanCreateBullets)
         {
             GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
             bullets.Add(bulletGameObject);
         }
+        anim.SetBool("shooting", CanCreateBullets);
+    }
+
+    IEnumerator isShooting()
+    {
+        yield return new WaitForSeconds(1);
+        anim.SetBool("shooting", false);
     }
 
     bool CanCreateBullets

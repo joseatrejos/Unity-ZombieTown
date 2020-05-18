@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
 {        
     void QuitToMenu()
     {
-        SceneManager.LoadScene(0);
+        Application.Quit();
     }
 
     void TogglePause()

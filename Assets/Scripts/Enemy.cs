@@ -104,7 +104,6 @@ public class Enemy : MonoBehaviour
         get => distanceToPlayer <= minDistance && distanceToPlayer > navMeshAgent.stoppingDistance;
     }
 
-    // We need to fix this to build
     float distanceToPlayer
     {
         get => Vector3.Distance(this.transform.position, GameManager.instance.party.CurrentParty[0].transform.position);
