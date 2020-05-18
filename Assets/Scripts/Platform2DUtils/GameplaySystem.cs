@@ -166,7 +166,16 @@ namespace Platform2DUtils.GameplaySystem
         {
             get => new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         }
+/*
+        public static  Vector3 Axis3DRotationPC
+        {
+            get => new Vector3(Input.GetAxis("Horizontal2"), 0, Input.GetAxis("Vertical2"));
+        }
 
-
+        public static  Vector3 Axis3DRotationConsole
+        {
+            get => new Vector3(Input.GetAxis("Horizontal2"), 0, Input.GetAxis("Vertical2"));
+        }
+*/
     }
 }

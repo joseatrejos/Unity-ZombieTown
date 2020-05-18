@@ -89112,7 +89112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 593651649}
   txtScore: {fileID: 1261252900}
-  bulletDamage: 40
+  bulletDamage: 50
   zombieDamage: 10
   instakillBuff: 0
   enemySpeed: 3.5
