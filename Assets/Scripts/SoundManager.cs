@@ -29,10 +29,10 @@ public class SoundManager
         PlayAudio(backgroundMusic);
     }
 
-    public void PlayChaseMusic()
+   /* public void PlayChaseMusic()
     {
         PlayAudio(chaseMusic);
-    }
+    }*/
 
     public void PlayCombatMusic()
     {

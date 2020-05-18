@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public Player Player { get => player; }
 
-    int score = 0;
+    [SerializeField] int score = 0;
 
     public int Score { get => score; set => score = value; }
     [SerializeField] Text txtScore;
@@ -139,11 +139,11 @@ public class GameManager : MonoBehaviour
         */
     }
 
-    public void BeginChase()
+    /*public void BeginChase()
     {
         //soundManager.PlayChaseMusic();
         isInChase = true;
-    }
+    }*/
 
     IEnumerator DelayedCombatMusic()
     {
