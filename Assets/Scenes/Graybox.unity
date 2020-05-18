@@ -11153,13 +11153,18 @@ PrefabInstance:
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: ScoreCost
-      value: 25
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 45 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!4 &225375159
@@ -16466,13 +16471,18 @@ PrefabInstance:
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: ScoreCost
-      value: 30
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 90 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!1 &337945713
@@ -16636,13 +16646,18 @@ PrefabInstance:
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: ScoreCost
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 100 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!1 &339722231
@@ -19922,6 +19937,96 @@ Transform:
   m_Father: {fileID: 408888625}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &405002250
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 845445493}
+    m_Modifications:
+    - target: {fileID: 941101658312035301, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_Name
+      value: Removable Obstacle (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 51.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.753543
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70710576
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710784
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: textBox
+      value: 
+      objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 30 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: ScoreCost
+      value: 30
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
+--- !u!4 &405002251 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 941101658312035305, guid: 7bcc1e73e403cec4e836e946485270fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 405002250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &406045750
 GameObject:
   m_ObjectHideFlags: 0
@@ -41301,6 +41406,7 @@ Transform:
   - {fileID: 225762847}
   - {fileID: 1305162650}
   - {fileID: 347159022}
+  - {fileID: 405002251}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48141,7 +48247,12 @@ PrefabInstance:
     - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
         type: 3}
       propertyPath: ScoreCost
-      value: 15
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 65 pts \nPulsa Z para desbloquear o C para cancelar"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
@@ -50652,7 +50763,7 @@ PrefabInstance:
     - target: {fileID: 2546477534885151311, guid: 72c8eb56c8c1d7143a70124982657ad2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2231
+      value: 0.2689
       objectReference: {fileID: 0}
     - target: {fileID: 2546477534885151311, guid: 72c8eb56c8c1d7143a70124982657ad2,
         type: 3}
@@ -84382,6 +84493,16 @@ PrefabInstance:
       propertyPath: textBox
       value: 
       objectReference: {fileID: 6881779773636896591}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: message
+      value: "Precio de desbloqueo: 30 pts \nPulsa Z para desbloquear o C para cancelar"
+      objectReference: {fileID: 0}
+    - target: {fileID: 941101658312035306, guid: 7bcc1e73e403cec4e836e946485270fc,
+        type: 3}
+      propertyPath: ScoreCost
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcc1e73e403cec4e836e946485270fc, type: 3}
 --- !u!1 &1826115070

@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
     public void StartCombat()
     {
         soundManager.WeaponDrawn();
-        StartCoroutine(DelayedCombatMusic());
+        //StartCoroutine(DelayedCombatMusic());
         isInCombat = true;
         // player.Animator.SetLayerWeight(1, 1);
         // player.WeaponVisibility(true);
@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
 
     public void BeginChase()
     {
-        soundManager.PlayChaseMusic();
+        //soundManager.PlayChaseMusic();
         isInChase = true;
     }
 
