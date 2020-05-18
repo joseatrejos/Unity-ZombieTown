@@ -58,7 +58,8 @@ public class Player : Character3D
             {
                 Shot();
             }
-        }else
+        }
+        else
         {
             base.Move();
             for (int i = 1; GameManager.instance.party.CurrentParty.Count > i; i++)
@@ -190,7 +191,6 @@ public class Player : Character3D
                 {
                     currentHealth -= GameManager.instance.zombieDamage;
 
-                    GameManager.instance.Invencible.SetActive(true);
                     GameManager.instance.Invencibility = true;
 
                     ScaleLife();
@@ -202,7 +202,8 @@ public class Player : Character3D
                         moveSpeed = 0;
                         GameManager.instance.party.KillLeader();
                         this.Death();
-                    } else
+                    }
+                    else
                         StartCoroutine(ResetInvincibility());
                 }
             }
@@ -214,6 +215,39 @@ public class Player : Character3D
         // Reset rigidbody impulse to avoid perpetual rotation/movement
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+    }
+
+    void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            if (this.tag == "Player")
+            {
+                if (!GameManager.instance.Invencibility)
+                {
+                    Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+                    if (!GameManager.instance.Invencibility)
+                    {
+                        currentHealth -= GameManager.instance.zombieDamage;
+                        GameManager.instance.Invencibility = true;
+
+                        ScaleLife();
+
+                        // Aquí pon la animación de puntos de vida perdidos
+                        if (currentHealth <= 0)
+                        {
+                            currentHealth = 0;
+                            moveSpeed = 0;
+                            GameManager.instance.party.KillLeader();
+                            this.Death();
+                        }
+                        else
+                            StartCoroutine(ResetInvincibility());
+                    }
+                }
+            }
+        }
     }
 
     void OnTriggerStay(Collider other)
