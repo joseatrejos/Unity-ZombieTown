@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public float Health { get => health; set => health = value; }
 
     [SerializeField, Range(0f, 10f)]
-    float minDistance = 5f;
+    float minDistance = 10f;
 
     [SerializeField]
     int kill = 1;
@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     Rigidbody rb;
     NavMeshAgent navMeshAgent;
     bool active = false;
+    bool isDead = false;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour
     void LateUpdate()
     {
         animator.SetBool("attack", AttackRange);
+        GameManager.instance.party.CurrentParty[0].Anim.SetBool("shooting", GameManager.instance.isShooting);
     }
 
     void Awake()
@@ -50,7 +52,6 @@ public class Enemy : MonoBehaviour
         // If your party's still alive but you haven't won
         if (!GameManager.instance.party.PartyDeath && !GameManager.instance.Win)
         {
-            
             if (AttackRange)
             {
                 this.GetComponent<Collider>().isTrigger = false;
@@ -59,12 +60,20 @@ public class Enemy : MonoBehaviour
                     GameManager.instance.BeginChase();
                 }
                 navMeshAgent.destination = GameManager.instance.party.CurrentParty[0].transform.position;
+                animator.SetBool("moving", true);
                 transform.LookAt(GameManager.instance.party.CurrentParty[0].transform);
-                navMeshAgent.speed = GameManager.instance.enemySpeed;
+                
+                GameManager.instance.isShooting = true;
+
+                if(!isDead)
+                {
+                    navMeshAgent.speed = GameManager.instance.enemySpeed;
+                }
             }
             else
             {
                 navMeshAgent.destination = transform.position;
+                animator.SetBool("moving", false);
 
                 if (GameManager.instance.IsInChase && distanceToPlayer <= minDistance && !GameManager.instance.IsInCombat)
                 {
@@ -75,22 +84,24 @@ public class Enemy : MonoBehaviour
                 {
                     GameManager.instance.EscapeCombatAndChase();
                     EndEnemyCombat();
+                    GameManager.instance.isShooting = false;
                 }
             }
         }
         else // If you won
-        if(GameManager.instance.Win)
+        if (GameManager.instance.Win)
         {
             navMeshAgent.destination = transform.position;
 
-            // Insert death animation and set correct delay time
+            animator.SetBool("dead", true);
 
             Destroy(this.gameObject, 2.0f);
-        } 
-        else 
+        }
+        else
         {
             // If your party died, stay where you are
             navMeshAgent.speed = 0f;
+            animator.SetBool("moving", true);
         }
     }
 
@@ -111,8 +122,8 @@ public class Enemy : MonoBehaviour
 
     public void EndEnemyCombat()
     {
-       // animator.SetLayerWeight(1, 0);
-       // animator.SetLayerWeight(0, 1);
+        // animator.SetLayerWeight(1, 0);
+        // animator.SetLayerWeight(0, 1);
     }
 
     public void Death()
@@ -122,13 +133,22 @@ public class Enemy : MonoBehaviour
         GameManager.instance.CountZombieKill(kill, killPoints);
         GameManager.instance.ChangeRound();
 
+        isDead = true;
+        animator.SetBool("dead", true);
+        navMeshAgent.speed = 0f;
+        gameObject.GetComponent<Collider>().enabled = false;
+        StartCoroutine(DelayedTeleport());
+    }
+
+    IEnumerator DelayedTeleport()
+    {
+        yield return new WaitForSeconds(2f);
         transform.position = ObjectPooler.Instance.transform.position + new Vector3(Random.Range(-4.0f, 4.0f), 0, Random.Range(-4.0f, 4.0f));
         health = maxHealth;
-
-        //Destroy(gameObject.GetComponent<Collider>());
-
-        // Replace seconds for the correct animations duration
-        //Destroy(gameObject, 2.0f);
+        gameObject.GetComponent<Collider>().enabled = true;
+        navMeshAgent.speed = GameManager.instance.enemySpeed;
+        animator.SetBool("dead", false);
+        isDead = false;
     }
 
     void OnCollisionEnter(Collision other)

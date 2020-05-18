@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject invencible;
     public GameObject Invencible { get => invencible; set => invencible = value; }
-    
+
     bool invencibility = false;
     public bool Invencibility { get => invencibility; set => invencibility = value; }
 
@@ -73,20 +73,22 @@ public class GameManager : MonoBehaviour
     public int WinCount { get => winCount; }
 
     public float Scale { get => scale; set => scale = value; }
-   
+
     bool start = false;
+
+    public bool isShooting = false;
 
     [SerializeField] Image blkImage;
 
     private Vector3 lifeSize;
     public Vector3 LifeSize { get => lifeSize; set => lifeSize = value; }
-    
+
     public int Round { get => round; set => round = value; }
-    
+
     void Awake()
     {
         lifeSize = life.transform.localScale;
-        if(!instance)
+        if (!instance)
         {
             instance = this;
         }
@@ -163,7 +165,7 @@ public class GameManager : MonoBehaviour
                 cantChange.SetActive(true);
             }
             party.SwapLeader();
-        } 
+        }
         else if (Input.GetButtonDown("Submit") && !Win && !party.PartyDeath)
         {
             if (!start)
@@ -194,13 +196,13 @@ public class GameManager : MonoBehaviour
 
             round++;
             txtRound.text = $"{round}";
-            
+
             // Fill the pool
-            if (round<=3)
+            if (round <= 3)
             {
-                ObjectPooler.Instance.AddEnemiesToPool( "Enemy" );
+                ObjectPooler.Instance.AddEnemiesToPool("Enemy");
             }
-            if(enemySpeed <= player.moveSpeed)
+            if (enemySpeed <= player.moveSpeed)
                 enemySpeed *= 1.01f;
             else
                 zombieDamage *= 1.05f;
@@ -263,7 +265,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Stop time
-        Time.timeScale = 0; 
+        Time.timeScale = 0;
 
         pauseMenu.gameObject.SetActive(true);
     }

@@ -9,6 +9,8 @@ using UnityEngine.AI;
 public class Character3D : MonoBehaviour
 {
     protected Animator anim;
+    public Animator Anim { get => anim; set => anim = value; }
+
     protected Rigidbody rb;
     [SerializeField] protected float jumpForce = 7f;
     [SerializeField] public float moveSpeed = 2f;

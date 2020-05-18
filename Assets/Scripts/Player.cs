@@ -21,11 +21,8 @@ public class Player : Character3D
     [SerializeField]
     float buffsDuration = 12f;
 
-    Animator animator;
-
     // [SerializeField]
     // GameObject weapon;
-
 
     void Start()
     {
@@ -47,7 +44,8 @@ public class Player : Character3D
             GameplaySystem.Movement3D(transform, moveSpeed);
             moving = GameplaySystem.Axis3D != Vector3.zero;
 
-            anim.SetBool("moving", moving);
+            anim.SetBool("moving", moving && !GameManager.instance.isShooting);
+
             if (GameplaySystem.Axis3D != Vector3.zero && moveSpeed != 0)
             {
                 transform.rotation = Quaternion.LookRotation(GameplaySystem.Axis3D.normalized);
@@ -83,13 +81,7 @@ public class Player : Character3D
             GameObject bulletGameObject = (GameObject)Instantiate(bulletSrc, transform.position, transform.rotation);
             bullets.Add(bulletGameObject);
         }
-        anim.SetBool("shooting", CanCreateBullets);
-    }
-
-    IEnumerator isShooting()
-    {
-        yield return new WaitForSeconds(1);
-        anim.SetBool("shooting", false);
+        anim.SetBool("shooting", true);
     }
 
     bool CanCreateBullets
@@ -276,7 +268,7 @@ public class Player : Character3D
 
     public void Death()
     {
-        // Insert death animation
+        anim.SetBool("dead", true);
         Debug.Log("El jugador esta muerto");
 
         Destroy(gameObject.GetComponent<Collider>());

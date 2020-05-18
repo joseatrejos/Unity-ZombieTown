@@ -7,22 +7,12 @@ public class GameOver : MonoBehaviour
 {
     public void Quit()
     {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void Win()
-    {
-        StartCoroutine(ExecuteAfterDelay());
+        Application.Quit();
+        //SceneManager.LoadScene("MainMenu");
     }
 
     public void RoundOver()
     {
         GameManager.instance.roundOver.SetActive(false);
-    }
-
-    IEnumerator ExecuteAfterDelay()
-    {
-        yield return new WaitForSeconds(4);
-        SceneManager.LoadScene(0);
     }
 }
