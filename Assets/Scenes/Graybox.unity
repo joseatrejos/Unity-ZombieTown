@@ -99324,7 +99324,7 @@ PrefabInstance:
     - target: {fileID: 6743898895316966752, guid: b57f4de0f62ce5b46ae2ed531e99763f,
         type: 3}
       propertyPath: invencibilityCharacter
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6743898895316966752, guid: b57f4de0f62ce5b46ae2ed531e99763f,
         type: 3}
@@ -99334,7 +99334,7 @@ PrefabInstance:
     - target: {fileID: 6743898896142618735, guid: b57f4de0f62ce5b46ae2ed531e99763f,
         type: 3}
       propertyPath: invencibilityCharacter
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6743898896142618735, guid: b57f4de0f62ce5b46ae2ed531e99763f,
         type: 3}
@@ -99406,10 +99406,20 @@ PrefabInstance:
       propertyPath: cure
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6743898896508380998, guid: b57f4de0f62ce5b46ae2ed531e99763f,
+        type: 3}
+      propertyPath: invencibilityCharacter
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6743898896987013889, guid: b57f4de0f62ce5b46ae2ed531e99763f,
         type: 3}
       propertyPath: cure
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743898896987013889, guid: b57f4de0f62ce5b46ae2ed531e99763f,
+        type: 3}
+      propertyPath: invencibilityCharacter
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b57f4de0f62ce5b46ae2ed531e99763f, type: 3}
