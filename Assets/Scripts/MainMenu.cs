@@ -17,6 +17,11 @@ public class MainMenu : MonoBehaviour
 
     public void ContinueGame()
     {
+        SceneManager.LoadScene(3);
+    }
+    
+    public void ContinueGameXbox()
+    {
         SceneManager.LoadScene(1);
         Time.timeScale = 1;
     }
