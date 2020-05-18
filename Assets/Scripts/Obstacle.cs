@@ -37,7 +37,7 @@ public class Obstacle : MonoBehaviour
                 ShowMessage();
                 StartCoroutine(waitForHideMessage());
                 GameManager.instance.Score -= ScoreCost;
-
+                GameManager.instance.TxtScore.text = $"{GameManager.instance.Score}";
             }
             else
             {

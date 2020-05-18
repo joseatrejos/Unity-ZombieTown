@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1778626540437986838
+--- !u!1 &1181408286270608421
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 470473638810668896}
-  - component: {fileID: 1035064982570642953}
-  - component: {fileID: 1805748281840597245}
+  - component: {fileID: 1181408286270608420}
+  - component: {fileID: 1181408286270608422}
+  - component: {fileID: 1181408286270608423}
+  - component: {fileID: 1181408286270608417}
   m_Layer: 0
-  m_Name: pasted__polySurface30
-  m_TagString: Untagged
+  m_Name: Caja
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &470473638810668896
+--- !u!4 &1181408286270608420
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1778626540437986838}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.048872847, y: -0.003246743, z: 0}
-  m_LocalScale: {x: 1.5820954, y: 1.5820954, z: 1.5820954}
+  m_GameObject: {fileID: 1181408286270608421}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -21.210106, y: 8.14509, z: -18.900928}
+  m_LocalScale: {x: 94.9771, y: 94.9771, z: 94.9771}
   m_Children: []
-  m_Father: {fileID: 6969543400738816624}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1035064982570642953
+--- !u!33 &1181408286270608422
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1778626540437986838}
+  m_GameObject: {fileID: 1181408286270608421}
   m_Mesh: {fileID: -8956986950999454695, guid: b5759c1f9575b2a449d0bb7270170230, type: 3}
---- !u!23 &1805748281840597245
+--- !u!23 &1181408286270608423
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1778626540437986838}
+  m_GameObject: {fileID: 1181408286270608421}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2355588867341528080, guid: b5759c1f9575b2a449d0bb7270170230, type: 3}
+  - {fileID: 2100000, guid: 59cbc5dd0701e44498cae3f4453b0ebd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,48 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &6261009617193693283
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6969543400738816624}
-  - component: {fileID: 2720875686807808357}
-  m_Layer: 0
-  m_Name: Caja
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6969543400738816624
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6261009617193693283}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.27615, y: 8.34, z: -18.900928}
-  m_LocalScale: {x: 60.03247, y: 60.03247, z: 60.03247}
-  m_Children:
-  - {fileID: 470473638810668896}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2720875686807808357
+--- !u!65 &1181408286270608417
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6261009617193693283}
+  m_GameObject: {fileID: 1181408286270608421}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01564261, y: 0.025925804, z: 0.017380726}
-  m_Center: {x: -0.0488049, y: -0.0017345757, z: 0.00017732322}
+  m_Size: {x: 0.010000001, y: 0.014409171, z: 0.010000001}
+  m_Center: {x: 0, y: 0.0022045833, z: -0.0000000147478625}

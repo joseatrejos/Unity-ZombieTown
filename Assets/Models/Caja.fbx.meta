@@ -3,7 +3,13 @@ guid: b5759c1f9575b2a449d0bb7270170230
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__lambert4
+    second: {fileID: -2355588867341528080, guid: b5759c1f9575b2a449d0bb7270170230,
+      type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

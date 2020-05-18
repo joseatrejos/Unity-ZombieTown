@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public int Score { get => score; set => score = value; }
     [SerializeField] Text txtScore;
+    public Text TxtScore { get => txtScore; set => txtScore = value; }
 
     int kills = 0;
 
