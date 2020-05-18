@@ -32,12 +32,12 @@ public class SoundManager
    /* public void PlayChaseMusic()
     {
         PlayAudio(chaseMusic);
-    }*/
+    }
 
-    public void PlayCombatMusic()
+     /*public void PlayCombatMusic()
     {
         PlayAudio(combatMusic);
-    }
+    }*/
 
     public void WeaponDrawn()
     {

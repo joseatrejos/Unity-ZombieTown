@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     IEnumerator DelayedCombatMusic()
     {
         yield return new WaitForSeconds(1);
-        soundManager.PlayCombatMusic();
+        //soundManager.PlayCombatMusic();
     }
 
     void Update()
