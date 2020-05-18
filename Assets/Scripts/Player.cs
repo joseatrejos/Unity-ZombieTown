@@ -193,18 +193,20 @@ public class Player : Character3D
 
                     GameManager.instance.Invencibility = true;
 
-                    ScaleLife();
-
                     // Aquí pon la animación de puntos de vida perdidos
                     if (currentHealth <= 0)
                     {
                         currentHealth = 0;
+                        ScaleLife();
                         moveSpeed = 0;
                         GameManager.instance.party.KillLeader();
                         this.Death();
                     }
                     else
+                    {
+                        ScaleLife();
                         StartCoroutine(ResetInvincibility());
+                    }
                 }
             }
         }
